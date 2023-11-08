@@ -1,0 +1,1 @@
+export type CourseStatus = 0 | 1;

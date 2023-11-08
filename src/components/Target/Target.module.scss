@@ -1,0 +1,28 @@
+.body{
+    margin-left: 30px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 10px 10px;
+}
+.header{
+   
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+
+    img{
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius:50%
+    }
+}
+.content{
+    width: 100%;
+}
+.content-item{
+    width:70%;
+    display: flex;
+    justify-content: space-between;
+    p+p{
+        margin-left: 10px;
+    }
+}
