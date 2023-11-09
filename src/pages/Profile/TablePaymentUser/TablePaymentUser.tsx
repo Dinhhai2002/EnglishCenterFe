@@ -14,17 +14,6 @@ const TablePaymentUser = ({
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
 
-  const handleChangePagination = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setPage(Number(value));
-  };
-
-  const handleChangeLimit = (event: ChangeEvent<HTMLInputElement>) => {
-    setLimit(Number(event.target.value));
-  };
-
   useEffect(() => {
     onClickPagination(page, limit);
   }, [page]);
@@ -52,8 +41,8 @@ const TablePaymentUser = ({
       />
       {listResult.length > 0 ? (
         <PaginationComponent
-          handleChangePagination={handleChangePagination}
-          handleChangeLimit={handleChangeLimit}
+          setPage={setPage}
+          setLimit={setLimit}
           totalRecord={totalRecord}
           limit={limit}
         />

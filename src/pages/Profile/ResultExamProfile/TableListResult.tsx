@@ -1,12 +1,12 @@
 import Button from "@/components/Button/Button";
+import TableCellComponent from "@/components/TableCellComponent/TableCellComponent";
 import {
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Typography,
+  TableRow
 } from "@mui/material";
 
 function TableListUser({ listResult, labelTable }: any) {
@@ -28,78 +28,13 @@ function TableListUser({ listResult, labelTable }: any) {
             {listResult.map((item: any) => {
               return (
                 <TableRow hover key={item.id}>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.name_exam}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.total_question_correct}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.total_question_skip}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.total_point}
-                    </Typography>
-                    {/* <Typography variant="body2" color="text.secondary" noWrap>
-                      {numeral(cryptoOrder.amount).format(
-                        `${cryptoOrder.currency}0,0.00`
-                      )}
-                    </Typography> */}
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.time_complete}
-                    </Typography>
-                  </TableCell>
+                  <TableCellComponent value={item.name_exam} />
+                  <TableCellComponent value={item.total_question_correct} />
+                  <TableCellComponent value={item.total_question_skip} />
+                  <TableCellComponent value={item.total_point} />
+                  <TableCellComponent value={item.time_complete} />
+                  <TableCellComponent value={item.created_at} />
 
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.created_at}
-                    </Typography>
-                  </TableCell>
                   <TableCell align="center">
                     <Button
                       outline

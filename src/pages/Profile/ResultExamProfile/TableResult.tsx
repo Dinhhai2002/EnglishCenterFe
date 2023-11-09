@@ -1,35 +1,14 @@
 import Empty from "@/components/Empty/Empty";
-import {
-  Box,
-  Card,
-  CardHeader,
-  Divider,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import { ChangeEvent, useEffect, useState } from "react";
+import { Box, Card, CardHeader, Divider } from "@mui/material";
+import { useEffect, useState } from "react";
 
+import { labelTableResult } from "@/utils/LabelUtils";
 import PaginationComponent from "src/components/Pagination/PaginationComponent";
 import TableListResult from "./TableListResult";
-import { labelTableResult } from "@/utils/LabelUtils";
 
 const TableResult = ({ listResult, totalRecord, onClickPagination }: any) => {
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
-
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const handleChangePagination = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setPage(Number(value));
-  };
-
-  const handleChangeLimit = (event: ChangeEvent<HTMLInputElement>) => {
-    setLimit(Number(event.target.value));
-  };
 
   useEffect(() => {
     onClickPagination(page, limit);
@@ -55,8 +34,8 @@ const TableResult = ({ listResult, totalRecord, onClickPagination }: any) => {
       <TableListResult listResult={listResult} labelTable={labelTableResult} />
       {listResult.length > 0 ? (
         <PaginationComponent
-          handleChangePagination={handleChangePagination}
-          handleChangeLimit={handleChangeLimit}
+          setPage={setPage}
+          setLimit={setLimit}
           totalRecord={totalRecord}
           limit={limit}
         />

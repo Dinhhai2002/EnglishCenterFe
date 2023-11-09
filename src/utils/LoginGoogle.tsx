@@ -19,13 +19,9 @@ export const loginGoogleSuccess = async (response: any) => {
           localStorage.setItem("user", JSON.stringify(data.data));
           window.location.href = "/";
         })
-        .catch((error: any) => {
-          toast.error(`${error.message}`);
-        });
+        .catch((error: any) => {});
     })
-    .catch((error: any) => {
-      toast.error(`${error.message}`);
-    });
+    .catch((error: any) => {});
 };
 
 export const loginGoogleError = (response: any) => {

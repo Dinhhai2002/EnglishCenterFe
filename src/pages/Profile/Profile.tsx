@@ -1,7 +1,6 @@
 import classNames from "classnames/bind";
-import styles from "./Profile.module.scss";
-import { createTheme, ThemeProvider } from "@mui/material";
 import Navbar from "./Navbar/Navbar";
+import styles from "./Profile.module.scss";
 
 const cx = classNames.bind(styles);
 

@@ -6,6 +6,12 @@ import { CommentSection } from "react-comments-section";
 import "react-comments-section/dist/index.css";
 import { toast } from "react-toastify";
 import Empty from "../Empty/Empty";
+import {
+  EditSuccess,
+  EditError,
+  DeleteSuccess,
+  DeleteError,
+} from "@/utils/MessageToast";
 
 const Comments = ({ examId, onAddComment }: any) => {
   const [comments, setComments] = useState<any>([]);
@@ -20,6 +26,7 @@ const Comments = ({ examId, onAddComment }: any) => {
         setComments(data.data);
       })
       .catch((error: any) => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -96,10 +103,10 @@ const Comments = ({ examId, onAddComment }: any) => {
       commentsApiService
         .update(Number(data.comId), data.text, Number(examId))
         .then((data: any) => {
-          toast.success(`Chỉnh sửa thành công`);
+          toast.success(EditSuccess);
         })
         .catch((error: any) => {
-          toast.error(`Chỉnh sửa thất bại`);
+          toast.error(EditError);
         });
     } else {
       // update replycomments
@@ -110,10 +117,10 @@ const Comments = ({ examId, onAddComment }: any) => {
           Number(data.parentOfEditedCommentId)
         )
         .then((data: any) => {
-          toast.success(`Chỉnh sửa thành công`);
+          toast.success(EditSuccess);
         })
         .catch((error: any) => {
-          toast.error(`Chỉnh sửa thất bại`);
+          toast.error(EditError);
         });
     }
   };
@@ -124,27 +131,27 @@ const Comments = ({ examId, onAddComment }: any) => {
       commentsApiService
         .delete(Number(data.comIdToDelete))
         .then((data: any) => {
-          toast.success(`Xóa Bình luận thành công`);
+          toast.success(DeleteSuccess);
 
           // truyền tín hiệu lên component cha để set lại countComment
           onAddComment(data);
           setIsCommentModify(true);
         })
         .catch((error: any) => {
-          toast.error(`Xóa Bình luận thất bại`);
+          toast.error(DeleteError);
         });
     } else {
       // delete replyComments
       replyCommentsApiService
         .delete(Number(data.comIdToDelete))
         .then((data: any) => {
-          toast.success(`Xóa Bình luận thành công`);
+          toast.success(DeleteSuccess);
           // truyền tín hiệu lên component cha để set lại countComment
           onAddComment(data);
           setIsCommentModify(true);
         })
         .catch((error: any) => {
-          toast.error(`Xóa Bình luận thất bại`);
+          toast.error(DeleteError);
         });
     }
   };

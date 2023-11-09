@@ -1,14 +1,14 @@
 import { HtmlTooltip } from "@/components/CustomMui/CustomMui";
+import Empty from "@/components/Empty/Empty";
+import PaginationComponent from "@/components/Pagination/PaginationComponent";
+import { getStatusLabelCourse } from "@/utils/LabelUtils";
+import utils from "@/utils/Utils";
+import TagIcon from "@mui/icons-material/Tag";
 import { Chip, Typography } from "@mui/material";
 import classNames from "classnames/bind";
-import { ChangeEvent, useEffect, useState } from "react";
-import TagIcon from "@mui/icons-material/Tag";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./HomeCourseOnline.module.scss";
-import { getStatusLabelCourse } from "@/utils/LabelUtils";
-import PaginationComponent from "@/components/Pagination/PaginationComponent";
-import utils from "@/utils/Utils";
-import Empty from "@/components/Empty/Empty";
 
 const cx = classNames.bind(styles);
 
@@ -24,16 +24,7 @@ function ListCourseOnline({
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
 
-  const handleChangePagination = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setPage(Number(value));
-  };
 
-  const handleChangeLimit = (event: ChangeEvent<HTMLInputElement>) => {
-    setLimit(Number(event.target.value));
-  };
 
   useEffect(() => {
     onClickPagination(page, limit);
@@ -58,18 +49,11 @@ function ListCourseOnline({
             {listCourseOnline.length > 0 ? (
               listCourseOnline.map((item: any, index: number) => (
                 <Link
-                  // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học và id bài học đầu tiên
+                  // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học đang học gần nhất
                   to={
                     item.type_user_using !== 1
                       ? `/course/${item.id}`
-                      : `/course/${item.id}/learning/${
-                          item.listChapterResponses[0]
-                            ? item.listChapterResponses[0].lessonsResponses[0]
-                              ? item.listChapterResponses[0].lessonsResponses[0]
-                                  .id
-                              : 1
-                            : 1
-                        }`
+                      : `/course/${item.id}/learning/${item.lessons_present}`
                   }
                   key={index}
                   className={cx("content-item-3")}
@@ -134,8 +118,8 @@ function ListCourseOnline({
       </div>
       {isPagination && listCourseOnline.length > 0 && (
         <PaginationComponent
-          handleChangePagination={handleChangePagination}
-          handleChangeLimit={handleChangeLimit}
+          setPage={setPage}
+          setLimit={setLimit}
           totalRecord={totalRecord}
           limit={limit}
         />

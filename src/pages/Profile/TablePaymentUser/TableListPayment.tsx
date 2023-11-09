@@ -1,3 +1,4 @@
+import TableCellComponent from "@/components/TableCellComponent/TableCellComponent";
 import utils from "@/utils/Utils";
 import {
   Table,
@@ -28,62 +29,14 @@ function TableListPayment({ listResult, labelTable }: any) {
             {listResult.map((item: any) => {
               return (
                 <TableRow hover key={item.id}>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.id}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.course_name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.student_name}
-                    </Typography>
-                  </TableCell>
-                  <TableCell align="right">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {utils.formatMoney(item.amount)}
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell align="center">
-                    <Typography
-                      variant="body1"
-                      fontWeight="bold"
-                      color="text.primary"
-                      gutterBottom
-                      noWrap
-                    >
-                      {item.payment_date}
-                    </Typography>
-                  </TableCell>
+                  <TableCellComponent value={item.id} />
+                  <TableCellComponent value={item.course_name} />
+                  <TableCellComponent value={item.student_name} />
+                  <TableCellComponent
+                    position="right"
+                    value={utils.formatMoney(item.amount)}
+                  />
+                  <TableCellComponent value={item.payment_date} />
                 </TableRow>
               );
             })}
