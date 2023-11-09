@@ -17,29 +17,29 @@ class CategoryExamApiService extends BaseApiService {
     }
   }
 
-  public async getAllExamById(id:any): Promise<any> {
-    try {
-      const response = await this.api.get(
-        `${process.env.REACT_APP_URL_CATEGORY_EXAM}/${id}/get-exams-by-category`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error:", error);
-      throw error;
-    }
-  }
+  // public async getAllExamById(id:any): Promise<any> {
+  //   try {
+  //     const response = await this.api.get(
+  //       `${process.env.REACT_APP_URL_CATEGORY_EXAM}/${id}/get-exams-by-category`
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     throw error;
+  //   }
+  // }
 
-  public async getAllTopicById(id:any): Promise<any> {
-    try {
-      const response = await this.api.get(
-        `${process.env.REACT_APP_URL_CATEGORY_EXAM}/${id}/get-topic-exam-by-category`
-      );
-      return response.data;
-    } catch (error) {
-      console.error("Error:", error);
-      throw error;
-    }
-  }
+  // public async getAllTopicById(id:any): Promise<any> {
+  //   try {
+  //     const response = await this.api.get(
+  //       `${process.env.REACT_APP_URL_CATEGORY_EXAM}/${id}/get-topic-exam-by-category`
+  //     );
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     throw error;
+  //   }
+  // }
 }
 const token = localStorage.getItem("token");
 

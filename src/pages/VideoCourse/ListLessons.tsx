@@ -17,6 +17,7 @@ import styles from "./VideoCourse.module.scss";
 const cx = classNames.bind(styles);
 
 function ListLessons({ course, handleChangeNavigate, lessonsId, id }: any) {
+
   return (
     <>
       {course.listChapterResponses !== undefined &&
@@ -29,8 +30,15 @@ function ListLessons({ course, handleChangeNavigate, lessonsId, id }: any) {
             <AccordionSummary
               aria-controls="panel1d-content"
               id="panel1d-header"
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+              }}
             >
-              <Typography>{item.name}</Typography>
+              <Typography sx={{ marginRight: 1 }}>{item.name}</Typography>
+              <Typography sx={{ textAlign: "right", width: "80%" }}>
+                {item.count_lessons_studied}/{item.lessonsResponses.length}
+              </Typography>
             </AccordionSummary>
             {item.lessonsResponses.length > 0 ? (
               item.lessonsResponses.map((lessonsItem: any) => (

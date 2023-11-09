@@ -1,6 +1,5 @@
-import {
-  Box, Pagination
-} from "@mui/material";
+import { Box, Pagination } from "@mui/material";
+import { ChangeEvent } from "react";
 import utils from "src/utils/Utils";
 import DropDown from "../DropDown/DropDown";
 const paginationArr = [
@@ -17,12 +16,17 @@ const paginationArr = [
     name: 30,
   },
 ];
-function PaginationComponent({
-  handleChangePagination,
-  handleChangeLimit,
-  totalRecord,
-  limit,
-}: any) {
+function PaginationComponent({ setPage, setLimit, totalRecord, limit }: any) {
+  const handleChangePagination = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(Number(value));
+  };
+
+  const handleChangeLimit = (event: ChangeEvent<HTMLInputElement>) => {
+    setLimit(Number(event.target.value));
+  };
   return (
     <>
       <Box p={2} sx={{ display: "flex", justifyContent: "space-between" }}>

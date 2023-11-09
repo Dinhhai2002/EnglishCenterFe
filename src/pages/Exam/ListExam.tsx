@@ -14,7 +14,7 @@ import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
 import classNames from "classnames/bind";
 import dayjs from "dayjs";
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import HomeNewExam from "../Home/HomeNewExam/HomeNewExam";
 import DialogTarget from "./DialogTarget";
@@ -41,17 +41,6 @@ export default function ListExam({
   const [categoryId, setCategoryId] = useState<number>(-1);
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
-
-  const handleChangePagination = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setPage(Number(value));
-  };
-
-  const handleChangeLimit = (event: ChangeEvent<HTMLInputElement>) => {
-    setLimit(Number(event.target.value));
-  };
 
   const { currentUser } = utils.getCurrentUser();
 
@@ -232,8 +221,8 @@ export default function ListExam({
       </div>
       {listExam.length > 0 ? (
         <PaginationComponent
-          handleChangePagination={handleChangePagination}
-          handleChangeLimit={handleChangeLimit}
+          setPage={setPage}
+          setLimit={setLimit}
           totalRecord={totalRecord}
           limit={limit}
         />

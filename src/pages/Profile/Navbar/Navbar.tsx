@@ -6,7 +6,7 @@ import userApiService from "@/services/API/UserApiService";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import { createTheme, Grid, Tab, ThemeProvider } from "@mui/material";
+import { Grid, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useEffect, useState } from "react";
 import ResultExamProfile from "../ResultExamProfile/ResultExamProfile";

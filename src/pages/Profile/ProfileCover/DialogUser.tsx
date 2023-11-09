@@ -1,4 +1,5 @@
 import userApiService from "@/services/API/UserApiService";
+import { EditSuccess } from "@/utils/MessageToast";
 import {
   Alert,
   Box,
@@ -41,9 +42,7 @@ function DialogUser({ user }: any) {
       .update(fullName, email, phone, fullAddress)
       .then((data: any) => {
         setOpen(false);
-        toast.success(`Chỉnh sửa thành công`, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        toast.success(EditSuccess);
       })
       .catch((error: any) => {
         setIsError(true);

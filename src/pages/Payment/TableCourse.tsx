@@ -13,6 +13,7 @@ import {
 import { labelTableCourseDetail } from "@/utils/LabelUtils";
 
 import utils from "@/utils/Utils";
+import TableCellComponent from "@/components/TableCellComponent/TableCellComponent";
 
 const TableCourse = ({ course }: any) => {
   return (
@@ -32,64 +33,16 @@ const TableCourse = ({ course }: any) => {
           </TableHead>
           <TableBody>
             <TableRow hover>
-              <TableCell align="center">
-                <Typography
-                  variant="body1"
-                  fontWeight="bold"
-                  color="text.primary"
-                  gutterBottom
-                  noWrap
-                >
-                  {course.id}
-                </Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography
-                  variant="body1"
-                  fontWeight="bold"
-                  color="text.primary"
-                  gutterBottom
-                  noWrap
-                >
-                  {course.name}
-                </Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography
-                  variant="body1"
-                  fontWeight="bold"
-                  color="text.primary"
-                  gutterBottom
-                  noWrap
-                >
-                  {utils.formatMoney(
-                    course.price -
-                      (course.price * course.discount_percent) / 100
-                  )}
-                </Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography
-                  variant="body1"
-                  fontWeight="bold"
-                  color="text.primary"
-                  gutterBottom
-                  noWrap
-                >
-                  {course.count_chapter}
-                </Typography>
-              </TableCell>
-              <TableCell align="center">
-                <Typography
-                  variant="body1"
-                  fontWeight="bold"
-                  color="text.primary"
-                  gutterBottom
-                  noWrap
-                >
-                  {course.count_lessons}
-                </Typography>
-              </TableCell>
+              <TableCellComponent value={course.id} />
+              <TableCellComponent value={course.name} />
+              <TableCellComponent
+                position="right"
+                value={utils.formatMoney(
+                  course.price - (course.price * course.discount_percent) / 100
+                )}
+              />
+              <TableCellComponent value={course.count_chapter} />
+              <TableCellComponent value={course.count_lessons} />
             </TableRow>
           </TableBody>
         </Table>
