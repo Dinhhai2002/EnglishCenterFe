@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Dinhhai2002/EnglishCenterFe/static/css/main.bf59508a.css",
+    "main.js": "/Dinhhai2002/EnglishCenterFe/static/js/main.eba0efcc.js",
+    "static/js/787.28cb0dcd.chunk.js": "/Dinhhai2002/EnglishCenterFe/static/js/787.28cb0dcd.chunk.js",
+    "static/media/Logo1.png": "/Dinhhai2002/EnglishCenterFe/static/media/Logo1.c3a76e965826a003bd47.png",
+    "static/media/Header.png": "/Dinhhai2002/EnglishCenterFe/static/media/Header.b75dbbcee8d05e630df9.png",
+    "static/media/noImage.jpg": "/Dinhhai2002/EnglishCenterFe/static/media/noImage.2efe78cdf6dbf909f571.jpg",
+    "static/media/illustration_404.svg": "/Dinhhai2002/EnglishCenterFe/static/media/illustration_404.62e062ffb1aa9a40611965004c50973a.svg",
+    "index.html": "/Dinhhai2002/EnglishCenterFe/index.html",
+    "static/media/svg": "/Dinhhai2002/EnglishCenterFe/static/media/2a0bc34f2fdf6d6b.6e0f8a48a90f41998086.svg",
+    "main.bf59508a.css.map": "/Dinhhai2002/EnglishCenterFe/static/css/main.bf59508a.css.map",
+    "main.eba0efcc.js.map": "/Dinhhai2002/EnglishCenterFe/static/js/main.eba0efcc.js.map",
+    "787.28cb0dcd.chunk.js.map": "/Dinhhai2002/EnglishCenterFe/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf59508a.css",
+    "static/js/main.eba0efcc.js"
+  ]
+}
