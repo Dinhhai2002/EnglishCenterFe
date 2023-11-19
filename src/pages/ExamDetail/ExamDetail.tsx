@@ -4,9 +4,8 @@ import styles from "./ExamDetail.module.scss";
 
 import { toast } from "react-toastify";
 
-import { routes } from "@/routes/routes";
 import authenticationApiService from "@/services/API/AuthenticationApiService";
-import { RequiredLogin, FunctionIsDevelopment } from "@/utils/MessageToast";
+import { FunctionIsDevelopment, RequiredLogin } from "@/utils/MessageToast";
 import utils from "@/utils/Utils";
 import { faClock, faUserPen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -21,6 +20,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from "../../components/Button/Button";
 import Comments from "../../components/Comments/NewComments";
 import DialogComponent from "./DialogComponent";
+import { routes } from "@/routes/routes";
 
 const cx = classNames.bind(styles);
 
@@ -91,6 +91,7 @@ function ExamDetail() {
     if (isCurrentUser === false) {
       navigate(routes.Login);
       toast.error(`${RequiredLogin}`);
+      return;
     }
     handleClickOpen();
   };
@@ -162,7 +163,7 @@ function ExamDetail() {
                   <Button
                     content="Bắt đầu thi"
                     primary
-                    to={
+                    href={
                       `#`
                       // isCurrentUser &&
                       // `/tests/${exam.id}/${exam.topic_name}/start`

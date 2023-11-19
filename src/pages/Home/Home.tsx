@@ -3,7 +3,6 @@ import HeaderHome from "./HomeHeader/HeaderHome";
 
 import authenticationApiService from "@/services/API/AuthenticationApiService";
 import utils from "@/utils/Utils";
-import { createTheme, ThemeProvider } from "@mui/material";
 import classNames from "classnames/bind";
 import { Zoom } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";

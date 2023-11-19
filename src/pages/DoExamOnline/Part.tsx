@@ -37,7 +37,7 @@ function Part({ listQuestion, selectedAnswers, handleRadioChange, type }: any) {
               )}
               {(type === 6 || type === 7) && <span>{item.paragraph}</span>}
               <FormControl>
-                <FormLabel sx={{ fontSize: 16 }} id="1">
+                <FormLabel id="1">
                   {index + 1}.{type !== 2 && item.content}
                 </FormLabel>
                 <RadioGroup
@@ -46,10 +46,8 @@ function Part({ listQuestion, selectedAnswers, handleRadioChange, type }: any) {
                   value={selectedAnswers[index] || ""}
                   onChange={(event) => handleRadioChange(index, event)}
                   name={`answer${index + 1}`}
-                  sx={{ fontSize: 16 }}
                 >
                   <FormControlLabel
-                    sx={{ fontSize: 16 }}
                     value="A"
                     control={<Radio />}
                     label={
@@ -57,7 +55,6 @@ function Part({ listQuestion, selectedAnswers, handleRadioChange, type }: any) {
                     }
                   />
                   <FormControlLabel
-                    sx={{ fontSize: 16 }}
                     value="B"
                     control={<Radio />}
                     label={
@@ -65,7 +62,6 @@ function Part({ listQuestion, selectedAnswers, handleRadioChange, type }: any) {
                     }
                   />
                   <FormControlLabel
-                    sx={{ fontSize: 16 }}
                     value="C"
                     control={<Radio />}
                     label={
@@ -74,7 +70,6 @@ function Part({ listQuestion, selectedAnswers, handleRadioChange, type }: any) {
                   />
                   {type !== 2 && (
                     <FormControlLabel
-                      sx={{ fontSize: 16 }}
                       value="D"
                       control={<Radio />}
                       label={type === 1 ? `D.` : `D.${item.answer_d}`}

@@ -28,10 +28,6 @@ function HeaderHome({ username }: any) {
   const [point, setPoint] = useState("");
   const [isTarget, setIsTarget] = useState(false);
 
-  const token: any = localStorage.getItem("token")
-    ? localStorage.getItem("token")
-    : "";
-
   const handleChangePoint = (event: any) => {
     const result = event.target.value.replace(/\D/g, "");
 

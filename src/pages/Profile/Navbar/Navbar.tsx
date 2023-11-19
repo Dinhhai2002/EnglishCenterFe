@@ -14,7 +14,7 @@ import ResultExamProfile from "../ResultExamProfile/ResultExamProfile";
 
 
 function Navbar() {
-  const [value, setValue] = useState("2");
+  const [value, setValue] = useState("1");
   const [currentUser, setCurrentUser] = useState<any>({});
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
