@@ -22,6 +22,7 @@ function ResultExam() {
         setIsLoading(false);
       });
   }, []);
+  console.log(listResult);
 
   return (
     <div className={cx("container")}>
