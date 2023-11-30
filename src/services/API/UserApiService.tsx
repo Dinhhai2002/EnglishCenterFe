@@ -26,6 +26,8 @@ class UserApiService extends BaseApiService {
     }
   }
 
+
+
   public async update(
     fullName: any,
     email: any,
@@ -63,6 +65,22 @@ class UserApiService extends BaseApiService {
       return response.data;
     } catch (error: any) {
       throw new Error(error.message);
+    }
+  }
+
+  public async uploadAvatar(file: any): Promise<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    try {
+      const response = await this.api.post(
+        `/users/upload-avatar`,
+        formData
+      );
+
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching user:', error);
+      throw error;
     }
   }
 

@@ -1,12 +1,11 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Divider } from "@mui/material";
+import { Alert, Divider } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -28,9 +27,9 @@ import { ValidateInput, validateSchema } from "./ValidateFormLogin";
 
 const cx = classNames.bind(styles);
 
-
 export default function Login() {
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   // validate
   const {
@@ -42,12 +41,12 @@ export default function Login() {
     resolver: zodResolver(validateSchema),
   });
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitSuccessful]);
+  // useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     reset();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<ValidateInput> = (values: any) => {
     setLoading(true);
@@ -55,6 +54,8 @@ export default function Login() {
     authenticationApiService
       .Login(values.name, values.password)
       .then((data: any) => {
+        console.log(data);
+
         localStorage.setItem("token", data.data.token);
         userApiService.setToken(data.data.token);
 
@@ -64,9 +65,10 @@ export default function Login() {
             localStorage.setItem("user", JSON.stringify(data.data));
             if (data.data.role === 2 || data.data.role === 3) {
               toast.error(`Tài khoản không hợp lệ`);
+              setLoading(false);
               return;
             }
-
+            setLoading(false);
             window.location.href = "/";
           })
           .catch((error: any) => {
@@ -90,102 +92,102 @@ export default function Login() {
   }, []);
 
   return (
-      <Grid container component="main" sx={{ height: "100vh" }}>
-        <CssBaseline />
-        <Grid
-          className={cx("body")}
-          item
-          xs={false}
-          sm={4}
-          md={7}
+    <Grid container component="main" sx={{ height: "100vh" }}>
+      <CssBaseline />
+      <Grid
+        className={cx("body")}
+        item
+        xs={false}
+        sm={4}
+        md={7}
+        sx={{
+          // backgroundImage: Logo,
+          backgroundRepeat: "no-repeat",
+          backgroundColor: (t) =>
+            t.palette.mode === "light"
+              ? t.palette.grey[50]
+              : t.palette.grey[900],
+          backgroundSize: "contain",
+          backgroundPosition: "center",
+        }}
+      ></Grid>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        <Box
           sx={{
-            // backgroundImage: Logo,
-            backgroundRepeat: "no-repeat",
-            backgroundColor: (t) =>
-              t.palette.mode === "light"
-                ? t.palette.grey[50]
-                : t.palette.grey[900],
-            backgroundSize: "contain",
-            backgroundPosition: "center",
+            my: 8,
+            mx: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
           }}
-        ></Grid>
-        <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+        >
+          <Link to={routes.Home}>
+            <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+              <LockOutlinedIcon />
+            </Avatar>
+          </Link>
+          {message !== "" && <Alert severity="info">{message}</Alert>}
+          <Typography component="h3" variant="h5">
+            Đăng Nhập
+          </Typography>
           <Box
-            sx={{
-              my: 8,
-              mx: 4,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            component="form"
+            onSubmit={handleSubmit(onSubmitHandler)}
+            autoComplete="off"
+            noValidate
+            sx={{ mt: 1 }}
           >
-            <Link to={routes.Home}>
-              <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-                <LockOutlinedIcon />
-              </Avatar>
-            </Link>
+            <InputText
+              errors={errors}
+              register={register}
+              autoFocus={true}
+              name="name"
+              label="Tên người dùng"
+            />
 
-            <Typography component="h3" variant="h5">
-              Đăng Nhập
-            </Typography>
-            <Box
-              component="form"
-              onSubmit={handleSubmit(onSubmitHandler)}
-              autoComplete="off"
-              noValidate
-              sx={{ mt: 1 }}
+            <InputPassword
+              errors={errors}
+              name="password"
+              label="Mật khẩu"
+              register={register}
+            />
+
+            <LoadingButton
+              variant="contained"
+              fullWidth
+              type="submit"
+              loading={loading}
+              sx={{ mt: 4, mb: 4, padding: 1 }}
             >
-              <InputText
-                errors={errors}
-                register={register}
-                autoFocus={true}
-                name="name"
-                label="Tên người dùng"
-              />
-
-              <InputPassword
-                errors={errors}
-                name="password"
-                label="Mật khẩu"
-                register={register}
-              />
-
-              <LoadingButton
-                variant="contained"
-                fullWidth
-                type="submit"
-                loading={loading}
-                sx={{ mt: 4, mb: 4, padding: 1 }}
-              >
-                Đăng Nhập
-              </LoadingButton>
-              <Grid container>
-                <Grid item xs>
-                  <Link className={cx("link")} to={routes.ForgotPassword}>
-                    Quên mật khẩu?
-                  </Link>
-                </Grid>
-                <Grid item>
-                  <Link className={cx("link")} to={routes.Register}>
-                    Chưa có tài khoản?Đăng ký
-                  </Link>
-                </Grid>
+              Đăng Nhập
+            </LoadingButton>
+            <Grid container>
+              <Grid item xs>
+                <Link className={cx("link")} to={routes.ForgotPassword}>
+                  Quên mật khẩu?
+                </Link>
               </Grid>
+              <Grid item>
+                <Link className={cx("link")} to={routes.Register}>
+                  Chưa có tài khoản?Đăng ký
+                </Link>
+              </Grid>
+            </Grid>
 
-              <Divider sx={{ my: 4 }}>hoặc</Divider>
+            <Divider sx={{ my: 4 }}>hoặc</Divider>
 
-              <GoogleLogin
-                className={cx("btn_google")}
-                clientId={`${process.env.REACT_APP_KEY_LOGIN_GOOGLE}`}
-                buttonText="Đăng nhập"
-                onSuccess={loginGoogleSuccess}
-                onFailure={loginGoogleError}
-                cookiePolicy={"http://localhost:3000"}
-                // isSignedIn={true}
-              />
-            </Box>
+            <GoogleLogin
+              className={cx("btn_google")}
+              clientId={`${process.env.REACT_APP_KEY_LOGIN_GOOGLE}`}
+              buttonText="Đăng nhập"
+              onSuccess={loginGoogleSuccess}
+              onFailure={loginGoogleError}
+              cookiePolicy={"http://localhost:3000"}
+              // isSignedIn={true}
+            />
           </Box>
-        </Grid>
+        </Box>
       </Grid>
+    </Grid>
   );
 }

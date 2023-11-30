@@ -10,12 +10,10 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import ReactAudioPlayer from "react-audio-player";
-import { useNavigate, useParams } from "react-router-dom";
-import ReactRouterPrompt from "react-router-prompt";
+import { unstable_usePrompt, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import AnswerUser from "./AnswerUser";
 import DialogComponent from "./DialogComponent";
-import DialogComponentBlock from "./DialogComponentBlock";
 import styles from "./DoExamOnline.module.scss";
 import Part from "./Part";
 
@@ -50,10 +48,6 @@ function DoExamOnline() {
     setShowDialog(true);
   }, [selectedAnswers]);
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   const handleButtonClickNext = () => {
     setValue((prevValue) => JSON.stringify(Number(prevValue) + 1));
   };
@@ -80,7 +74,7 @@ function DoExamOnline() {
       };
     });
   };
-
+ 
   useEffect(() => {
     authenticationApiService
       .getDetailExam(id)
@@ -89,6 +83,16 @@ function DoExamOnline() {
         setListQuestion(data.data.questions);
       })
       .catch((error: any) => {});
+
+    // const handleBeforeReload = (e: BeforeUnloadEvent) => {
+    //   e.preventDefault();
+    //   return window.confirm("test");
+    // };
+    // window.removeEventListener("beforeunload", handleBeforeReload);
+    // return () => {
+    //   window.addEventListener("beforeunload", handleBeforeReload);
+    // };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -150,94 +154,87 @@ function DoExamOnline() {
       </ReactRouterPrompt> */}
       <div className={cx("container")}>
         <div className={cx("content")}>
-            <div className={cx("content_header")}>
-              <h2>{exam.name}</h2>
-              <h2>Bộ đề thi: {exam.topic_name}</h2>
-            </div>
-            <div className={cx("content_content")}>
-              <Grid
-                component="form"
-                onSubmit={handleSubmit}
-                noValidate
-                container
-                spacing={2}
-              >
-                <Grid className={cx("content_left")} item xs={9}>
-                  {/* <ReactAudioPlayer
-                    className={cx("audio")}
-                    src={require(`${process.env.REACT_APP_PATH_AUDIO}${
-                      audioFile ? audioFile : "Test01.mp3"
-                    }`)}
-                    controls
-                  /> */}
-                  <ReactAudioPlayer
-                    className={cx("audio")}
-                    src={`https://drive.google.com/uc?export=download&id=${exam.url_audio}`}
-                    controls
-                  />
+          <div className={cx("content_header")}>
+            <h2>{exam.name}</h2>
+            <h2>Bộ đề thi: {exam.topic_name}</h2>
+          </div>
+          <div className={cx("content_content")}>
+            <Grid
+              component="form"
+              onSubmit={handleSubmit}
+              noValidate
+              container
+              spacing={2}
+            >
+              <Grid className={cx("content_left")} item xs={9}>
+                <ReactAudioPlayer
+                  className={cx("audio")}
+                  src={`https://drive.google.com/uc?export=download&id=${exam.url_audio}`}
+                  controls
+                />
 
-                  <Box sx={{ width: "100%", typography: "body1" }}>
-                    <TabContext value={value}>
-                      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                        <TabList
-                          onChange={handleChangeTab}
-                          aria-label="lab API tabs example"
-                        >
-                          {listTabPart.map((item: any, index: any) => (
-                            <Tab
-                              key={index}
-                              label={item.label}
-                              value={item.value}
-                            />
-                          ))}
-                        </TabList>
-                      </Box>
-                      <Box>
+                <Box sx={{ width: "100%", typography: "body1" }}>
+                  <TabContext value={value}>
+                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                      <TabList
+                        onChange={handleChangeTab}
+                        aria-label="lab API tabs example"
+                      >
                         {listTabPart.map((item: any, index: any) => (
-                          <TabPanel value={item.value}>
-                            <div className={cx("list-answer")}>
-                              <Part
-                                listQuestion={listQuestion}
-                                selectedAnswers={selectedAnswers}
-                                handleRadioChange={handleRadioChange}
-                                type={Number(item.value)}
-                              />
-                            </div>
-                            <div className={cx("btn")}>
-                              <Button
-                                primary
-                                content="Tiếp theo"
-                                href="#"
-                                onClick={handleButtonClickNext}
-                              />
-                            </div>
-                          </TabPanel>
+                          <Tab
+                            key={index}
+                            label={item.label}
+                            value={item.value}
+                          />
                         ))}
-                      </Box>
-                    </TabContext>
-                  </Box>
-                </Grid>
-                <Grid
-                  sx={{ marginLeft: 4 }}
-                  className={cx("content_right")}
-                  item
-                  xs={2.5}
-                >
-                  <AnswerUser
-                    minutes={minutes}
-                    seconds={seconds}
-                    handleClickOpen={handleClickOpen}
-                    listId={listId}
-                  />
-
-                  <DialogComponent
-                    open={open}
-                    handleClose={handleClose}
-                    handleSubmit={handleSubmit}
-                  />
-                </Grid>
+                      </TabList>
+                    </Box>
+                    <Box>
+                      {listTabPart.map((item: any, index: any) => (
+                        <TabPanel value={item.value}>
+                          <div className={cx("list-answer")}>
+                            <Part
+                              listQuestion={listQuestion}
+                              selectedAnswers={selectedAnswers}
+                              handleRadioChange={handleRadioChange}
+                              type={Number(item.value)}
+                            />
+                          </div>
+                          <div className={cx("btn")}>
+                            <Button
+                              primary
+                              content="Tiếp theo"
+                              href="#"
+                              onClick={handleButtonClickNext}
+                            />
+                          </div>
+                        </TabPanel>
+                      ))}
+                    </Box>
+                  </TabContext>
+                </Box>
               </Grid>
-            </div>
+              <Grid
+                sx={{ marginLeft: 4 }}
+                className={cx("content_right")}
+                item
+                xs={2.5}
+              >
+                <AnswerUser
+                  minutes={minutes}
+                  seconds={seconds}
+                  handleClickOpen={handleClickOpen}
+                  listId={listId}
+                />
+
+                <DialogComponent
+                  open={open}
+                  handleClose={handleClose}
+                  handleSubmit={handleSubmit}
+                />
+              </Grid>
+            </Grid>
+          </div>
         </div>
       </div>
     </div>

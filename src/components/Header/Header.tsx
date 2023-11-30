@@ -30,10 +30,10 @@ const Header = () => {
   };
 
   const MENU_ITEMS = [
-    {
-      content: "Lịch học của tôi",
-      to: `${routes.StudyPlan}`,
-    },
+    // {
+    //   content: "Lịch học của tôi",
+    //   to: `${routes.StudyPlan}`,
+    // },
     {
       content: "Trang cá nhân",
       to: `${routes.Profile}`,

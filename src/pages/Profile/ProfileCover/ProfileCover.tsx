@@ -1,73 +1,48 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  CardMedia,
-  IconButton,
-  Typography,
-} from "@mui/material";
-import { styled } from "@mui/material/styles";
-
-import UploadTwoToneIcon from "@mui/icons-material/UploadTwoTone";
+import { Avatar, Box, CardMedia, Typography } from "@mui/material";
 
 import {
   AvatarWrapper,
   ButtonUploadWrapper,
   CardCover,
-  CardCoverAction,
 } from "@/components/CustomMui/CustomMui";
 import utils from "@/utils/Utils";
 import DialogUser from "./DialogUser";
+import DialogAvatar from "./UploadAvatar";
+import { useEffect, useLayoutEffect, useState } from "react";
+import userApiService from "@/services/API/UserApiService";
 
-const Input = styled("input")({
-  display: "none",
-});
+const ProfileCover = () => {
+  const [user, setUser] = useState<any>({});
+  const [changeData, setChangeData] = useState<any>(true);
 
-const ProfileCover = ({ user }: any) => {
+  useLayoutEffect(() => {
+    userApiService
+      .getUser()
+      .then((data: any) => {
+        setUser(data.data);
+      })
+      .catch((error: any) => {});
+  }, []);
+
+  useEffect(() => {
+    userApiService
+      .getUser()
+      .then((data: any) => {
+        setUser(data.data);
+      })
+      .catch((error: any) => {});
+  }, [changeData]);
+
   return (
     <>
-      <Box display="flex" mb={3}>
-        {/* <Tooltip arrow placement="top" title="Go back">
-          <IconButton color="primary" sx={{ p: 2, mr: 2 }}>
-            <ArrowBackTwoToneIcon />
-          </IconButton>
-        </Tooltip> */}
-        {/* <Box>
-          <Typography variant="h4" component="h4" gutterBottom>
-            Trang cá nhân {user.user_name}
-          </Typography>
-          <Typography variant="subtitle2">{user.full_name}</Typography>
-        </Box> */}
-      </Box>
+      <Box display="flex" mb={3}></Box>
       <CardCover>
         <CardMedia image={user.avatar_url} />
-        <CardCoverAction>
-          <Input accept="image/*" id="change-cover" multiple type="file" />
-          <label htmlFor="change-cover">
-            <Button
-              startIcon={<UploadTwoToneIcon />}
-              variant="contained"
-              component="span"
-            >
-              Thay đổi
-            </Button>
-          </label>
-        </CardCoverAction>
       </CardCover>
       <AvatarWrapper>
         <Avatar variant="rounded" alt={user.user_name} src={user.avatar_url} />
         <ButtonUploadWrapper>
-          <Input
-            accept="image/*"
-            id="icon-button-file"
-            name="icon-button-file"
-            type="file"
-          />
-          <label htmlFor="icon-button-file">
-            <IconButton component="span" color="primary">
-              <UploadTwoToneIcon />
-            </IconButton>
-          </label>
+          <DialogAvatar changeData={changeData} setChangeData={setChangeData} />
         </ButtonUploadWrapper>
       </AvatarWrapper>
       <Box py={2} pl={2} mb={3}>
@@ -86,7 +61,11 @@ const ProfileCover = ({ user }: any) => {
           justifyContent="space-between"
         >
           <Box>
-            <DialogUser user={user} />
+            <DialogUser
+              user={user}
+              changeData={changeData}
+              setChangeData={setChangeData}
+            />
           </Box>
         </Box>
       </Box>

@@ -58,9 +58,9 @@ function ResultExam() {
         </div>
       </div>
       <div className={cx("btn-link")}>
-        {listResult.length > 0 && (
+        {/* {listResult.length > 0 && (
           <Button outline content="Xem tất cả" to={routes.Profile} />
-        )}
+        )} */}
       </div>
     </div>
   );
