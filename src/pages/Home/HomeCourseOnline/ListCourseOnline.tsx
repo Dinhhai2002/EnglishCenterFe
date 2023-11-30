@@ -1,9 +1,8 @@
 import Button from "@/components/Button/Button";
-import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
-import { Grid, TextField } from "@mui/material";
+import { Box, Grid, TextField } from "@mui/material";
 import classNames from "classnames/bind";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Course from "./Course";
 import CourseSkeleton from "./CourseSkeleton";
@@ -79,7 +78,8 @@ function ListCourseOnline({
                 key={index}
                 className={cx("content-item-3")}
               >
-                {loading ? <CourseSkeleton /> : <Course item={item} />}
+                <CourseSkeleton />
+                {/* {loading ? <CourseSkeleton /> : <Course item={item} />} */}
               </Link>
             ))}
           </div>

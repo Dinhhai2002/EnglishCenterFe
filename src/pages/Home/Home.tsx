@@ -52,7 +52,7 @@ const Home = () => {
               {images.map((each, index) => (
                 <div
                   key={index}
-                  style={{ width: "100%", height: "300px", marginTop: "20px" }}
+                  style={{ width: "100%", height: "300px", marginTop: "40px" }}
                 >
                   <img
                     style={{
