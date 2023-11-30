@@ -19,16 +19,19 @@ function HomeCourseOnline({
 }: any) {
   const [listCourseOnline, setListCourseOnline] = useState([]);
   const [totalRecord, setTotalRecord] = useState<any>(0);
+  const [loading, setLoading] = useState(false);
 
   const { isCurrentUser } = utils.getCurrentUser();
 
   useEffect(() => {
+    setLoading(true);
     if (isCurrentUser === false) {
       authenticationApiService
         .getAllCourse("", 1, 0, 6)
         .then((data: any) => {
           setListCourseOnline(data.data.list);
           setTotalRecord(data.data.total_record);
+          setLoading(false);
         })
         .catch((error: any) => {});
     } else {
@@ -37,25 +40,34 @@ function HomeCourseOnline({
         .then((data: any) => {
           setListCourseOnline(data.data.list);
           setTotalRecord(data.data.total_record);
+          setLoading(false);
         })
         .catch((error: any) => {});
     }
   }, [isCurrentUser]);
 
-  const onClickPagination = (page: number, limit: number) => {
+  const onClickPagination = (
+    keySearch: string = "",
+    page: number,
+    limit: number
+  ) => {
+    setLoading(true);
     if (isCurrentUser === false) {
       authenticationApiService
-        .getAllCourse("", 1, page, limit)
+        .getAllCourse(keySearch, 1, page, limit)
         .then((data: any) => {
           setListCourseOnline(data.data.list);
           setTotalRecord(data.data.total_record);
+          setLoading(false);
         })
         .catch((error: any) => {});
     } else {
       courseAdminApiService
-        .getAll("", 1, page, limit)
+        .getAll(keySearch, 1, page, limit)
         .then((data: any) => {
           setListCourseOnline(data.data.list);
+          setTotalRecord(data.data.total_record);
+          setLoading(false);
         })
         .catch((error: any) => {});
     }
@@ -87,6 +99,7 @@ function HomeCourseOnline({
         isPagination={isPagination}
         totalRecord={totalRecord}
         isUserCourse={isUserCourse}
+        loading={loading}
       />
     </>
   );

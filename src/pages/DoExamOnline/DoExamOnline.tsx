@@ -10,7 +10,7 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import ReactAudioPlayer from "react-audio-player";
-import { useNavigate, useParams } from "react-router-dom";
+import { unstable_usePrompt, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import AnswerUser from "./AnswerUser";
 import DialogComponent from "./DialogComponent";
@@ -48,10 +48,6 @@ function DoExamOnline() {
     setShowDialog(true);
   }, [selectedAnswers]);
 
-  useEffect(() => {
-    return () => {};
-  }, []);
-
   const handleButtonClickNext = () => {
     setValue((prevValue) => JSON.stringify(Number(prevValue) + 1));
   };
@@ -78,7 +74,7 @@ function DoExamOnline() {
       };
     });
   };
-
+ 
   useEffect(() => {
     authenticationApiService
       .getDetailExam(id)
@@ -87,6 +83,16 @@ function DoExamOnline() {
         setListQuestion(data.data.questions);
       })
       .catch((error: any) => {});
+
+    // const handleBeforeReload = (e: BeforeUnloadEvent) => {
+    //   e.preventDefault();
+    //   return window.confirm("test");
+    // };
+    // window.removeEventListener("beforeunload", handleBeforeReload);
+    // return () => {
+    //   window.addEventListener("beforeunload", handleBeforeReload);
+    // };
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
