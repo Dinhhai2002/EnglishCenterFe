@@ -67,21 +67,26 @@ function ListCourseOnline({
         </div>
         <div className={cx("content")}>
           <div className={cx("content-list-3")}>
-            {listCourseOnline.map((item: any, index: number) => (
-              <Link
-                // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học đang học gần nhất
-                to={
-                  item.type_user_using !== 1
-                    ? `/course/${item.id}`
-                    : `/course/${item.id}/learning/${item.lessons_present}`
-                }
-                key={index}
-                className={cx("content-item-3")}
-              >
-                <CourseSkeleton />
-                {/* {loading ? <CourseSkeleton /> : <Course item={item} />} */}
-              </Link>
-            ))}
+            {loading
+              ? Array.from({ length: 6 }).map((_, index) => (
+                  <Link to={"#"} key={index} className={cx("content-item-3")}>
+                    <CourseSkeleton />
+                  </Link>
+                ))
+              : listCourseOnline.map((item: any, index: number) => (
+                  <Link
+                    // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học đang học gần nhất
+                    to={
+                      item.type_user_using !== 1
+                        ? `/course/${item.id}`
+                        : `/course/${item.id}/learning/${item.lessons_present}`
+                    }
+                    key={index}
+                    className={cx("content-item-3")}
+                  >
+                    <Course item={item} />
+                  </Link>
+                ))}
           </div>
         </div>
       </div>

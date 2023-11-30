@@ -19,12 +19,11 @@ function HomeCourseOnline({
 }: any) {
   const [listCourseOnline, setListCourseOnline] = useState([]);
   const [totalRecord, setTotalRecord] = useState<any>(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { isCurrentUser } = utils.getCurrentUser();
 
   useEffect(() => {
-    setLoading(true);
     if (isCurrentUser === false) {
       authenticationApiService
         .getAllCourse("", 1, 0, 6)
@@ -33,7 +32,9 @@ function HomeCourseOnline({
           setTotalRecord(data.data.total_record);
           setLoading(false);
         })
-        .catch((error: any) => {});
+        .catch((error: any) => {
+          setLoading(false);
+        });
     } else {
       courseAdminApiService
         .getAll("", 1, 0, 6)
@@ -42,7 +43,9 @@ function HomeCourseOnline({
           setTotalRecord(data.data.total_record);
           setLoading(false);
         })
-        .catch((error: any) => {});
+        .catch((error: any) => {
+          setLoading(false);
+        });
     }
   }, [isCurrentUser]);
 
@@ -51,7 +54,6 @@ function HomeCourseOnline({
     page: number,
     limit: number
   ) => {
-    setLoading(true);
     if (isCurrentUser === false) {
       authenticationApiService
         .getAllCourse(keySearch, 1, page, limit)
@@ -60,7 +62,9 @@ function HomeCourseOnline({
           setTotalRecord(data.data.total_record);
           setLoading(false);
         })
-        .catch((error: any) => {});
+        .catch((error: any) => {
+          setLoading(false);
+        });
     } else {
       courseAdminApiService
         .getAll(keySearch, 1, page, limit)
@@ -69,7 +73,9 @@ function HomeCourseOnline({
           setTotalRecord(data.data.total_record);
           setLoading(false);
         })
-        .catch((error: any) => {});
+        .catch((error: any) => {
+          setLoading(false);
+        });
     }
   };
 
