@@ -19,12 +19,15 @@ import { useState } from "react";
 import userApiService from "@/services/API/UserApiService";
 import { UploadSuccess } from "@/utils/MessageToast";
 import { toast } from "react-toastify";
+import Image from "@/components/Image/Image";
 
 function DialogAvatar({ changeData, setChangeData }: any) {
   const [open, setOpen] = useState(false);
   const [isError, setIsError] = useState(false);
   const [error, SetError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [url, setUrl] = useState("");
+
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
@@ -34,6 +37,12 @@ function DialogAvatar({ changeData, setChangeData }: any) {
 
   const handleClose = () => {
     setOpen(false);
+    setUrl("");
+  };
+
+  const handleChangeFile = (e: any) => {
+    const imageUrl = URL.createObjectURL(e.target.files[0]);
+    setUrl(imageUrl);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -90,11 +99,15 @@ function DialogAvatar({ changeData, setChangeData }: any) {
             noValidate
             sx={{ mt: 1 }}
           >
-            <TextField
-              sx={{ marginTop: 4, minWidth: 120 }}
-              name="file"
-              type="file"
-            />
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <TextField
+                sx={{ marginTop: 4, marginBottom: 2, minWidth: 120 }}
+                name="file"
+                type="file"
+                onChange={handleChangeFile}
+              />
+              {url !== "" && <Image width="200px" height="200px" src={url} />}
+            </Box>
 
             <DialogActions>
               <LoadingButton variant="outlined" autoFocus onClick={handleClose}>

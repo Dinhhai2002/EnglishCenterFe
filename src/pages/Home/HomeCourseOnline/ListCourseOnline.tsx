@@ -1,8 +1,8 @@
 import Button from "@/components/Button/Button";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
-import { Box, Grid, TextField } from "@mui/material";
+import { Grid, TextField } from "@mui/material";
 import classNames from "classnames/bind";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Course from "./Course";
 import CourseSkeleton from "./CourseSkeleton";
@@ -63,7 +63,6 @@ function ListCourseOnline({
             <Button primary content="Tìm kiếm" onClick={handleSubmit} />
           </Grid>
 
-          {/* <h2 className={cx({ position })}>{categoryExam}</h2> */}
         </div>
         <div className={cx("content")}>
           <div className={cx("content-list-3")}>
