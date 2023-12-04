@@ -1,5 +1,6 @@
-import Button from "@/components/Button/Button";
+import { LoadingButton } from "@mui/lab";
 import {
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -8,7 +9,7 @@ import {
   Zoom,
 } from "@mui/material";
 
-function DialogComponent({ open, handleClose, handleSubmit }: any) {
+function DialogComponent({ open, handleClose, handleSubmit, loading }: any) {
   return (
     <>
       <Dialog
@@ -31,8 +32,17 @@ function DialogComponent({ open, handleClose, handleSubmit }: any) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} content="Có" primary />
-          <Button onClick={handleClose} content="Không" primary />
+          <LoadingButton
+            onClick={handleSubmit}
+            loading={loading}
+            autoFocus
+            variant="outlined"
+          >
+            có
+          </LoadingButton>
+          <Button onClick={handleClose} autoFocus variant="outlined">
+            không
+          </Button>
         </DialogActions>
       </Dialog>
     </>

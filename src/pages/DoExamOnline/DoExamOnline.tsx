@@ -33,6 +33,7 @@ function DoExamOnline() {
   const [exam, setExam] = useState<any>({});
   const [open, setOpen] = useState(false);
   const [showDialog, setShowDialog] = useState<boolean>(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -74,7 +75,7 @@ function DoExamOnline() {
       };
     });
   };
- 
+
   useEffect(() => {
     authenticationApiService
       .getDetailExam(id)
@@ -105,6 +106,7 @@ function DoExamOnline() {
     useCountdown(initialTime);
 
   const handleSubmit = () => {
+    setLoading(true);
     // custom lai time để truyền api
     let timeComplete: string = formatTimeUtils.customTimerComplete(
       seconds > 0 ? 119 - minutes : 120 - minutes,
@@ -112,13 +114,17 @@ function DoExamOnline() {
     );
     // lấy số câu hỏi người dùng bỏ qua không làm
     let totalQuestionSkip: number = 200 - listValue.length;
+    console.log(id, timeComplete, listValue, totalQuestionSkip);
 
     resultApiService
       .create(id, timeComplete, listValue, totalQuestionSkip)
       .then((data: any) => {
         navigate(`/tests/${id}/${exam.topic_name}/results/${data.data.id}`);
+        setLoading(false);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoading(false);
+      });
   };
 
   /***
@@ -228,6 +234,7 @@ function DoExamOnline() {
                 />
 
                 <DialogComponent
+                  loading={loading}
                   open={open}
                   handleClose={handleClose}
                   handleSubmit={handleSubmit}

@@ -41,7 +41,8 @@ function DialogUser({ user, changeData, setChangeData }: any) {
     resolver: zodResolver(validateSchema),
   });
   const { handleSubmit } = methods;
-
+  console.log(123);
+  
   const onSubmitHandler: SubmitHandler<ValidateInput> = (values: any) => {
     setLoading(true);
     if (

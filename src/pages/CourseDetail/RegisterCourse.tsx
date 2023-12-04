@@ -63,6 +63,7 @@ function RegisterCourse({ course, id }: any) {
 
       <div className={cx("btn")}>
         <h3>{course.is_free === 1 ? "Miễn phí" : ""}</h3>
+
         <Button
           to={isCurrentUser && course.is_free === 0 && `/payment/course/${id}`}
           fullWidth

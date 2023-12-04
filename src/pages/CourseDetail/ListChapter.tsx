@@ -5,6 +5,7 @@ import {
 } from "@/components/CustomMui/CustomMui";
 
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import { Skeleton } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import classNames from "classnames/bind";
 import { useState } from "react";
@@ -17,8 +18,6 @@ function ListChapter({ course, id }: any) {
   const [expanded, setExpanded] = useState<string | false>("");
   const [openDialogMapVideo, setOpenDialogMapVideo] = useState({});
 
-
-  
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, newExpanded: boolean) => {
       setExpanded(newExpanded ? panel : false);

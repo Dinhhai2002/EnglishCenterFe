@@ -1,35 +1,35 @@
-import categoryExamApiService from "@/services/API/CategoryExamApiService";
 import examApiService from "@/services/API/ExamApiService";
 import topicExamApiService from "@/services/API/TopicExamApiService";
-import { createTheme, ThemeProvider } from "@mui/material";
 
 import { useEffect, useState } from "react";
 
+import categoryExamAdminApiService from "@/services/API/Admin/CategoryExamAdminApiService";
 import classNames from "classnames/bind";
 import styles from "./Exam.module.scss";
 import ListExam from "./ListExam";
-import categoryExamAdminApiService from "@/services/API/Admin/CategoryExamAdminApiService";
 
 const cx = classNames.bind(styles);
-// const theme = createTheme({
-//   typography: {
-//     htmlFontSize: 10,
-//   },
-// });
+
 function Exam() {
   const [listCategoryExam, setListCategoryExam] = useState([]);
   const [listTopicExam, setListTopicExam] = useState([]);
 
   const [listExam, setListExam] = useState([]);
   const [totalRecord, setTotalRecord] = useState<any>(0);
+  const [loading, setLoading] = useState(true);
+  const [loadingButton, setLoadingButton] = useState(false);
+
 
   useEffect(() => {
     categoryExamAdminApiService
       .getAll("", 1, 1, 10)
       .then((data: any) => {
         setListCategoryExam(data.data.list);
+        setLoading(false);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoading(false);
+      });
 
     topicExamApiService
       .getAll()
@@ -55,29 +55,35 @@ function Exam() {
     page: number,
     limit: number
   ) => {
+    setLoadingButton(true);
     examApiService
       .getAll(categoryId, topicId, status, keySearch, page, limit)
       .then((data: any) => {
         setListExam(data.data.list);
         setTotalRecord(data.data.total_record);
+        setLoadingButton(false);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoadingButton(false);
+      });
   };
 
   return (
     <div className={cx("body")}>
-        <div className={cx("container")}>
-          <div className={cx("content")}>
-            <h2>Thư viện đề thi</h2>
-            <ListExam
-              listCategoryExam={listCategoryExam}
-              listTopicExam={listTopicExam}
-              listExam={listExam}
-              totalRecord={totalRecord}
-              onClickPagination={onClickPagination}
-            />
-          </div>
+      <div className={cx("container")}>
+        <div className={cx("content")}>
+          <h2>Thư viện đề thi</h2>
+          <ListExam
+            listCategoryExam={listCategoryExam}
+            listTopicExam={listTopicExam}
+            listExam={listExam}
+            totalRecord={totalRecord}
+            onClickPagination={onClickPagination}
+            loading={loading}
+            loadingButton={loadingButton}
+          />
         </div>
+      </div>
     </div>
   );
 }

@@ -8,6 +8,8 @@ import styles from "./Home.module.scss";
 import HomeCourseOnline from "./HomeCourseOnline/HomeCourseOnline";
 import HomeNewExam from "./HomeNewExam/HomeNewExam";
 import ResultExam from "./ResultExamUser/ResultExam";
+import { useLayoutEffect, useState } from "react";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +21,20 @@ const images = [
 
 const Home = () => {
   const { currentUser, isCurrentUser } = utils.getCurrentUser();
+  const [listExam, setListExam] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
+  useLayoutEffect(() => {
+    authenticationApiService
+      .getAllExam(-1, 1, "", 1, 8)
+      .then((data: any) => {
+        setListExam(data.data.list);
+        setIsLoading(false);
+      })
+      .catch((error: any) => {
+        setIsLoading(false);
+      });
+  }, []);
   return (
     <div className={cx("body")}>
       {isCurrentUser && (
@@ -59,7 +74,12 @@ const Home = () => {
             categoryExam="TOEIC"
           />
 
-          <HomeNewExam position="center" title="Đề thi mới nhất" />
+          <HomeNewExam
+            listExam={listExam}
+            isLoading={isLoading}
+            position="center"
+            title="Đề thi mới nhất"
+          />
         </div>
       </div>
     </div>

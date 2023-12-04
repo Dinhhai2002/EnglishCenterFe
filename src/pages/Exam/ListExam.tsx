@@ -19,6 +19,9 @@ import { toast } from "react-toastify";
 import HomeNewExam from "../Home/HomeNewExam/HomeNewExam";
 import DialogTarget from "./DialogTarget";
 import styles from "./Exam.module.scss";
+import Category from "./component/Category";
+import CategorySkeleton from "./component/CategorySkeleton";
+import { LoadingButton } from "@mui/lab";
 
 const cx = classNames.bind(styles);
 
@@ -28,6 +31,8 @@ export default function ListExam({
   listExam,
   totalRecord,
   onClickPagination,
+  loading,
+  loadingButton,
 }: any) {
   const [active, setActive] = useState();
   const [topic, setTopic] = useState("-1");
@@ -83,6 +88,8 @@ export default function ListExam({
   }, [limit]);
 
   const handleSubmit = () => {
+    console.log(123);
+
     onClickPagination(categoryId, Number(topic), 1, keySearch, page, limit);
   };
 
@@ -124,12 +131,7 @@ export default function ListExam({
   return (
     <Box sx={{ width: "100%", marginTop: 4, marginBottom: 5 }}>
       <Grid container spacing={2}>
-        <Grid
-          container
-          item
-          xs={8}
-          //   columnSpacing={{ xs: 8 }}
-        >
+        <Grid container item xs={8}>
           <Grid item xs={2}>
             <Button
               onClick={() => {
@@ -142,25 +144,18 @@ export default function ListExam({
               active={active === undefined}
             />
           </Grid>
-          {listCategoryExam.map((CategoryExam: any, index: number) => (
-            <Grid
-              sx={index > 4 ? { marginTop: 0 } : undefined}
-              item
-              xs={index < 4 ? 2.5 : 2}
-              key={index}
-            >
-              <Button
-                onClick={() => {
-                  handleClickCategory(CategoryExam.id);
-                  setActive(CategoryExam.id);
-                }}
-                block
-                content={CategoryExam.name}
-                transparent
-                active={active === CategoryExam.id}
-              />
-            </Grid>
-          ))}
+          {loading
+            ? Array.from({ length: 5 }).map((_, index) => <CategorySkeleton />)
+            : listCategoryExam.map((item: any, index: number) => (
+                <Category
+                  item={item}
+                  index={index}
+                  handleClickCategory={handleClickCategory}
+                  setActive={setActive}
+                  active={active}
+                />
+              ))}
+
           <Grid item xs={8}>
             <TextField
               fullWidth
@@ -182,7 +177,13 @@ export default function ListExam({
             />
           </Grid>
           <Grid sx={{ marginTop: 4 }} item xs={3}>
-            <Button primary content="Tìm kiếm" onClick={handleSubmit} />
+            <LoadingButton
+              variant="outlined"
+              loading={loadingButton}
+              onClick={handleSubmit}
+            >
+              Tìm kiếm
+            </LoadingButton>
           </Grid>
         </Grid>
         <Grid item xs>
@@ -211,11 +212,7 @@ export default function ListExam({
       <div style={{ width: "100%" }}>
         <Box sx={{ width: "100%", typography: "body1" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            {listExam.length > 0 ? (
-              <HomeNewExam listExam={listExam} />
-            ) : (
-              <Empty />
-            )}
+            <HomeNewExam listExam={listExam} isLoading={loadingButton} />
           </Box>
         </Box>
       </div>

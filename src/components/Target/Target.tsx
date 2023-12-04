@@ -36,9 +36,7 @@ function Target({ url, username, CategoryNameExam }: any) {
     daysDiff = formatTimeUtils.calculateDateTarget(target.time_exam);
   }
 
-  // const formattedDate = currentDate
-  //   ? dayjs(currentDate).format("DD/MM/YYYY")
-  //   : target.time_exam;
+
 
   return (
     <div className={cx("body")}>
