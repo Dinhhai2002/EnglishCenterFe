@@ -1,5 +1,4 @@
-import Button from "@/components/Button/Button";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import classNames from "classnames/bind";
 import styles from "./DoExamOnline.module.scss";
 
@@ -15,12 +14,14 @@ function AnswerUser({ minutes, seconds, handleClickOpen, listId }: any) {
         </div>
       </div>
       <Button
-        block
-        content="Nộp Bài"
-        href="#"
+        sx={{ marginBottom: 2, marginTop: 2, padding: 1 }}
+        variant="outlined"
+        fullWidth
         onClick={handleClickOpen}
-        outline
-      />
+      >
+        Nộp Bài
+      </Button>
+
       <div className={cx("list-item-block")}>
         {Array.from({ length: 200 }, (_, index) => (
           <Grid item xs={2.4} key={index}>

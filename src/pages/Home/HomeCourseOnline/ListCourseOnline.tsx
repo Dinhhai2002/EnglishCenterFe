@@ -1,5 +1,6 @@
 import Button from "@/components/Button/Button";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
+import { LoadingButton } from "@mui/lab";
 import { Grid, TextField } from "@mui/material";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
@@ -60,7 +61,13 @@ function ListCourseOnline({
                 setKeySearch(event.target.value);
               }}
             />
-            <Button primary content="Tìm kiếm" onClick={handleSubmit} />
+             <LoadingButton
+              variant="contained"
+              loading={loading}
+              onClick={handleSubmit}
+            >
+              Tìm kiếm
+            </LoadingButton>
           </Grid>
 
         </div>

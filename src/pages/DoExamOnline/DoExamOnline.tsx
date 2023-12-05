@@ -1,6 +1,5 @@
-import { Box, Grid, Tab } from "@mui/material";
+import { Box, Button, Grid, Tab } from "@mui/material";
 
-import Button from "@/components/Button/Button";
 import { useCountdown } from "@/components/CountDownTime/CountDownTime";
 import authenticationApiService from "@/services/API/AuthenticationApiService";
 import resultApiService from "@/services/API/ResultApiService";
@@ -16,6 +15,7 @@ import AnswerUser from "./AnswerUser";
 import DialogComponent from "./DialogComponent";
 import styles from "./DoExamOnline.module.scss";
 import Part from "./Part";
+import examApiService from "@/services/API/ExamApiService";
 
 const cx = classNames.bind(styles);
 
@@ -77,8 +77,8 @@ function DoExamOnline() {
   };
 
   useEffect(() => {
-    authenticationApiService
-      .getDetailExam(id)
+    examApiService
+      .findOne(Number(id))
       .then((data: any) => {
         setExam(data.data);
         setListQuestion(data.data.questions);
@@ -208,11 +208,11 @@ function DoExamOnline() {
                           </div>
                           <div className={cx("btn")}>
                             <Button
-                              primary
-                              content="Tiếp theo"
-                              href="#"
+                              variant="contained"
                               onClick={handleButtonClickNext}
-                            />
+                            >
+                              Tiếp theo
+                            </Button>
                           </div>
                         </TabPanel>
                       ))}

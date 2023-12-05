@@ -1,5 +1,5 @@
-import Button from "@/components/Button/Button";
 import {
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -31,8 +31,12 @@ function DialogComponent({ open, handleClose, handleSubmit }: any) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleSubmit} content="Có" primary />
-          <Button onClick={handleClose} content="Không" primary />
+          <Button variant="outlined" onClick={handleSubmit}>
+            Có
+          </Button>
+          <Button variant="outlined" onClick={handleClose}>
+            Không
+          </Button>
         </DialogActions>
       </Dialog>
     </>

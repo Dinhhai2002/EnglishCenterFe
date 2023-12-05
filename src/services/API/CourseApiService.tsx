@@ -15,7 +15,6 @@ class CourseApiService extends BaseApiService {
       messageError = handleResponseApi.handleResponse(response);
       return response.data;
     } catch (error) {
-      console.error("Error fetching user:", error);
       throw new Error(messageError);
     }
   }

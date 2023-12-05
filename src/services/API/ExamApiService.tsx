@@ -1,3 +1,4 @@
+import handleResponseApi from "../handleResponseApi/handleResponseApi";
 import BaseApiService from "./BaseApiService";
 
 class ExamApiService extends BaseApiService {
@@ -40,7 +41,7 @@ class ExamApiService extends BaseApiService {
     }
   }
 
-  public async getAudioByExamId(id: any): Promise<any> {
+  public async getAudioByExamId(id: number): Promise<any> {
     try {
       const response = await this.api.get(`/exam/${id}/get-audio`);
 
@@ -48,6 +49,17 @@ class ExamApiService extends BaseApiService {
     } catch (error) {
       console.error("Error:", error);
       throw error;
+    }
+  }
+
+  public async findOne(id: number): Promise<any> {
+    try {
+      const response = await this.api.get(`/exam/${id}/detail`);
+
+      handleResponseApi.handleResponse(response);
+      return response.data;
+    } catch (error) {
+      throw new Error();
     }
   }
 

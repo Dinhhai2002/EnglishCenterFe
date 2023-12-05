@@ -1,4 +1,5 @@
 import {
+  Button,
   Dialog,
   DialogActions,
   DialogContent,
@@ -11,7 +12,6 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloseIcon from "@mui/icons-material/Close";
-import Button from "@/components/Button/Button";
 import classNames from "classnames/bind";
 import styles from "./Header.module.scss";
 import dayjs from "dayjs";
@@ -87,7 +87,9 @@ function DialogTarget({
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleSubmitTarget} content="Lưu" primary />
+        <Button variant="contained" onClick={handleSubmitTarget}>
+          Lưu
+        </Button>
       </DialogActions>
     </Dialog>
   );
