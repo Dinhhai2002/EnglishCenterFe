@@ -77,13 +77,20 @@ function DoExamOnline() {
   };
 
   useEffect(() => {
-    examApiService
-      .findOne(Number(id))
+    authenticationApiService
+      .getDetailExam(Number(id))
       .then((data: any) => {
         setExam(data.data);
         setListQuestion(data.data.questions);
       })
       .catch((error: any) => {});
+    // examApiService
+    //   .findOne(Number(id))
+    //   .then((data: any) => {
+    //     setExam(data.data);
+    //     setListQuestion(data.data.questions);
+    //   })
+    //   .catch((error: any) => {});
 
     // const handleBeforeReload = (e: BeforeUnloadEvent) => {
     //   e.preventDefault();
@@ -114,7 +121,6 @@ function DoExamOnline() {
     );
     // lấy số câu hỏi người dùng bỏ qua không làm
     let totalQuestionSkip: number = 200 - listValue.length;
-    console.log(id, timeComplete, listValue, totalQuestionSkip);
 
     resultApiService
       .create(id, timeComplete, listValue, totalQuestionSkip)
