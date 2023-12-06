@@ -336,7 +336,7 @@ export default function Register() {
               buttonText="Đăng nhập"
               onSuccess={loginGoogleSuccess}
               onFailure={loginGoogleError}
-              cookiePolicy={"*"}
+              // cookiePolicy={"*"}
             />
           </Box>
         </Box>

@@ -182,7 +182,7 @@ export default function Login() {
               buttonText="Đăng nhập"
               onSuccess={loginGoogleSuccess}
               onFailure={loginGoogleError}
-              cookiePolicy={"*"}
+              // cookiePolicy={"*"}
               // isSignedIn={true}
             />
           </Box>
