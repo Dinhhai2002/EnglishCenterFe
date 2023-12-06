@@ -9,13 +9,12 @@ import { TabContext, TabList, TabPanel } from "@mui/lab";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import ReactAudioPlayer from "react-audio-player";
-import { unstable_usePrompt, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import AnswerUser from "./AnswerUser";
 import DialogComponent from "./DialogComponent";
 import styles from "./DoExamOnline.module.scss";
 import Part from "./Part";
-import examApiService from "@/services/API/ExamApiService";
 
 const cx = classNames.bind(styles);
 
@@ -84,13 +83,6 @@ function DoExamOnline() {
         setListQuestion(data.data.questions);
       })
       .catch((error: any) => {});
-    // examApiService
-    //   .findOne(Number(id))
-    //   .then((data: any) => {
-    //     setExam(data.data);
-    //     setListQuestion(data.data.questions);
-    //   })
-    //   .catch((error: any) => {});
 
     // const handleBeforeReload = (e: BeforeUnloadEvent) => {
     //   e.preventDefault();
