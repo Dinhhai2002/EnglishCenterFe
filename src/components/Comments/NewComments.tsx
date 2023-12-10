@@ -12,10 +12,12 @@ import {
   DeleteSuccess,
   DeleteError,
 } from "@/utils/MessageToast";
+import { Box, CircularProgress } from "@mui/material";
 
 const Comments = ({ examId, onAddComment }: any) => {
   const [comments, setComments] = useState<any>([]);
   const [isCommentModify, setIsCommentModify] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const { currentUser, isCurrentUser } = utils.getCurrentUser();
 
@@ -24,19 +26,26 @@ const Comments = ({ examId, onAddComment }: any) => {
       .getByExamId(Number(examId))
       .then((data) => {
         setComments(data.data);
+        setLoading(false);
       })
-      .catch((error: any) => {});
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      .catch((error: any) => {
+        setLoading(false);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     commentsApiService
       .getByExamId(Number(examId))
       .then((data) => {
         setComments(data.data);
         setIsCommentModify(false);
+        setLoading(false);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoading(false);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCommentModify]);
 
@@ -159,53 +168,65 @@ const Comments = ({ examId, onAddComment }: any) => {
   const customNoComment = () => <Empty />;
   return (
     <>
-      <CommentSection
-        currentUser={
-          isCurrentUser
-            ? {
-                currentUserId: currentUser.id,
-                currentUserImg: currentUser.avatar_url,
-                currentUserProfile: "#",
-                currentUserFullName: currentUser.user_name,
-              }
-            : null
-        }
-        logIn={{
-          loginLink: "http://localhost:3000/authentication/login",
-          signupLink: "http://localhost:3000/authentication/register",
-        }}
-        commentData={data}
-        onSubmitAction={(data: {
-          userId: string;
-          comId: string;
-          avatarUrl: string;
-          userProfile?: string;
-          fullName: string;
-          text: string;
-          replies: any;
-          commentId: string;
-        }) => handleSubmitComments(data)}
-        currentData={(data: any) => {}}
-        onDeleteAction={(data: any) => {
-          handleSubmitDelete(data);
-        }}
-        onReplyAction={(data: any) => {
-          handleSubmitReply(data);
-        }}
-        onEditAction={(data: any) => handleSubmitEdit(data)}
-        customNoComment={() => customNoComment()}
-        advancedInput={true}
-        replyInputStyle={{ borderBottom: "1px solid black", color: "black" }}
-        submitBtnStyle={{
-          padding: "7px 15px",
-        }}
-        cancelBtnStyle={{
-          border: "1px solid gray",
-          backgroundColor: "gray",
-          color: "white",
-          padding: "7px 15px",
-        }}
-      />
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <CommentSection
+          currentUser={
+            isCurrentUser
+              ? {
+                  currentUserId: currentUser.id,
+                  currentUserImg: currentUser.avatar_url,
+                  currentUserProfile: "#",
+                  currentUserFullName: currentUser.user_name,
+                }
+              : null
+          }
+          logIn={{
+            loginLink: "http://localhost:3000/authentication/login",
+            signupLink: "http://localhost:3000/authentication/register",
+          }}
+          commentData={data}
+          onSubmitAction={(data: {
+            userId: string;
+            comId: string;
+            avatarUrl: string;
+            userProfile?: string;
+            fullName: string;
+            text: string;
+            replies: any;
+            commentId: string;
+          }) => handleSubmitComments(data)}
+          currentData={(data: any) => {}}
+          onDeleteAction={(data: any) => {
+            handleSubmitDelete(data);
+          }}
+          onReplyAction={(data: any) => {
+            handleSubmitReply(data);
+          }}
+          onEditAction={(data: any) => handleSubmitEdit(data)}
+          customNoComment={() => customNoComment()}
+          advancedInput={true}
+          replyInputStyle={{ borderBottom: "1px solid black", color: "black" }}
+          submitBtnStyle={{
+            padding: "7px 15px",
+          }}
+          cancelBtnStyle={{
+            border: "1px solid gray",
+            backgroundColor: "gray",
+            color: "white",
+            padding: "7px 15px",
+          }}
+        />
+      )}
     </>
   );
 };

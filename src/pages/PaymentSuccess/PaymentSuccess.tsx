@@ -1,6 +1,7 @@
 import Button from "@/components/Button/Button";
 import { routes } from "@/routes/routes";
 import paymentApiService from "@/services/API/PaymentApiService";
+import { Box, CircularProgress, Typography } from "@mui/material";
 import classNames from "classnames/bind";
 import { useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +13,7 @@ const cx = classNames.bind(styles);
 function PaymentSuccess() {
   const [course, setCourse] = useState<any>({});
   const [count, setCount] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -43,6 +45,7 @@ function PaymentSuccess() {
     paymentApiService
       .createPayment(Number(course.id), Number(vnp_Amount) / 100)
       .then((data: any) => {
+        setLoading(false);
         toast.success(
           `Thanh toán thành công.Hệ thống sẽ chuyển đến trang chủ sau 5s nữa!`
         );
@@ -51,25 +54,48 @@ function PaymentSuccess() {
           navigate(routes.Home);
         }, 5000);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoading(false);
+      });
   }
 
   return (
     <div className={cx("body")}>
       <div className={cx("content")}>
-        <div className={cx("header")}>
-          <h2>Thanh toán thành công</h2>
-          {/* <h3>
-              Quý khách vui lòng chọn dịch vụ thanh toán theo khóa học dưới đây
-            </h3> */}
-        </div>
+        {loading ? (
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
+        ) : (
+          <>
+            <div className={cx("header")}>
+              <h2>
+                Bạn đã thanh toán thành công khóa học:
+                <Typography
+                  variant="h5"
+                  fontWeight="bold"
+                  color="red"
+                  gutterBottom
+                >
+                  {course.name}
+                </Typography>
+              </h2>
+            </div>
 
-        <Button
-          content="Quay về trang chủ"
-          primary
-          fullWidth
-          to={routes.Home}
-        />
+            <Button
+              content="Quay về trang chủ"
+              primary
+              fullWidth
+              to={routes.Home}
+            />
+          </>
+        )}
       </div>
     </div>
   );
