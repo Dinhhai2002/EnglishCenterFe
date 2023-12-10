@@ -180,12 +180,12 @@ export default function Login() {
               onSuccess={(response) => {
                 setLoading(true);
                 loginGoogleSuccess(response);
-                setLoading(false);
+                // setLoading(false);
               }}
               onFailure={(error) => {
                 setLoading(true);
                 loginGoogleError(error);
-                setLoading(false);
+                // setLoading(false);
               }}
               // cookiePolicy={"*"}
               // isSignedIn={true}
