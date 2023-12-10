@@ -177,8 +177,16 @@ export default function Login() {
               className={cx("btn_google")}
               clientId={`${process.env.REACT_APP_KEY_LOGIN_GOOGLE}`}
               buttonText="Đăng nhập"
-              onSuccess={loginGoogleSuccess}
-              onFailure={loginGoogleError}
+              onSuccess={(response) => {
+                setLoading(true);
+                loginGoogleSuccess(response);
+                setLoading(false);
+              }}
+              onFailure={(error) => {
+                setLoading(true);
+                loginGoogleError(error);
+                setLoading(false);
+              }}
               // cookiePolicy={"*"}
               // isSignedIn={true}
             />
