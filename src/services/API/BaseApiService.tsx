@@ -39,13 +39,13 @@ class BaseApiService {
         return response;
       },
       (error: AxiosError) => {
-        if (error.response?.status === 401) {
-          localStorage.removeItem("token");
-          toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
-          setTimeout(() => {
-            window.location.href = routes.Login;
-          }, 3000);
-        } else if (error.response?.status === 403) {
+        // if (error.response?.status === 401) {
+        //   localStorage.removeItem("token");
+        //   toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
+        //   setTimeout(() => {
+        //     window.location.href = routes.Login;
+        //   }, 3000);
+        if (error.response?.status === 403) {
           toast.error("Bạn không có quyền truy cập vào API này!");
         } else {
           const data: any | undefined = error.response?.data;

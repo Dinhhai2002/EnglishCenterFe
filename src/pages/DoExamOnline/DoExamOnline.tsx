@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Tab } from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Tab } from "@mui/material";
 
 import { useCountdown } from "@/components/CountDownTime/CountDownTime";
 import authenticationApiService from "@/services/API/AuthenticationApiService";
@@ -32,7 +32,8 @@ function DoExamOnline() {
   const [exam, setExam] = useState<any>({});
   const [open, setOpen] = useState(false);
   const [showDialog, setShowDialog] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [loadingButton, setLoadingButton] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -79,10 +80,13 @@ function DoExamOnline() {
     authenticationApiService
       .getDetailExam(Number(id))
       .then((data: any) => {
+        setLoading(false);
         setExam(data.data);
         setListQuestion(data.data.questions);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoading(false);
+      });
 
     // const handleBeforeReload = (e: BeforeUnloadEvent) => {
     //   e.preventDefault();
@@ -105,7 +109,7 @@ function DoExamOnline() {
     useCountdown(initialTime);
 
   const handleSubmit = () => {
-    setLoading(true);
+    setLoadingButton(true);
     // custom lai time để truyền api
     let timeComplete: string = formatTimeUtils.customTimerComplete(
       seconds > 0 ? 119 - minutes : 120 - minutes,
@@ -118,10 +122,10 @@ function DoExamOnline() {
       .create(id, timeComplete, listValue, totalQuestionSkip)
       .then((data: any) => {
         navigate(`/tests/${id}/${exam.topic_name}/results/${data.data.id}`);
-        setLoading(false);
+        setLoadingButton(false);
       })
       .catch((error: any) => {
-        setLoading(false);
+        setLoadingButton(false);
       });
   };
 
@@ -170,69 +174,96 @@ function DoExamOnline() {
               container
               spacing={2}
             >
-              <Grid className={cx("content_left")} item xs={9}>
-                <ReactAudioPlayer
-                  className={cx("audio")}
-                  src={`https://drive.google.com/uc?export=download&id=${exam.url_audio}`}
-                  controls
-                />
+              {loading ? (
+                <Grid
+                  className={cx("content_left")}
+                  item
+                  xs={9}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  <CircularProgress />
+                </Grid>
+              ) : (
+                <Grid className={cx("content_left")} item xs={9}>
+                  <ReactAudioPlayer
+                    className={cx("audio")}
+                    src={`https://drive.google.com/uc?export=download&id=${exam.url_audio}`}
+                    controls
+                  />
 
-                <Box sx={{ width: "100%", typography: "body1" }}>
-                  <TabContext value={value}>
-                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                      <TabList
-                        onChange={handleChangeTab}
-                        aria-label="lab API tabs example"
-                      >
-                        {listTabPart.map((item: any, index: any) => (
-                          <Tab
-                            key={index}
-                            label={item.label}
-                            value={item.value}
-                          />
-                        ))}
-                      </TabList>
-                    </Box>
-                    <Box>
-                      {listTabPart.map((item: any, index: any) => (
-                        <TabPanel value={item.value}>
-                          <div className={cx("list-answer")}>
-                            <Part
-                              listQuestion={listQuestion}
-                              selectedAnswers={selectedAnswers}
-                              handleRadioChange={handleRadioChange}
-                              type={Number(item.value)}
+                  <Box sx={{ width: "100%", typography: "body1" }}>
+                    <TabContext value={value}>
+                      <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                        <TabList
+                          onChange={handleChangeTab}
+                          aria-label="lab API tabs example"
+                        >
+                          {listTabPart.map((item: any, index: any) => (
+                            <Tab
+                              key={index}
+                              label={item.label}
+                              value={item.value}
                             />
-                          </div>
-                          <div className={cx("btn")}>
-                            <Button
-                              variant="contained"
-                              onClick={handleButtonClickNext}
-                            >
-                              Tiếp theo
-                            </Button>
-                          </div>
-                        </TabPanel>
-                      ))}
-                    </Box>
-                  </TabContext>
-                </Box>
-              </Grid>
+                          ))}
+                        </TabList>
+                      </Box>
+                      <Box>
+                        {listTabPart.map((item: any, index: any) => (
+                          <TabPanel value={item.value}>
+                            <div className={cx("list-answer")}>
+                              <Part
+                                listQuestion={listQuestion}
+                                selectedAnswers={selectedAnswers}
+                                handleRadioChange={handleRadioChange}
+                                type={Number(item.value)}
+                              />
+                            </div>
+                            <div className={cx("btn")}>
+                              <Button
+                                variant="contained"
+                                onClick={handleButtonClickNext}
+                              >
+                                Tiếp theo
+                              </Button>
+                            </div>
+                          </TabPanel>
+                        ))}
+                      </Box>
+                    </TabContext>
+                  </Box>
+                </Grid>
+              )}
+
               <Grid
                 sx={{ marginLeft: 4 }}
                 className={cx("content_right")}
                 item
                 xs={2.5}
               >
-                <AnswerUser
-                  minutes={minutes}
-                  seconds={seconds}
-                  handleClickOpen={handleClickOpen}
-                  listId={listId}
-                />
+                {loading ? (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                ) : (
+                  <AnswerUser
+                    minutes={minutes}
+                    seconds={seconds}
+                    handleClickOpen={handleClickOpen}
+                    listId={listId}
+                  />
+                )}
 
                 <DialogComponent
-                  loading={loading}
+                  loading={loadingButton}
                   open={open}
                   handleClose={handleClose}
                   handleSubmit={handleSubmit}

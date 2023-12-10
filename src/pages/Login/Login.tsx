@@ -34,8 +34,7 @@ export default function Login() {
   // validate
   const {
     register,
-    formState: { errors, isSubmitSuccessful },
-    reset,
+    formState: { errors },
     handleSubmit,
   } = useForm<ValidateInput>({
     resolver: zodResolver(validateSchema),
@@ -54,8 +53,6 @@ export default function Login() {
     authenticationApiService
       .Login(values.name, values.password)
       .then((data: any) => {
-        console.log(data);
-
         localStorage.setItem("token", data.data.token);
         userApiService.setToken(data.data.token);
 
