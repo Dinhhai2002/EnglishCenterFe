@@ -13,11 +13,11 @@ import { Link } from "react-router-dom";
 
 import classNames from "classnames/bind";
 import styles from "./VideoCourse.module.scss";
+import { useState } from "react";
 
 const cx = classNames.bind(styles);
 
 function ListLessons({ course, handleChangeNavigate, lessonsId, id }: any) {
-
   return (
     <>
       {course.listChapterResponses !== undefined &&
