@@ -1,8 +1,8 @@
 import authenticationApiService from "@/services/API/AuthenticationApiService";
-import lessonApiService from "@/services/API/LessonApiService";
 import {
   Box,
   Button,
+  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -25,14 +25,18 @@ const opts = {
 
 function DialogVideo({ openDialogMapVideo, id, handleCloseVideo }: any) {
   const [lessons, setLessons] = useState<any>({});
+  const [loading, setLoading] = useState(true);
 
   useLayoutEffect(() => {
     authenticationApiService
       .findOneLessons(Number(id))
       .then((data: any) => {
         setLessons(data.data);
+        setLoading(false);
       })
-      .catch((error: any) => {});
+      .catch((error: any) => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -46,51 +50,66 @@ function DialogVideo({ openDialogMapVideo, id, handleCloseVideo }: any) {
       TransitionComponent={Slide}
       transitionDuration={600}
     >
-      <DialogTitle
-        sx={{ fontWeight: 600, fontSize: 20 }}
-        id="responsive-dialog-title"
-      >
-        Video bài học
-      </DialogTitle>
-
-      <DialogContent>
-        {lessons.video_type === 0 ? (
-          <YouTube videoId={lessons.id_video} opts={opts} />
-        ) : (
-          <Iframe
-            url={`https://drive.google.com/file/d/${lessons.id_video}/preview`}
-            width="1200"
-            height="500"
-            id=""
-            className=""
-            display="block"
-            position="relative"
-          />
-        )}
-
-        <Box sx={{ mt: 2 }}>
-          <Typography>Tên bài học: {lessons.name}</Typography>
-          <Typography sx={{ mt: 2 }} variant="h6">
-            Mô tả
-          </Typography>
-          <Typography>{lessons.description}</Typography>
-          <Typography sx={{ mt: 2 }} variant="h6">
-            Nội dung
-          </Typography>
-          <Typography>{lessons.content}</Typography>
-        </Box>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          autoFocus
-          onClick={() => {
-            handleCloseVideo(id);
+      {loading ? (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            marginTop: 20,
           }}
-          variant="outlined"
         >
-          Thoát
-        </Button>
-      </DialogActions>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
+          <DialogTitle
+            sx={{ fontWeight: 600, fontSize: 20 }}
+            id="responsive-dialog-title"
+          >
+            Video bài học
+          </DialogTitle>
+
+          <DialogContent>
+            {lessons.video_type === 0 ? (
+              <YouTube videoId={lessons.id_video} opts={opts} />
+            ) : (
+              <Iframe
+                url={`https://drive.google.com/file/d/${lessons.id_video}/preview`}
+                width="1200"
+                height="500"
+                id=""
+                className=""
+                display="block"
+                position="relative"
+              />
+            )}
+
+            <Box sx={{ mt: 2 }}>
+              <Typography>Tên bài học: {lessons.name}</Typography>
+              <Typography sx={{ mt: 2 }} variant="h6">
+                Mô tả
+              </Typography>
+              <Typography>{lessons.description}</Typography>
+              <Typography sx={{ mt: 2 }} variant="h6">
+                Nội dung
+              </Typography>
+              <Typography>{lessons.content}</Typography>
+            </Box>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              autoFocus
+              onClick={() => {
+                handleCloseVideo(id);
+              }}
+              variant="outlined"
+            >
+              Thoát
+            </Button>
+          </DialogActions>
+        </>
+      )}
     </Dialog>
   );
 }

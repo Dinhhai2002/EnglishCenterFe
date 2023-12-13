@@ -15,6 +15,7 @@ import AnswerUser from "./AnswerUser";
 import DialogComponent from "./DialogComponent";
 import styles from "./DoExamOnline.module.scss";
 import Part from "./Part";
+import examApiService from "@/services/API/ExamApiService";
 
 const cx = classNames.bind(styles);
 
@@ -77,8 +78,8 @@ function DoExamOnline() {
   };
 
   useEffect(() => {
-    authenticationApiService
-      .getDetailExam(Number(id))
+    examApiService
+      .findOne(Number(id))
       .then((data: any) => {
         setLoading(false);
         setExam(data.data);
