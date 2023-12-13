@@ -13,6 +13,7 @@ import {
   DeleteError,
 } from "@/utils/MessageToast";
 import { Box, CircularProgress } from "@mui/material";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 
 const Comments = ({ examId, onAddComment }: any) => {
   const [comments, setComments] = useState<any>([]);
@@ -22,8 +23,8 @@ const Comments = ({ examId, onAddComment }: any) => {
   const { currentUser, isCurrentUser } = utils.getCurrentUser();
 
   useEffect(() => {
-    commentsApiService
-      .getByExamId(Number(examId))
+    authenticationApiService
+      .getCommentsByExamId(Number(examId))
       .then((data) => {
         setComments(data.data);
         setLoading(false);
@@ -36,8 +37,8 @@ const Comments = ({ examId, onAddComment }: any) => {
 
   useEffect(() => {
     setLoading(true);
-    commentsApiService
-      .getByExamId(Number(examId))
+    authenticationApiService
+      .getCommentsByExamId(Number(examId))
       .then((data) => {
         setComments(data.data);
         setIsCommentModify(false);
@@ -191,8 +192,8 @@ const Comments = ({ examId, onAddComment }: any) => {
               : null
           }
           logIn={{
-            loginLink: "http://localhost:3000/authentication/login",
-            signupLink: "http://localhost:3000/authentication/register",
+            loginLink: `${process.env.REACT_APP_BASE_URL_FE}/authentication/login`,
+            signupLink: `${process.env.REACT_APP_BASE_URL_FE}/authentication/register`,
           }}
           commentData={data}
           onSubmitAction={(data: {

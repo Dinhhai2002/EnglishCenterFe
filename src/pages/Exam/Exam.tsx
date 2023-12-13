@@ -1,9 +1,7 @@
-import examApiService from "@/services/API/ExamApiService";
-import topicExamApiService from "@/services/API/TopicExamApiService";
 
 import { useEffect, useState } from "react";
 
-import categoryExamAdminApiService from "@/services/API/Admin/CategoryExamAdminApiService";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 import classNames from "classnames/bind";
 import styles from "./Exam.module.scss";
 import ListExam from "./ListExam";
@@ -19,27 +17,26 @@ function Exam() {
   const [loading, setLoading] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
 
-
   useEffect(() => {
-    categoryExamAdminApiService
-      .getAll("", 1, 1, 10)
+    authenticationApiService
+      .getAllCategoryExam()
       .then((data: any) => {
-        setListCategoryExam(data.data.list);
+        setListCategoryExam(data.data);
         setLoading(false);
       })
       .catch((error: any) => {
         setLoading(false);
       });
 
-    topicExamApiService
-      .getAll()
+    authenticationApiService
+      .getAllTopic()
       .then((data: any) => {
         setListTopicExam(data.data);
       })
       .catch((error: any) => {});
 
-    examApiService
-      .getAll(-1, -1, 1, "", 0, 20)
+    authenticationApiService
+      .getAllExam(-1, -1, 1, "", 0, 20)
       .then((data: any) => {
         setListExam(data.data.list);
         setTotalRecord(data.data.total_record);
@@ -56,8 +53,8 @@ function Exam() {
     limit: number
   ) => {
     setLoadingButton(true);
-    examApiService
-      .getAll(categoryId, topicId, status, keySearch, page, limit)
+    authenticationApiService
+      .getAllExam(categoryId, topicId, status, keySearch, page, limit)
       .then((data: any) => {
         setListExam(data.data.list);
         setTotalRecord(data.data.total_record);

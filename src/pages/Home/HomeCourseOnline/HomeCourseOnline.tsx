@@ -86,7 +86,7 @@ function HomeCourseOnline({
   return (
     <>
       <div className={cx("slider")}>
-        {isBanner && (
+        {/* {isBanner && (
           <div className={cx("content_course")}>
             <Image
               className={cx("image")}
@@ -94,7 +94,7 @@ function HomeCourseOnline({
               alt="noImage"
             />
           </div>
-        )}
+        )} */}
       </div>
       <ListCourseOnline
         listCourseOnline={isUserCourse ? listCourseUser : listCourseOnline}

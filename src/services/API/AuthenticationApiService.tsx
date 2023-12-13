@@ -244,6 +244,7 @@ class AuthenticationApiService extends BaseApiService {
   }
 
   public async getAllExam(
+    categoryExamId: number,
     topicExamId: number,
     status: number,
     keySearch: string,
@@ -253,6 +254,7 @@ class AuthenticationApiService extends BaseApiService {
     try {
       const response = await this.api.get(`/authentication/list-exam`, {
         params: {
+          category_exam_id: categoryExamId,
           topic_exam_id: topicExamId,
           status: status,
           key_search: keySearch,
@@ -263,7 +265,26 @@ class AuthenticationApiService extends BaseApiService {
 
       return response.data;
     } catch (error) {
-      console.error("Error:", error);
+      throw error;
+    }
+  }
+
+  public async getAllTopic(): Promise<any> {
+    try {
+      const response = await this.api.get(`/authentication/list-topic`);
+
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getAllCategoryExam(): Promise<any> {
+    try {
+      const response = await this.api.get(`/authentication/list-category-exam`);
+
+      return response.data;
+    } catch (error) {
       throw error;
     }
   }
@@ -318,6 +339,34 @@ class AuthenticationApiService extends BaseApiService {
       return response.data;
     } catch (error: any) {
       throw new Error(error.message);
+    }
+  }
+
+  public async getCommentsByExamId(exam_id: number): Promise<any> {
+    try {
+      const response = await this.api.get(
+        `/authentication/comments/get-by-exam`,
+        {
+          params: {
+            exam_id: exam_id,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async findOneLessons(id: any): Promise<any> {
+    try {
+      const response = await this.api.get(
+        `/authentication/lessons/${id}/detail`
+      );
+
+      return response.data;
+    } catch (error) {
+      throw error;
     }
   }
 }

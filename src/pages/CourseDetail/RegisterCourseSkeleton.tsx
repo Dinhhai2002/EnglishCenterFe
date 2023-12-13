@@ -35,6 +35,7 @@ function RegisterCourseSkeleton() {
       <div className={cx("list")}>
         {Array.from({ length: 4 }).map((_, index) => (
           <Skeleton
+            key={index}
             sx={{ margin: "2px auto", borderRadius: 5 }}
             variant="text"
             width={300}

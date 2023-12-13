@@ -13,6 +13,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import InforExam from "./InforExam";
 import TabBar from "./TabBar";
 import { Box, CircularProgress } from "@mui/material";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 
 const cx = classNames.bind(styles);
 
@@ -36,8 +37,8 @@ function ExamDetail() {
   };
 
   useEffect(() => {
-    examApiService
-      .findOne(Number(id))
+    authenticationApiService
+      .getDetailExam(Number(id))
       .then((data: any) => {
         setExam(data.data);
         setLoading(false);

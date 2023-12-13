@@ -7,9 +7,9 @@ import styles from "./CourseOnline.module.scss";
 const cx = classNames.bind(styles);
 
 const images = [
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/TALK-baner-home-3.jpg?alt=media",
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner1.jpg?alt=media",
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/baner-home-1.png?alt=media",
+  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv1.png?alt=media",
+  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv2.png?alt=media",
+  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv3.png?alt=media",
 ];
 
 function CourseOnline() {

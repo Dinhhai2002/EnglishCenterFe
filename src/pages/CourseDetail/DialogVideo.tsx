@@ -1,3 +1,4 @@
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 import lessonApiService from "@/services/API/LessonApiService";
 import {
   Box,
@@ -26,8 +27,8 @@ function DialogVideo({ openDialogMapVideo, id, handleCloseVideo }: any) {
   const [lessons, setLessons] = useState<any>({});
 
   useLayoutEffect(() => {
-    lessonApiService
-      .getDetail(Number(id))
+    authenticationApiService
+      .findOneLessons(Number(id))
       .then((data: any) => {
         setLessons(data.data);
       })

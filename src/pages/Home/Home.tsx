@@ -14,9 +14,9 @@ import authenticationApiService from "@/services/API/AuthenticationApiService";
 const cx = classNames.bind(styles);
 
 const images = [
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/TALK-baner-home-3.jpg?alt=media",
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner1.jpg?alt=media",
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/baner-home-1.png?alt=media",
+  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv1.png?alt=media",
+  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv2.png?alt=media",
+  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv3.png?alt=media",
 ];
 
 const Home = () => {
@@ -26,7 +26,7 @@ const Home = () => {
 
   useLayoutEffect(() => {
     authenticationApiService
-      .getAllExam(-1, 1, "", 1, 8)
+      .getAllExam(-1, -1, 1, "", 1, 8)
       .then((data: any) => {
         setListExam(data.data.list);
         setIsLoading(false);

@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { SelectChangeEvent } from "@mui/material/Select";
-import TextField from "@mui/material/TextField";
 
 import Button from "@/components/Button/Button";
 import Target from "@/components/Target/Target";
@@ -9,19 +8,18 @@ import targetApiService from "@/services/API/TargetApiService";
 import formatTimeUtils from "@/utils/FormatTimeUtils";
 import utils from "@/utils/Utils";
 
-import DropDown from "@/components/DropDown/DropDown";
-import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
+import { routes } from "@/routes/routes";
+import { RequiredLogin } from "@/utils/MessageToast";
 import classNames from "classnames/bind";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import HomeNewExam from "../Home/HomeNewExam/HomeNewExam";
+import SearchExam from "./component/SearchExam";
 import DialogTarget from "./DialogTarget";
 import styles from "./Exam.module.scss";
-import Category from "./component/Category";
-import CategorySkeleton from "./component/CategorySkeleton";
-import { LoadingButton } from "@mui/lab";
 
 const cx = classNames.bind(styles);
 
@@ -47,7 +45,8 @@ export default function ListExam({
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
 
-  const { currentUser } = utils.getCurrentUser();
+  const navigate = useNavigate();
+  const { currentUser, isCurrentUser } = utils.getCurrentUser();
 
   const handleChangePoint = (event: any) => {
     const result = event.target.value.replace(/\D/g, "");
@@ -56,6 +55,12 @@ export default function ListExam({
   };
 
   const handleClickOpen = () => {
+    if (!isCurrentUser) {
+      navigate(routes.Login);
+      toast.error(`${RequiredLogin}`);
+      return;
+    }
+
     setOpen(true);
   };
 
@@ -68,15 +73,17 @@ export default function ListExam({
   };
 
   useEffect(() => {
-    targetApiService
-      .getByUserId()
-      .then((data: any) => {
-        setTarget(data.data);
-        setIsTarget(true);
-      })
-      .catch((error: any) => {
-        setIsTarget(false);
-      });
+    currentUser &&
+      targetApiService
+        .getByUserId()
+        .then((data: any) => {
+          setTarget(data.data);
+          setIsTarget(true);
+        })
+        .catch((error: any) => {
+          setIsTarget(false);
+        });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -88,8 +95,6 @@ export default function ListExam({
   }, [limit]);
 
   const handleSubmit = () => {
-    console.log(123);
-
     onClickPagination(categoryId, Number(topic), 1, keySearch, page, limit);
   };
 
@@ -131,61 +136,19 @@ export default function ListExam({
   return (
     <Box sx={{ width: "100%", marginTop: 4, marginBottom: 5 }}>
       <Grid container spacing={2}>
-        <Grid container item xs={8}>
-          <Grid item xs={2}>
-            <Button
-              onClick={() => {
-                handleClickCategory(-1);
-                setActive(undefined);
-              }}
-              block
-              content={"Tất cả"}
-              transparent
-              active={active === undefined}
-            />
-          </Grid>
-          {loading
-            ? Array.from({ length: 5 }).map((_, index) => <CategorySkeleton />)
-            : listCategoryExam.map((item: any, index: number) => (
-                <Category
-                  item={item}
-                  index={index}
-                  handleClickCategory={handleClickCategory}
-                  setActive={setActive}
-                  active={active}
-                />
-              ))}
-
-          <Grid item xs={8}>
-            <TextField
-              fullWidth
-              label="Nhập từ khóa để tìm kiếm"
-              id="fullWidth"
-              name="keySearch"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setKeySearch(event.target.value);
-              }}
-            />
-          </Grid>
-          <Grid sx={{ marginLeft: 2 }} item xs={3}>
-            <DropDown
-              value={topic}
-              onChange={handleChangeTopic}
-              listValue={listTopicExam}
-              isValueAll={true}
-              label="Bộ đề thi"
-            />
-          </Grid>
-          <Grid sx={{ marginTop: 4 }} item xs={3}>
-            <LoadingButton
-              variant="outlined"
-              loading={loadingButton}
-              onClick={handleSubmit}
-            >
-              Tìm kiếm
-            </LoadingButton>
-          </Grid>
-        </Grid>
+        <SearchExam
+          handleClickCategory={handleClickCategory}
+          setActive={setActive}
+          active={active}
+          loading={loading}
+          listCategoryExam={listCategoryExam}
+          setKeySearch={setKeySearch}
+          topic={topic}
+          handleChangeTopic={handleChangeTopic}
+          listTopicExam={listTopicExam}
+          loadingButton={loadingButton}
+          handleSubmit={handleSubmit}
+        />
         <Grid item xs>
           {currentUser && isTarget ? (
             <Target
