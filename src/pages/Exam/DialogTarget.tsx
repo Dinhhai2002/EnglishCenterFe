@@ -1,4 +1,5 @@
 import Button from "@/components/Button/Button";
+import FormatTimeUtils from "@/utils/FormatTimeUtils";
 import CloseIcon from "@mui/icons-material/Close";
 import {
   Dialog,
@@ -14,6 +15,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 
 import classNames from "classnames/bind";
+import dayjs from "dayjs";
 import styles from "./Exam.module.scss";
 
 const cx = classNames.bind(styles);
@@ -25,6 +27,7 @@ function DialogTarget({
   point,
   handleChangePoint,
   handleSubmitTarget,
+  dateTarget,
 }: any) {
   return (
     <Dialog
@@ -62,6 +65,15 @@ function DialogTarget({
                   // value={target.time_exam ?target.time_exam: ""}
                   onChange={(newValue: any) => setCurrentDate(newValue)}
                   views={["year", "month", "day"]}
+                  defaultValue={
+                    dateTarget
+                      ? dayjs(
+                          new Date(
+                            FormatTimeUtils.createDateFromDMY(dateTarget)
+                          )
+                        )
+                      : dayjs(new Date())
+                  }
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -76,7 +88,7 @@ function DialogTarget({
               label="Điểm"
               type="number"
               autoComplete="point"
-              value={point}
+              value={point ? point : 0}
               onChange={handleChangePoint}
             />
           </div>

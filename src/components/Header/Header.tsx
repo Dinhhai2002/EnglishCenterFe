@@ -60,7 +60,6 @@ const Header = () => {
     },
   ];
 
-
   return (
     <header className={cx("header")}>
       <div className={cx("header-left")}>
@@ -110,7 +109,7 @@ const Header = () => {
             )}
           >
             <div className={cx("element")}>
-              <Link className={cx("element-link")} to={routes.MyAccount}>
+              <Link className={cx("element-link")} to={routes.Profile}>
                 <Image src={currentUser.avatar_url} alt="Error" />
                 <FontAwesomeIcon icon={faChevronDown} />
               </Link>

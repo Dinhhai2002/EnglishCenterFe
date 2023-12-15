@@ -12,7 +12,6 @@ const cx = classNames.bind(styles);
 
 function PaymentSuccess() {
   const [course, setCourse] = useState<any>({});
-  const [count, setCount] = useState<number>(0);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
@@ -34,16 +33,15 @@ function PaymentSuccess() {
   // const vnp_TxnRef = url.searchParams.get("vnp_TxnRef");
   // const vnp_SecureHash = url.searchParams.get("vnp_SecureHash");
 
+  // số tiền gửi qua bên vnpay *100 nên phải chia lại
   useLayoutEffect(() => {
     const jsonCourse: any = localStorage.getItem("course");
     setCourse(JSON.parse(jsonCourse));
-    setCount(count + 1);
-  }, []);
-
-  //   số tiền gửi qua bên vnpay *100 nên phải chia lại
-  if (count === 1) {
     paymentApiService
-      .createPayment(Number(course.id), Number(vnp_Amount) / 100)
+      .createPayment(
+        Number(JSON.parse(jsonCourse).id),
+        Number(vnp_Amount) / 100
+      )
       .then((data: any) => {
         setLoading(false);
         toast.success(
@@ -57,7 +55,7 @@ function PaymentSuccess() {
       .catch((error: any) => {
         setLoading(false);
       });
-  }
+  }, []);
 
   return (
     <div className={cx("body")}>

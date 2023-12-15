@@ -1,3 +1,4 @@
+import Empty from "@/components/Empty/Empty";
 import resultApiService from "@/services/API/ResultApiService";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
@@ -30,18 +31,22 @@ function ResultExam() {
       </div>
       <div className={cx("content")}>
         <div className={cx("content-list-4")}>
-          {isLoading
-            ? /* Skeleton component to show loading state */
-              Array.from({ length: 8 }).map((_, index) => (
-                <div key={index} className={cx("content-item-4")}>
-                  <ResultExamItemSkeleton />
-                </div>
-              ))
-            : listResult.map((item: any, index: number) => (
-                <div key={index} className={cx("content-item-4")}>
-                  <ResultExamItem item={item} />
-                </div>
-              ))}
+          {isLoading ? (
+            /* Skeleton component to show loading state */
+            Array.from({ length: 8 }).map((_, index) => (
+              <div key={index} className={cx("content-item-4")}>
+                <ResultExamItemSkeleton />
+              </div>
+            ))
+          ) : listResult.length > 0 ? (
+            listResult.map((item: any, index: number) => (
+              <div key={index} className={cx("content-item-4")}>
+                <ResultExamItem item={item} />
+              </div>
+            ))
+          ) : (
+            <Empty />
+          )}
         </div>
       </div>
     </div>

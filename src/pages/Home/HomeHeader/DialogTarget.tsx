@@ -63,9 +63,15 @@ function DialogTarget({
                   // value={dateTarget}
                   onChange={(newValue: any) => setCurrentDate(newValue)}
                   views={["year", "month", "day"]}
-                  defaultValue={dayjs(
-                    new Date(FormatTimeUtils.createDateFromDMY(dateTarget))
-                  )}
+                  defaultValue={
+                    dateTarget
+                      ? dayjs(
+                          new Date(
+                            FormatTimeUtils.createDateFromDMY(dateTarget)
+                          )
+                        )
+                      : dayjs(new Date())
+                  }
                 />
               </DemoContainer>
             </LocalizationProvider>
@@ -80,7 +86,7 @@ function DialogTarget({
               label="Điểm"
               type="number"
               autoComplete="point"
-              value={point}
+              value={point ? point : 0}
               onChange={handleChangePoint}
             />
           </div>

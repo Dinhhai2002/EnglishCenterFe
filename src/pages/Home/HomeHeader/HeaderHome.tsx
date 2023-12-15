@@ -22,7 +22,7 @@ const cx = classNames.bind(styles);
 
 function HeaderHome({ username }: any) {
   const [open, setOpen] = useState(false);
-  const [currentDate, setCurrentDate] = useState("");
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [dateTarget, setDateTarget] = useState("");
   const [target, setTarget] = useState<any>({});
   const [point, setPoint] = useState("");
@@ -77,6 +77,11 @@ function HeaderHome({ username }: any) {
 
     if (validateDate < 0) {
       toast.error(`Ngày nhập vào phải lớn hơn ngày hiện tại`);
+      return;
+    }
+
+    if (Number(point) > 990) {
+      toast.error(`Số điểm tối đa là 990`);
       return;
     }
 

@@ -36,7 +36,7 @@ export default function ListExam({
   const [topic, setTopic] = useState("-1");
   const [keySearch, setKeySearch] = useState("");
   const [open, setOpen] = useState(false);
-  const [currentDate, setCurrentDate] = useState("");
+  const [currentDate, setCurrentDate] = useState(new Date());
   const [dateTarget, setDateTarget] = useState("");
   const [target, setTarget] = useState<any>({});
   const [point, setPoint] = useState("");
@@ -121,9 +121,13 @@ export default function ListExam({
       toast.error(`Ngày nhập vào phải lớn hơn ngày hiện tại`);
       return;
     }
+    if (Number(point) > 990) {
+      toast.error(`Số điểm tối đa là 990`);
+      return;
+    }
 
     targetApiService
-      .create(formattedDate, point)
+      .create(formattedDate, Number(point))
       .then((data: any) => {
         setTarget(data.data);
         setPoint(target.point_target);

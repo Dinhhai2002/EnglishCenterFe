@@ -93,12 +93,12 @@ export default function Register() {
     resolver: zodResolver(validateSchema),
   });
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitSuccessful]);
+  // useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     reset();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<ValidateInput> = (values: any) => {
     setLoading(true);
