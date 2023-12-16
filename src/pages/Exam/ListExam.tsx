@@ -2,7 +2,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { SelectChangeEvent } from "@mui/material/Select";
 
-import Button from "@/components/Button/Button";
 import Target from "@/components/Target/Target";
 import targetApiService from "@/services/API/TargetApiService";
 import formatTimeUtils from "@/utils/FormatTimeUtils";
@@ -20,6 +19,7 @@ import HomeNewExam from "../Home/HomeNewExam/HomeNewExam";
 import SearchExam from "./component/SearchExam";
 import DialogTarget from "./DialogTarget";
 import styles from "./Exam.module.scss";
+import { Button } from "@mui/material";
 
 const cx = classNames.bind(styles);
 
@@ -165,12 +165,14 @@ export default function ListExam({
             />
           ) : (
             <div className={cx("btn-target")}>
-              <h4>Chưa tạo mục tiêu</h4>
+              <h4>Chưa có mục tiêu</h4>
               <Button
-                content="Tạo mục tiêu"
-                primary
+                sx={{ marginTop: 1 }}
+                variant="contained"
                 onClick={handleClickOpen}
-              />
+              >
+                Tạo mục tiêu
+              </Button>
             </div>
           )}
         </Grid>

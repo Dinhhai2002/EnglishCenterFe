@@ -6,10 +6,11 @@ import imageHeader from "@/assets/image/Header.png";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tippy from "@tippyjs/react/headless";
-import Button from "../Button/Button";
 import Image from "../Image/Image";
 import Wrapper from "../Popper/Wrapper";
 import { routes } from "@/routes/routes";
+import { NavLink as RouterLink } from "react-router-dom";
+import { Button } from "@mui/material";
 
 const cx = classNames.bind(styles);
 
@@ -47,15 +48,15 @@ const Header = () => {
 
   const listNavbar = [
     {
-      content: "Khóa học của tôi",
+      content: "KHÓA HỌC CỦA TÔI",
       to: `${routes.Profile}`,
     },
     {
-      content: "Khóa học online",
+      content: "KHÓA HỌC ONLINE",
       to: `${routes.CourseOnline}`,
     },
     {
-      content: "Đề thi online",
+      content: "ĐỀ THI ONLINE",
       to: `${routes.Exam}`,
     },
   ];
@@ -116,8 +117,24 @@ const Header = () => {
             </div>
           </Tippy>
         ) : (
-          <div className={cx("element")}>
-            <Button content="Đăng nhập" block primary to={routes.Login} />
+          <div className={cx("element-btn")}>
+            <Button
+              disableRipple
+              component={RouterLink}
+              variant="contained"
+              to={routes.Login}
+            >
+              Đăng nhập
+            </Button>
+            <Button
+              sx={{ marginLeft: 1 }}
+              disableRipple
+              component={RouterLink}
+              variant="contained"
+              to={routes.Register}
+            >
+              Đăng ký
+            </Button>
           </div>
         )}
       </div>
