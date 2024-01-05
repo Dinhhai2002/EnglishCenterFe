@@ -17,7 +17,7 @@ import PaymentSuccess from "@/pages/PaymentSuccess/PaymentSuccess";
 import Profile from "@/pages/Profile/Profile";
 import Register from "@/pages/Register/Register";
 import ResetPassword from "@/pages/ResetPassword/ResetPassword";
-import ResultExamDetail from "@/pages/ResultExamDetail/ResultExamDetail";
+import { ResultExamDetail } from "@/pages/ResultExamDetail/ResultExamDetail";
 import StudyPlan from "@/pages/StudyPlan/StudyPlan";
 import VideoCourse from "@/pages/VideoCourse/VideoCourse";
 import { Suspense } from "react";
