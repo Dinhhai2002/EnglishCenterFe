@@ -100,6 +100,7 @@ const Header = () => {
                         className={cx("element-link")}
                         to={item.to}
                         onClick={item.event}
+                        key={item.content}
                       >
                         <p>{item.content}</p>
                       </Link>

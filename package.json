@@ -39,6 +39,7 @@
     "react-hook-form": "^7.47.0",
     "react-iframe": "^1.8.5",
     "react-player": "^2.13.0",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.14.1",
     "react-router-prompt": "^0.5.4",
     "react-scripts": "5.0.1",

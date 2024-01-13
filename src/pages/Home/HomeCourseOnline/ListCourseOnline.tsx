@@ -1,4 +1,3 @@
-import Button from "@/components/Button/Button";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
 import { LoadingButton } from "@mui/lab";
 import { Grid, TextField } from "@mui/material";
@@ -32,12 +31,7 @@ function ListCourseOnline({
   useEffect(() => {
     onClickPagination(keySearch, page, limit);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
-
-  useEffect(() => {
-    onClickPagination(keySearch, 1, limit);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [limit]);
+  }, [page, limit]);
 
   return (
     <>
@@ -61,7 +55,7 @@ function ListCourseOnline({
                 setKeySearch(event.target.value);
               }}
             />
-             <LoadingButton
+            <LoadingButton
               variant="contained"
               loading={loading}
               onClick={handleSubmit}
@@ -69,7 +63,6 @@ function ListCourseOnline({
               Tìm kiếm
             </LoadingButton>
           </Grid>
-
         </div>
         <div className={cx("content")}>
           <div className={cx("content-list-3")}>

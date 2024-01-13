@@ -50,9 +50,6 @@ export function ResultExamDetail() {
   };
 
   return (
-    // <ResultContext.Provider
-    //   value={{ handleClickOpenDetail, handleCloseDetail, openDialogMapDetail }}
-    // >
     <div className={cx("body")}>
       <div className={cx("container")}>
         <div className={cx("content")}>
@@ -78,8 +75,5 @@ export function ResultExamDetail() {
         </div>
       </div>
     </div>
-    /* </ResultContext.Provider> */
   );
 }
-
-// export default ResultContext;

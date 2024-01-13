@@ -1,21 +1,16 @@
+import CloseDialog from "@/components/CloseDialog/CloseDialog";
 import {
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
-  IconButton,
   TextField,
-  Zoom,
+  Zoom
 } from "@mui/material";
-import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import CloseIcon from "@mui/icons-material/Close";
 import classNames from "classnames/bind";
+import DateComponent from "./DateComponent";
 import styles from "./Header.module.scss";
-import dayjs from "dayjs";
-import FormatTimeUtils from "@/utils/FormatTimeUtils";
 
 const cx = classNames.bind(styles);
 function DialogTarget({
@@ -38,43 +33,16 @@ function DialogTarget({
     >
       <DialogTitle sx={{ fontSize: 16 }} id="alert-dialog-title">
         {"Thay đổi điểm mục tiêu"}
-        <IconButton
-          aria-label="close"
-          onClick={handleClose}
-          sx={{
-            position: "absolute",
-            right: 8,
-            top: 8,
-            color: (theme) => theme.palette.grey[500],
-            fontSize: 20,
-          }}
-        >
-          <CloseIcon />
-        </IconButton>
       </DialogTitle>
+      <CloseDialog handleCloseDialog={handleClose} />
       <DialogContent>
         <div className={cx("modal")}>
           <div className={cx("modal-item")}>
             <h3 style={{ marginBottom: "20px" }}>Ngày dự thi</h3>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DemoContainer components={["DatePicker"]}>
-                <DatePicker
-                  label="Ngày dự thi"
-                  // value={dateTarget}
-                  onChange={(newValue: any) => setCurrentDate(newValue)}
-                  views={["year", "month", "day"]}
-                  defaultValue={
-                    dateTarget
-                      ? dayjs(
-                          new Date(
-                            FormatTimeUtils.createDateFromDMY(dateTarget)
-                          )
-                        )
-                      : dayjs(new Date())
-                  }
-                />
-              </DemoContainer>
-            </LocalizationProvider>
+            <DateComponent
+              setCurrentDate={setCurrentDate}
+              dateTarget={dateTarget}
+            />
           </div>
           <div className={cx("modal-item")}>
             <h3>Điểm mục tiêu</h3>

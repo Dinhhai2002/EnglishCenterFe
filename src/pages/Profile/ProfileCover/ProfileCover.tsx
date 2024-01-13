@@ -15,22 +15,21 @@ const ProfileCover = () => {
   const [user, setUser] = useState<any>({});
   const [changeData, setChangeData] = useState<any>(true);
 
-  useLayoutEffect(() => {
+  const fetchUser = () => {
     userApiService
       .getUser()
       .then((data: any) => {
         setUser(data.data);
       })
       .catch((error: any) => {});
+  };
+
+  useLayoutEffect(() => {
+    fetchUser();
   }, []);
 
   useEffect(() => {
-    userApiService
-      .getUser()
-      .then((data: any) => {
-        setUser(data.data);
-      })
-      .catch((error: any) => {});
+    fetchUser();
   }, [changeData]);
 
   return (

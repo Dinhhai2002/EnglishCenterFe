@@ -1,4 +1,3 @@
-import { createTheme, ThemeProvider } from "@mui/material";
 import classNames from "classnames/bind";
 import { Zoom } from "react-slideshow-image";
 import HomeCourseOnline from "../Home/HomeCourseOnline/HomeCourseOnline";

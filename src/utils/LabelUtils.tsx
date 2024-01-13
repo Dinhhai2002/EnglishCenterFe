@@ -58,7 +58,7 @@ export const labelTableResult = [
     name: "Ngày làm bài",
   },
   {
-    id: 6,
+    id: 7,
     name: "Xem chi tiết",
   },
 ];
@@ -106,6 +106,21 @@ export const labelTablePaymentHistory = [
   {
     id: 5,
     name: "Ngày thanh toán",
+  },
+];
+
+export const labelTableNote = [
+  {
+    id: 1,
+    name: "Mã ghi chú",
+  },
+  {
+    id: 2,
+    name: "Nội dung ghi chú",
+  },
+  {
+    id: 3,
+    name: "Chỉnh sửa",
   },
 ];
 

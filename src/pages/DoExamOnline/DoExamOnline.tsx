@@ -1,11 +1,11 @@
-import { Box, Button, CircularProgress, Grid, Tab } from "@mui/material";
+import { Box, CircularProgress, Grid, Tab } from "@mui/material";
 
 import { useCountdown } from "@/components/CountDownTime/CountDownTime";
-import authenticationApiService from "@/services/API/AuthenticationApiService";
+import examApiService from "@/services/API/ExamApiService";
 import resultApiService from "@/services/API/ResultApiService";
 import formatTimeUtils from "@/utils/FormatTimeUtils";
 import { listTabPart } from "@/utils/LabelUtils";
-import { TabContext, TabList, TabPanel } from "@mui/lab";
+import { TabContext, TabList } from "@mui/lab";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import ReactAudioPlayer from "react-audio-player";
@@ -14,8 +14,7 @@ import { toast } from "react-toastify";
 import AnswerUser from "./AnswerUser";
 import DialogComponent from "./DialogComponent";
 import styles from "./DoExamOnline.module.scss";
-import Part from "./Part";
-import examApiService from "@/services/API/ExamApiService";
+import ViewQuestion from "./ViewQuestion";
 
 const cx = classNames.bind(styles);
 
@@ -112,7 +111,7 @@ function DoExamOnline() {
   const handleSubmit = () => {
     setLoadingButton(true);
     // custom lai time để truyền api
-    let timeComplete: string = formatTimeUtils.customTimerComplete(
+    let timeComplete: string = formatTimeUtils.customTimerCompleteExam(
       seconds > 0 ? 119 - minutes : 120 - minutes,
       seconds > 0 ? 60 - seconds : 0
     );
@@ -189,11 +188,20 @@ function DoExamOnline() {
                 </Grid>
               ) : (
                 <Grid className={cx("content_left")} item xs={9}>
-                  <ReactAudioPlayer
+                  {/* <ReactAudioPlayer
                     className={cx("audio")}
-                    src={`https://drive.google.com/uc?export=download&id=${exam.url_audio}`}
+                    // src={`https://drive.google.com/uc?export=download&id=${exam.url_audio}`}
+                    src={`https://drive.google.com/file/d/${exam.url_audio}/preview`}
                     controls
-                  />
+                  /> */}
+                  <iframe
+                    title="audio-player"
+                    width="100%"
+                    height="50"
+                    frameBorder="0"
+                    scrolling="no"
+                    src={`https://drive.google.com/file/d/${exam.url_audio}/preview`}
+                  ></iframe>
 
                   <Box sx={{ width: "100%", typography: "body1" }}>
                     <TabContext value={value}>
@@ -211,28 +219,12 @@ function DoExamOnline() {
                           ))}
                         </TabList>
                       </Box>
-                      <Box>
-                        {listTabPart.map((item: any, index: any) => (
-                          <TabPanel value={item.value}>
-                            <div className={cx("list-answer")}>
-                              <Part
-                                listQuestion={listQuestion}
-                                selectedAnswers={selectedAnswers}
-                                handleRadioChange={handleRadioChange}
-                                type={Number(item.value)}
-                              />
-                            </div>
-                            <div className={cx("btn")}>
-                              <Button
-                                variant="contained"
-                                onClick={handleButtonClickNext}
-                              >
-                                Tiếp theo
-                              </Button>
-                            </div>
-                          </TabPanel>
-                        ))}
-                      </Box>
+                      <ViewQuestion
+                        listQuestion={listQuestion}
+                        selectedAnswers={selectedAnswers}
+                        handleRadioChange={handleRadioChange}
+                        handleButtonClickNext={handleButtonClickNext}
+                      />
                     </TabContext>
                   </Box>
                 </Grid>

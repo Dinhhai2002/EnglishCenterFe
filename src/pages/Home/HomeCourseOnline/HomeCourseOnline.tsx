@@ -1,4 +1,3 @@
-import Image from "@/components/Image/Image";
 import courseAdminApiService from "@/services/API/Admin/CourseAdminApiService";
 import authenticationApiService from "@/services/API/AuthenticationApiService";
 import utils from "@/utils/Utils";
@@ -23,29 +22,47 @@ function HomeCourseOnline({
 
   const { isCurrentUser } = utils.getCurrentUser();
 
+  const fetchCourseNotLogin = (
+    keySearch: string,
+    status: number,
+    page: number,
+    limit: number
+  ) => {
+    authenticationApiService
+      .getAllCourse(keySearch, status, page, limit)
+      .then((data: any) => {
+        setListCourseOnline(data.data.list);
+        setTotalRecord(data.data.total_record);
+        setLoading(false);
+      })
+      .catch((error: any) => {
+        setLoading(false);
+      });
+  };
+
+  const fetchCourse = (
+    keySearch: string,
+    status: number,
+    page: number,
+    limit: number
+  ) => {
+    courseAdminApiService
+      .getAll(keySearch, status, page, limit)
+      .then((data: any) => {
+        setListCourseOnline(data.data.list);
+        setTotalRecord(data.data.total_record);
+        setLoading(false);
+      })
+      .catch((error: any) => {
+        setLoading(false);
+      });
+  };
+
   useEffect(() => {
     if (isCurrentUser === false) {
-      authenticationApiService
-        .getAllCourse("", 1, 0, 6)
-        .then((data: any) => {
-          setListCourseOnline(data.data.list);
-          setTotalRecord(data.data.total_record);
-          setLoading(false);
-        })
-        .catch((error: any) => {
-          setLoading(false);
-        });
+      fetchCourseNotLogin("", 1, 0, 6);
     } else {
-      courseAdminApiService
-        .getAll("", 1, 0, 6)
-        .then((data: any) => {
-          setListCourseOnline(data.data.list);
-          setTotalRecord(data.data.total_record);
-          setLoading(false);
-        })
-        .catch((error: any) => {
-          setLoading(false);
-        });
+      fetchCourse("", 1, 0, 6);
     }
   }, [isCurrentUser]);
 
@@ -55,27 +72,9 @@ function HomeCourseOnline({
     limit: number
   ) => {
     if (isCurrentUser === false) {
-      authenticationApiService
-        .getAllCourse(keySearch, 1, page, limit)
-        .then((data: any) => {
-          setListCourseOnline(data.data.list);
-          setTotalRecord(data.data.total_record);
-          setLoading(false);
-        })
-        .catch((error: any) => {
-          setLoading(false);
-        });
+      fetchCourseNotLogin(keySearch, 1, page, limit);
     } else {
-      courseAdminApiService
-        .getAll(keySearch, 1, page, limit)
-        .then((data: any) => {
-          setListCourseOnline(data.data.list);
-          setTotalRecord(data.data.total_record);
-          setLoading(false);
-        })
-        .catch((error: any) => {
-          setLoading(false);
-        });
+      fetchCourse(keySearch, 1, page, limit);
     }
   };
 

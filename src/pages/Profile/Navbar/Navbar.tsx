@@ -2,31 +2,23 @@ import HomeCourseOnline from "@/pages/Home/HomeCourseOnline/HomeCourseOnline";
 import ChangePassword from "@/pages/Profile/ChangePassword/ChangePassword";
 import ProfileCover from "@/pages/Profile/ProfileCover/ProfileCover";
 import PaymentUserHistory from "@/pages/Profile/TablePaymentUser/PaymentUserHistory";
-import userApiService from "@/services/API/UserApiService";
+import utils from "@/utils/Utils";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import { Grid, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResultExamProfile from "../ResultExamProfile/ResultExamProfile";
 
 function Navbar() {
   const [value, setValue] = useState("1");
-  const [currentUser, setCurrentUser] = useState<any>({});
+  // const [currentUser, setCurrentUser] = useState<any>({});
+  const { currentUser, isCurrentUser } = utils.getCurrentUser();
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
-
-  useEffect(() => {
-    userApiService
-      .getUser()
-      .then((data: any) => {
-        setCurrentUser(data.data);
-      })
-      .catch((error: any) => {});
-  }, []);
 
   return (
     <div style={{ width: "70%" }}>

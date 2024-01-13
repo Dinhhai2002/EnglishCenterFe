@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 
 import authenticationApiService from "@/services/API/AuthenticationApiService";
@@ -16,6 +15,26 @@ function Exam() {
   const [totalRecord, setTotalRecord] = useState<any>(0);
   const [loading, setLoading] = useState(true);
   const [loadingButton, setLoadingButton] = useState(false);
+
+  const fetchListExam = (
+    categoryId: number,
+    topicId: number,
+    status: number,
+    keySearch: string,
+    page: number,
+    limit: number
+  ) => {
+    authenticationApiService
+      .getAllExam(categoryId, topicId, status, keySearch, page, limit)
+      .then((data: any) => {
+        setListExam(data.data.list);
+        setTotalRecord(data.data.total_record);
+        setLoadingButton(false);
+      })
+      .catch((error: any) => {
+        setLoadingButton(false);
+      });
+  };
 
   useEffect(() => {
     authenticationApiService
@@ -35,13 +54,7 @@ function Exam() {
       })
       .catch((error: any) => {});
 
-    authenticationApiService
-      .getAllExam(-1, -1, 1, "", 0, 20)
-      .then((data: any) => {
-        setListExam(data.data.list);
-        setTotalRecord(data.data.total_record);
-      })
-      .catch((error: any) => {});
+    fetchListExam(-1, -1, 1, "", 0, 20);
   }, []);
 
   const onClickPagination = (
@@ -53,16 +66,7 @@ function Exam() {
     limit: number
   ) => {
     setLoadingButton(true);
-    authenticationApiService
-      .getAllExam(categoryId, topicId, status, keySearch, page, limit)
-      .then((data: any) => {
-        setListExam(data.data.list);
-        setTotalRecord(data.data.total_record);
-        setLoadingButton(false);
-      })
-      .catch((error: any) => {
-        setLoadingButton(false);
-      });
+    fetchListExam(categoryId, topicId, status, keySearch, page, limit);
   };
 
   return (

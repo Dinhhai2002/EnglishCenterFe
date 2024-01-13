@@ -29,7 +29,7 @@ export const routes = {
   Exam: "/exam",
   CourseOnline: "/course",
   CourseOnlineDetail: "/course/:id",
-  VideoCourse: "/course/:id/learning/:lessonsId",
+  VideoCourse: "/course/:courseId/learning/:lessonsId",
   Payment: "/payment/course/:id",
   PaymentSuccess: "/payment-success",
   MyAccount: "/my-account",

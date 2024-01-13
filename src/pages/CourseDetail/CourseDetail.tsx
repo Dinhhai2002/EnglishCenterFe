@@ -5,9 +5,9 @@ import { useLayoutEffect, useState } from "react";
 import classNames from "classnames/bind";
 import { useParams } from "react-router-dom";
 import styles from "./CourseDetail.module.scss";
-import CourseDetailSkeleton from "./CourseDetailSkeleton";
-import ListChapter from "./ListChapter";
-import RegisterCourse from "./RegisterCourse";
+import CourseDetailSkeleton from "./component/CourseDetailSkeleton";
+import ListChapter from "./component/ListChapter";
+import RegisterCourse from "./component/RegisterCourse";
 
 const cx = classNames.bind(styles);
 

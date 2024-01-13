@@ -16,11 +16,7 @@ const TablePaymentUser = ({
 
   useEffect(() => {
     onClickPagination(page, limit);
-  }, [page]);
-
-  useEffect(() => {
-    onClickPagination(1, limit);
-  }, [limit]);
+  }, [page, limit]);
 
   return (
     <Card>

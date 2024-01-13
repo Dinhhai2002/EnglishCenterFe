@@ -10,24 +10,29 @@ function PaymentUserHistory() {
 
   const { currentUser } = utils.getCurrentUser();
 
-  useEffect(() => {
+  const fetchPaymentUserHistory = (
+    courseId: number,
+    userId: number,
+    isPagination: number,
+    page: number,
+    limit: number
+  ) => {
     paymentApiService
-      .getAll(-1, currentUser.id, 1, 0, 10)
+      .getAll(courseId, userId, isPagination, page, limit)
       .then((data: any) => {
         setListResult(data.data.list);
         setTotalRecord(data.data.total_record);
       })
       .catch((error: any) => {});
+  };
+
+  useEffect(() => {
+    fetchPaymentUserHistory(-1, currentUser.id, 1, 0, 10);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onClickPagination = (page: number, limit: number) => {
-    paymentApiService
-      .getAll(-1, currentUser.id, 1, page, limit)
-      .then((data: any) => {
-        setListResult(data.data.list);
-        setTotalRecord(data.data.total_record);
-      })
-      .catch((error: any) => {});
+    fetchPaymentUserHistory(-1, currentUser.id, 1, page, limit);
   };
 
   return (

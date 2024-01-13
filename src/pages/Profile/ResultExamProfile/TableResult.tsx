@@ -12,11 +12,8 @@ const TableResult = ({ listResult, totalRecord, onClickPagination }: any) => {
 
   useEffect(() => {
     onClickPagination(page, limit);
-  }, [page]);
-
-  useEffect(() => {
-    onClickPagination(1, limit);
-  }, [limit]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, limit]);
 
   return (
     <Card>

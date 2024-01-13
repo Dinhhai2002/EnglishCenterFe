@@ -33,9 +33,12 @@ function SearchExam({
         />
       </Grid>
       {loading
-        ? Array.from({ length: 5 }).map((_, index) => <CategorySkeleton />)
+        ? Array.from({ length: 5 }).map((_, index) => (
+            <CategorySkeleton key={index} />
+          ))
         : listCategoryExam.map((item: any, index: number) => (
             <Category
+              key={item.id}
               item={item}
               index={index}
               handleClickCategory={handleClickCategory}

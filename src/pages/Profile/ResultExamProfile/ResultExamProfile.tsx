@@ -7,21 +7,7 @@ function ResultExamProfile() {
   const [listResult, setListResult] = useState<any>([]);
   const [totalRecord, setTotalRecord] = useState<any>(0);
 
-  useEffect(() => {
-    resultApiService
-      .getAll(-1, "", 0, 10)
-      .then((data: any) => {
-        setListResult(data.data.list);
-        setTotalRecord(data.data.total_record);
-      })
-      .catch((error: any) => {});
-  }, []);
-
-  const onClickPagination = (
-    page: number,
-    limit: number,
-  ) => {
-
+  const fetchResult = (page: number, limit: number) => {
     resultApiService
       .getAll(-1, "", page, limit)
       .then((data: any) => {
@@ -29,6 +15,14 @@ function ResultExamProfile() {
         setTotalRecord(data.data.total_record);
       })
       .catch((error: any) => {});
+  };
+
+  useEffect(() => {
+    fetchResult(0, 10);
+  }, []);
+
+  const onClickPagination = (page: number, limit: number) => {
+    fetchResult(page, limit);
   };
 
   return (

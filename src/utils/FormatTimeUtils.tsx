@@ -1,7 +1,7 @@
 const { differenceInDays } = require("date-fns");
 
 class FormatTimeUtils {
-  public customTimerComplete(minutes: number, seconds: number) {
+  public customTimerCompleteExam(minutes: number, seconds: number) {
     let StringMinutes: string = "";
     let StringSeconds: string = "";
 

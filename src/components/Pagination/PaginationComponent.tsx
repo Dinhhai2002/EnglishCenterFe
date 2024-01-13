@@ -25,6 +25,7 @@ function PaginationComponent({ setPage, setLimit, totalRecord, limit }: any) {
   };
 
   const handleChangeLimit = (event: ChangeEvent<HTMLInputElement>) => {
+    setPage(1);
     setLimit(Number(event.target.value));
   };
   return (

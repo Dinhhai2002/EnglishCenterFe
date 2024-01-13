@@ -12,7 +12,7 @@ import { routes } from "@/routes/routes";
 import { RequiredLogin } from "@/utils/MessageToast";
 import classNames from "classnames/bind";
 import dayjs from "dayjs";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import HomeNewExam from "../Home/HomeNewExam/HomeNewExam";
@@ -37,7 +37,6 @@ export default function ListExam({
   const [keySearch, setKeySearch] = useState("");
   const [open, setOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [dateTarget, setDateTarget] = useState("");
   const [target, setTarget] = useState<any>({});
   const [point, setPoint] = useState("");
   const [isTarget, setIsTarget] = useState(false);
@@ -72,7 +71,7 @@ export default function ListExam({
     setTopic(event.target.value as string);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     currentUser &&
       targetApiService
         .getByUserId()
@@ -88,11 +87,7 @@ export default function ListExam({
 
   useEffect(() => {
     onClickPagination(categoryId, Number(topic), 1, keySearch, page, limit);
-  }, [page]);
-
-  useEffect(() => {
-    onClickPagination(categoryId, Number(topic), 1, keySearch, 1, limit);
-  }, [limit]);
+  }, [page, limit]);
 
   const handleSubmit = () => {
     onClickPagination(categoryId, Number(topic), 1, keySearch, page, limit);
@@ -106,12 +101,12 @@ export default function ListExam({
   let daysDiff: any = 0;
   // xử lí số ngày còn lại
   if (isTarget) {
-    daysDiff = formatTimeUtils.calculateDateTarget(dateTarget);
+    daysDiff = formatTimeUtils.calculateDateTarget("");
   }
 
   const formattedDate = currentDate
     ? dayjs(currentDate).format("DD/MM/YYYY")
-    : dateTarget;
+    : "";
 
   const handleSubmitTarget = () => {
     const validateDate: any =
@@ -156,10 +151,12 @@ export default function ListExam({
         <Grid item xs>
           {currentUser && isTarget ? (
             <Target
+              target={target}
+              isTarget={isTarget}
               username={currentUser ? currentUser.user_name : ""}
               url={currentUser ? currentUser.avatar_url : ""}
               countDay={daysDiff}
-              Date={dateTarget}
+              Date={""}
               point={point}
               CategoryNameExam="TOEIC"
             />

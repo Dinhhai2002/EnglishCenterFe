@@ -1,4 +1,3 @@
-import targetApiService from "@/services/API/TargetApiService";
 import formatTimeUtils from "@/utils/FormatTimeUtils";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
@@ -6,24 +5,10 @@ import styles from "./Target.module.scss";
 
 const cx = classNames.bind(styles);
 
-function Target({ url, username, CategoryNameExam }: any) {
+function Target({ target, isTarget, url, username, CategoryNameExam }: any) {
   // const [currentDate, setCurrentDate] = useState("");
   const [dateTarget, setDateTarget] = useState("");
-  const [target, setTarget] = useState<any>({});
   const [point, setPoint] = useState("");
-  const [isTarget, setIsTarget] = useState(false);
-
-  useEffect(() => {
-    targetApiService
-      .getByUserId()
-      .then((data: any) => {
-        setTarget(data.data);
-        setIsTarget(true);
-      })
-      .catch((error: any) => {
-        setIsTarget(false);
-      });
-  }, []);
 
   useEffect(() => {
     setPoint(target.point_target);
@@ -35,8 +20,6 @@ function Target({ url, username, CategoryNameExam }: any) {
   if (isTarget) {
     daysDiff = formatTimeUtils.calculateDateTarget(target.time_exam);
   }
-
-
 
   return (
     <div className={cx("body")}>

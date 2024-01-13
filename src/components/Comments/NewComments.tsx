@@ -22,31 +22,28 @@ const Comments = ({ examId, onAddComment }: any) => {
 
   const { currentUser, isCurrentUser } = utils.getCurrentUser();
 
-  useEffect(() => {
+  const fetchComments = (examId: number, isModify = false) => {
     authenticationApiService
-      .getCommentsByExamId(Number(examId))
+      .getCommentsByExamId(examId)
       .then((data) => {
         setComments(data.data);
+        isModify && setIsCommentModify(false);
         setLoading(false);
       })
       .catch((error: any) => {
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchComments(Number(examId));
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     setLoading(true);
-    authenticationApiService
-      .getCommentsByExamId(Number(examId))
-      .then((data) => {
-        setComments(data.data);
-        setIsCommentModify(false);
-        setLoading(false);
-      })
-      .catch((error: any) => {
-        setLoading(false);
-      });
+    fetchComments(Number(examId), true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isCommentModify]);
 
@@ -85,27 +82,26 @@ const Comments = ({ examId, onAddComment }: any) => {
       })
       .catch((error: any) => {});
   };
+
+  const fetchCreateReplyComment = (content: string, commentId: number) => {
+    replyCommentsApiService
+      .create(content, commentId)
+      .then((data: any) => {
+        // truyền tín hiệu lên component cha để set lại countComment
+        setIsCommentModify(true);
+        onAddComment(data);
+      })
+      .catch((error: any) => {});
+  };
+
   const handleSubmitReply = (data: any) => {
     if (data.parentOfRepliedCommentId === undefined) {
-      replyCommentsApiService
-        .create(data.text, Number(data.repliedToCommentId))
-        .then((data: any) => {
-          // truyền tín hiệu lên component cha để set lại countComment
-          setIsCommentModify(true);
-          onAddComment(data);
-        })
-        .catch((error: any) => {});
+      fetchCreateReplyComment(data.text, Number(data.repliedToCommentId));
     } else {
-      replyCommentsApiService
-        .create(data.text, Number(data.parentOfRepliedCommentId))
-        .then((data: any) => {
-          // truyền tín hiệu lên component cha để set lại countComment
-          setIsCommentModify(true);
-          onAddComment(data);
-        })
-        .catch((error: any) => {});
+      fetchCreateReplyComment(data.text, Number(data.parentOfRepliedCommentId));
     }
   };
+
 
   const handleSubmitEdit = (data: any) => {
     if (data.parentOfEditedCommentId === undefined) {

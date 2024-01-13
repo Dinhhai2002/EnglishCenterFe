@@ -6,8 +6,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Typography,
+  TableRow
 } from "@mui/material";
 
 function TableListPayment({ listResult, labelTable }: any) {
