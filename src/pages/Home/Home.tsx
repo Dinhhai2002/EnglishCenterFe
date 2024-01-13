@@ -24,6 +24,7 @@ const Home = () => {
   const [listExam, setListExam] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  
   useLayoutEffect(() => {
     authenticationApiService
       .getAllExam(-1, -1, 1, "", 1, 8)
