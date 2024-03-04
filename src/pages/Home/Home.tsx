@@ -35,6 +35,7 @@ const Home = () => {
         setIsLoading(false);
       });
   }, []);
+  
   return (
     <div className={cx("body")}>
       {isCurrentUser && (
