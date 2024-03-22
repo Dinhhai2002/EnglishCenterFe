@@ -2,9 +2,9 @@ import HeaderHome from "./HomeHeader/HeaderHome";
 
 import utils from "@/utils/Utils";
 import classNames from "classnames/bind";
+import styles from "./Home.module.scss";
 import { Zoom } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
-import styles from "./Home.module.scss";
 import HomeCourseOnline from "./HomeCourseOnline/HomeCourseOnline";
 import HomeNewExam from "./HomeNewExam/HomeNewExam";
 import ResultExam from "./ResultExamUser/ResultExam";

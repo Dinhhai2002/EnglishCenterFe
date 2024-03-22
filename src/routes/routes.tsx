@@ -1,5 +1,7 @@
 import SuspenseLoader from "@/components/SuspenseLoader";
 import About from "@/pages/About";
+import Blog from "@/pages/Blog/Blog";
+import BlogDetail from "@/pages/BlogDetail/BlogDetail";
 import Contact from "@/pages/Contact";
 import CourseDetail from "@/pages/CourseDetail/CourseDetail";
 import CourseOnline from "@/pages/CourseOnline/CourseOnline";
@@ -44,7 +46,8 @@ export const routes = {
   OTP: "/authentication/otp",
   ResetPassword: "/authentication/reset-password",
   Profile: "/profile",
-  Dashboard: "/admin",
+  Blog: "/blog",
+  BlogDetail: "/blog/:id",
 };
 
 export const publicRoutes = [
@@ -69,6 +72,8 @@ export const publicRoutes = [
   { path: routes.OTP, component: OTP },
   { path: routes.ResetPassword, component: ResetPassword },
   { path: routes.Profile, component: Profile },
+  { path: routes.Blog, component: Blog },
+  { path: routes.BlogDetail, component: BlogDetail },
 ];
 
 const Loader = (Component: any) => (props: any) =>

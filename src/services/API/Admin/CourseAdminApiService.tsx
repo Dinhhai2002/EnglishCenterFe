@@ -8,10 +8,10 @@ class CourseAdminApiService extends BaseApiService {
   }
 
   public async getAll(
-    keySearch: string,
-    status: number,
-    page: number,
-    limit: number
+    keySearch?: string,
+    status?: number,
+    page?: number,
+    limit?: number
   ): Promise<any> {
     try {
       const response = await this.api.get(`/admin/course`, {
