@@ -21,6 +21,7 @@ import TagIcon from "@mui/icons-material/Tag";
 import PostItem from "./PostItem";
 import PostItemSkeleton from "./PostItemSkeleton";
 import { LIMIT_DEFAULt, PAGE_DEFAULT } from "@/utils/Constant";
+import Empty from "@/components/Empty/Empty";
 
 interface ListBlogProps {
   posts: Post[];
@@ -43,17 +44,21 @@ function ListBlog(props: ListBlogProps) {
   return (
     <Grid>
       <Grid container spacing={5} sx={{ marginY: 4 }}>
-        {loading
-          ? Array.from({ length: 6 }).map((_, index) => (
-              <Grid item xs={12} sm={4} md={4} key={index}>
-                <PostItemSkeleton />
-              </Grid>
-            ))
-          : posts.map((post: Post) => (
-              <Grid item xs={12} sm={4} md={4} key={post.id}>
-                <PostItem post={post} />
-              </Grid>
-            ))}
+        {loading ? (
+          Array.from({ length: 6 }).map((_, index) => (
+            <Grid item xs={12} sm={4} md={4} key={index}>
+              <PostItemSkeleton />
+            </Grid>
+          ))
+        ) : posts.length > 0 ? (
+          posts.map((post: Post) => (
+            <Grid item xs={12} sm={4} md={4} key={post.id}>
+              <PostItem post={post} />
+            </Grid>
+          ))
+        ) : (
+          <Empty />
+        )}
       </Grid>
       <Divider></Divider>
       <PaginationComponent

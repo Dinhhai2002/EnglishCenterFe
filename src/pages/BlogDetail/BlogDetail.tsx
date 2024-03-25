@@ -1,5 +1,4 @@
 import courseAdminApiService from "@/services/API/Admin/CourseAdminApiService";
-import courseApiService from "@/services/API/CourseApiService";
 import postApiService from "@/services/API/PostApiService";
 import { Box } from "@mui/material";
 import Container from "@mui/material/Container";
@@ -11,7 +10,6 @@ import { useParams } from "react-router-dom";
 import Footer from "../Blog/components/Footer";
 import Header from "../Blog/components/Header";
 import Main from "../Blog/components/Main";
-import MainFeaturedPost from "../Blog/components/MainFeaturedPost";
 import Sidebar from "../Blog/components/Sidebar";
 
 export default function BlogDetail() {

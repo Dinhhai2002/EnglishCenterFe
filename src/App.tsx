@@ -11,6 +11,8 @@ const App = () => {
     !location.pathname.startsWith("/authentication/") &&
     !location.pathname.includes("/blog");
 
+  const showFooter = !location.pathname.includes("learning");
+
   return (
     <>
       {showHeader && <Header />}
@@ -23,10 +25,12 @@ const App = () => {
 
         <Route path="*" element={<Page404 />} />
       </Routes>
-      {/* <Footer
-        title="ENGLISH CENTER"
-        description="Something here to give the footer a purpose!"
-      /> */}
+      {showFooter && (
+        <Footer
+          title="ENGLISH CENTER"
+          description="Developed by TRAN DINH HAI!"
+        />
+      )}
     </>
   );
 };

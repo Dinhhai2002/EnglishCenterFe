@@ -18,18 +18,18 @@ function ItemAnswer({
     <Grid sx={{ display: "flex", alignItems: "center", marginTop: 2 }}>
       <Avatar sx={{ bgcolor: "#1976d2" }}>{item.sort}</Avatar>
       {!item.is_answer ? (
-        <Typography sx={{ marginLeft: 1 }} variant="h6">
-          chưa trả lời
+        <Typography sx={{ marginLeft: 1 }} variant="body1">
+          Chưa trả lời
         </Typography>
       ) : (
         <>
-          <Typography sx={{ marginLeft: 1 }} variant="h6">
+          <Typography sx={{ marginLeft: 1 }} variant="body1">
             {item.answer_correct} :
           </Typography>
           <Typography
             className={!item.is_correct ? cx("text-through") : ""}
             sx={{ marginLeft: 1, marginRight: 1 }}
-            variant="h6"
+            variant="body1"
           >
             {item.answer_user_choose}
           </Typography>

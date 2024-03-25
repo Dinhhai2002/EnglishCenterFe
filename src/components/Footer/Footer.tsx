@@ -8,11 +8,10 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
+      {/* <Link color="inherit" href="https://english-center-fe.vercel.app/">
+        My Website
+      </Link>{" "} */}
+      {"2023. Developed by TRAN DINH HAI!"}
     </Typography>
   );
 }
@@ -31,25 +30,23 @@ export default function Footer(props: FooterProps) {
       sx={{
         bgcolor: "background.paper",
         py: 6,
-        position: "fixed",
-        left: 0,
-        right: 0,
-        bottom: 0,
-        // maxHeight: 40,
+        display: "flex",
+        justifyContent: "center",
+        paddingY: "30px",
       }}
     >
       <Container maxWidth="lg">
         <Typography variant="h6" align="center" gutterBottom>
           {title}
         </Typography>
-        <Typography
+        {/* <Typography
           variant="subtitle1"
           align="center"
           color="text.secondary"
           component="p"
         >
           {description}
-        </Typography>
+        </Typography> */}
         <Copyright />
       </Container>
     </Box>

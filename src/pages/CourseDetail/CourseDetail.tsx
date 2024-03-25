@@ -48,7 +48,7 @@ function CourseDetail() {
                     <h2>Nội dung khóa học</h2>
                     <p>
                       <strong>{course.count_chapter}</strong> chương |
-                      <strong>{course.count_lessons}</strong> bài học
+                      <strong> {course.count_lessons}</strong> bài học
                     </p>
                   </div>
                   <ListChapter course={course} id={id} />

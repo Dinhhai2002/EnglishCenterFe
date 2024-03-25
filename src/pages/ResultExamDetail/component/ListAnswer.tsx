@@ -10,7 +10,7 @@ function ListAnswer({
   return (
     <>
       <Typography sx={{ marginTop: 2 }} variant="h6">
-        KẾT QUẢ CHI TIẾT
+        <strong> KẾT QUẢ CHI TIẾT</strong>
       </Typography>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
         <Grid item xs={6}>

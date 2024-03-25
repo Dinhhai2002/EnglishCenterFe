@@ -23,7 +23,7 @@ export default function Sidebar(props: SidebarProps) {
 
   return (
     <Grid item xs={12} md={4}>
-      <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.200" }}>
+      <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.100" }}>
         <Typography variant="h6" gutterBottom>
           {title}
         </Typography>
@@ -45,26 +45,28 @@ export default function Sidebar(props: SidebarProps) {
           </Link>
         ))}
       </Paper>
-      <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
-        Các bài viết liên quan
-      </Typography>
-      {archives.map((archive) => (
-        <Link
-          display="block"
-          variant="body1"
-          href={`/blog/${archive.id}`}
-          key={archive.title}
-        >
-          <Typography
-            className={cx("title")}
-            variant="body2"
-            gutterBottom
-            sx={{ mt: 3 }}
+      <Paper elevation={0} sx={{ p: 2, bgcolor: "grey.100", marginY: 2 }}>
+        <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
+          Các bài viết liên quan
+        </Typography>
+        {archives.map((archive) => (
+          <Link
+            display="block"
+            variant="body1"
+            href={`/blog/${archive.id}`}
+            key={archive.title}
           >
-            {archive.title}
-          </Typography>
-        </Link>
-      ))}
+            <Typography
+              className={cx("title")}
+              variant="body2"
+              gutterBottom
+              sx={{ mt: 3 }}
+            >
+              {archive.title}
+            </Typography>
+          </Link>
+        ))}
+      </Paper>
     </Grid>
   );
 }
