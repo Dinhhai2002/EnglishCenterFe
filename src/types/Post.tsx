@@ -1,3 +1,5 @@
+import { RatingType } from "./RatingType";
+
 export interface Post {
   id: number;
   title: string;
@@ -10,6 +12,10 @@ export interface Post {
   category_blog_name?: string;
   banner: string;
   status: string;
+  is_rating: number;
+  point_avg: number;
+  count_rating: number;
+  rating: RatingType;
   created_at?: string;
   updated_at?: string;
 }

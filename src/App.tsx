@@ -11,7 +11,9 @@ const App = () => {
     !location.pathname.startsWith("/authentication/") &&
     !location.pathname.includes("/blog");
 
-  const showFooter = !location.pathname.includes("learning");
+  const showFooter =
+    !location.pathname.includes("learning") &&
+    !location.pathname.startsWith("/authentication/");
 
   return (
     <>

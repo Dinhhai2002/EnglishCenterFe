@@ -17,4 +17,5 @@ export const UploadSuccess = "upload file thành công!";
 export const StudySuccess =
   "Chúc mừng bạn đã hoàn thành bài học.Bài tiếp theo đã mở!";
 
-export const RegisterSuccess = "Chỉnh sửa thành công!";
+export const RegisterSuccess = "Đăng kí thành công!";
+export const CreateRatingSuccess = "Đánh giá thành công!";
