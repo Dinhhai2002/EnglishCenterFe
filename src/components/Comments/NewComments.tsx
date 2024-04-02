@@ -102,7 +102,6 @@ const Comments = ({ examId, onAddComment }: any) => {
     }
   };
 
-
   const handleSubmitEdit = (data: any) => {
     if (data.parentOfEditedCommentId === undefined) {
       // update comments
@@ -180,7 +179,7 @@ const Comments = ({ examId, onAddComment }: any) => {
           currentUser={
             isCurrentUser
               ? {
-                  currentUserId: currentUser.id,
+                  currentUserId: `${currentUser.id}`,
                   currentUserImg: currentUser.avatar_url,
                   currentUserProfile: "#",
                   currentUserFullName: currentUser.user_name,

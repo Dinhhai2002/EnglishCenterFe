@@ -36,11 +36,13 @@ function PaymentSuccess() {
   // số tiền gửi qua bên vnpay *100 nên phải chia lại
   useLayoutEffect(() => {
     const jsonCourse: any = localStorage.getItem("course");
+    const jsonPromotion: any = localStorage.getItem("promotion");
     setCourse(JSON.parse(jsonCourse));
     paymentApiService
       .createPayment(
         Number(JSON.parse(jsonCourse).id),
-        Number(vnp_Amount) / 100
+        Number(vnp_Amount) / 100,
+        jsonPromotion ? Number(JSON.parse(jsonPromotion).id) : 0
       )
       .then((data: any) => {
         setLoading(false);

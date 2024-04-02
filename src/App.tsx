@@ -9,10 +9,12 @@ const App = () => {
   // lấy lọc đường dẫn có header và không có header
   const showHeader =
     !location.pathname.startsWith("/authentication/") &&
+    // !location.pathname.includes("payment") &&
     !location.pathname.includes("/blog");
 
   const showFooter =
     !location.pathname.includes("learning") &&
+    !location.pathname.includes("payment") &&
     !location.pathname.startsWith("/authentication/");
 
   return (

@@ -1,10 +1,11 @@
+import { User } from "@/types/User";
 import { useNavigate } from "react-router-dom";
 
 class Utils {
   public getCurrentUser() {
     let isCurrentUser = false;
     let user: any = localStorage.getItem("user");
-    let currentUser = JSON.parse(user);
+    let currentUser: User = JSON.parse(user);
 
     if (currentUser) {
       isCurrentUser = true;
@@ -40,7 +41,8 @@ class Utils {
   }
 
   public formatMoney(amount: number) {
-    return amount.toLocaleString("vi-VN");
+    if (amount > 0) return amount.toLocaleString("vi-VN");
+    else return `${amount}`;
   }
 }
 const utils = new Utils();

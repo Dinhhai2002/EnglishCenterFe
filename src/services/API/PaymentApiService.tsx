@@ -48,10 +48,15 @@ class PaymentApiService extends BaseApiService {
     }
   }
 
-  public async createPayment(id: number, amount: number): Promise<any> {
+  public async createPayment(
+    id: number,
+    amount: number,
+    promotionId?: number
+  ): Promise<any> {
     try {
       const response = await this.api.post(`/payment/${id}/course`, {
         amount: amount,
+        promotion_id: promotionId,
       });
 
       handleResponseApi.handleResponse(response);

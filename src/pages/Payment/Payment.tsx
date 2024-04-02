@@ -9,6 +9,7 @@ import classNames from "classnames/bind";
 import { useLayoutEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import Checkout from "./components/Checkout";
 import styles from "./Payment.module.scss";
 import TableCourse from "./TableCourse";
 
@@ -61,57 +62,59 @@ function Payment() {
   };
 
   return (
-    <div className={cx("body")}>
-      <div className={cx("content")}>
-        {loading ? (
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <CircularProgress />
-          </Box>
-        ) : (
-          <>
-            <div className={cx("header")}>
-              <h2>Thanh toán</h2>
-              <h3>
-                Quý khách vui lòng chọn dịch vụ thanh toán theo khóa học dưới
-                đây
-              </h3>
-            </div>
+    // <div className={cx("body")}>
+    //   <div className={cx("content")}>
+    //     {loading ? (
+    //       <Box
+    //         sx={{
+    //           display: "flex",
+    //           alignItems: "center",
+    //           justifyContent: "center",
+    //         }}
+    //       >
+    //         <CircularProgress />
+    //       </Box>
+    //     ) : (
+    //       <>
+    //         <div className={cx("header")}>
+    //           <h2>Thanh toán</h2>
+    //           <h3>
+    //             Quý khách vui lòng chọn dịch vụ thanh toán theo khóa học dưới
+    //             đây
+    //           </h3>
+    //         </div>
 
-            <div className={cx("info")}>
-              <h3>Thông tin chi tiết khóa học</h3>
-            </div>
+    //         <div className={cx("info")}>
+    //           <h3>Thông tin chi tiết khóa học</h3>
+    //         </div>
 
-            <Card sx={{ marginBottom: 2 }}>
-              <TableCourse course={course} />
-            </Card>
-            <div className={cx("payment")}>
-              <h3>Vui lòng chọn phương thức thanh toán online</h3>
+    //         <Card sx={{ marginBottom: 2 }}>
+    //           <TableCourse course={course} />
+    //         </Card>
+    //         <div className={cx("payment")}>
+    //           <h3>Vui lòng chọn phương thức thanh toán online</h3>
 
-              <DropDown
-                isMargin={true}
-                value={type}
-                onChange={handleChangePaymentMethod}
-                listValue={listPaymentMethods}
-                label="Hình thức học"
-              />
-            </div>
-            <LoadingButton
-              onClick={handleSubmitPayment}
-              variant="contained"
-              loading={loadingButton}
-            >
-              Thanh toán
-            </LoadingButton>
-          </>
-        )}
-      </div>
-    </div>
+    //           <DropDown
+    //             isMargin={true}
+    //             value={type}
+    //             onChange={handleChangePaymentMethod}
+    //             listValue={listPaymentMethods}
+    //             label="Hình thức học"
+    //           />
+    //         </div>
+    //         <LoadingButton
+    //           onClick={handleSubmitPayment}
+    //           variant="contained"
+    //           loading={loadingButton}
+    //         >
+    //           Thanh toán
+    //         </LoadingButton>
+    //       </>
+    //     )}
+
+    //   </div>
+    // </div>
+    <Checkout />
   );
 }
 

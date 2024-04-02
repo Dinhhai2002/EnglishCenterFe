@@ -1,4 +1,5 @@
-import { createTheme, ThemeProvider } from "@mui/material";
+import { customTheme } from "@/styles/themeCustom";
+import { ThemeProvider } from "@mui/material";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
@@ -9,18 +10,15 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-const theme = createTheme({
-  typography: {
-    htmlFontSize: 10,
-  },
-});
+
+// const theme = createTheme(getCheckoutTheme("light"));
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
 root.render(
   <GlobalStyles>
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={customTheme}>
       <BrowserRouter>
         <ScrollToTop />
         <ToastContainer />
