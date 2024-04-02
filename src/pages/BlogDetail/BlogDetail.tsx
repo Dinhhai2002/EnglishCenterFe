@@ -66,7 +66,7 @@ export default function BlogDetail() {
             />
           </Grid>
           <Divider sx={{ marginY: 2 }}></Divider>
-          <RatingComponent post={post} />
+          <RatingComponent post={post} setPost={setPost} />
         </main>
       </Container>
     </Box>

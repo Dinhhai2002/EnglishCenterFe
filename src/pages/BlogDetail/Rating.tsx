@@ -1,3 +1,4 @@
+import postApiService from "@/services/API/PostApiService";
 import { Post } from "@/types/Post";
 import utils from "@/utils/Utils";
 import { Alert, Box, Button, Rating, Typography } from "@mui/material";
@@ -7,10 +8,11 @@ import DialogUpdateRating from "./DialogUpdateRating";
 
 interface RatingProps {
   post: Post;
+  setPost: any;
 }
 
 function RatingComponent(props: RatingProps) {
-  const { post } = props;
+  const { post, setPost } = props;
 
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
@@ -29,10 +31,23 @@ function RatingComponent(props: RatingProps) {
   const handleCloseUpdate = () => {
     setOpenUpdate(false);
   };
+
+  const fetchPost = (id: number) => {
+    postApiService
+      .findOne(Number(id))
+      .then((data: any) => {
+        setPost(data.data);
+      })
+      .catch((error: any) => {});
+  };
   const update = (value: number) => {
     post.rating.point = value;
+    fetchPost(post.id);
   };
-  console.log(post);
+
+  const handleCreateSuccess = (id: number) => {
+    fetchPost(post.id);
+  };
 
   return (
     <Box>
@@ -84,7 +99,12 @@ function RatingComponent(props: RatingProps) {
         được và tích lũy vào điểm để quy đổi vé khuyến mãi.
       </Alert>
 
-      <DialogRating open={open} handleClose={handleClose} post={post} />
+      <DialogRating
+        open={open}
+        handleClose={handleClose}
+        post={post}
+        handleCreateSuccess={handleCreateSuccess}
+      />
       <DialogUpdateRating
         open={openUpdate}
         handleClose={handleCloseUpdate}

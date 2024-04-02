@@ -21,10 +21,11 @@ interface DialogRatingProps {
   post: Post;
   open: boolean;
   handleClose: any;
+  handleCreateSuccess: any;
 }
 
 function DialogRating(props: DialogRatingProps) {
-  const { post, open, handleClose } = props;
+  const { post, open, handleClose, handleCreateSuccess } = props;
   const [value, setValue] = useState<any>(0);
 
   const theme = useTheme();
@@ -32,6 +33,7 @@ function DialogRating(props: DialogRatingProps) {
 
   const handleCreateRating = async () => {
     const data = await ratingApiService.create(post.id, value);
+    handleCreateSuccess(post.id);
     handleClose();
     toast.success(CreateRatingSuccess);
   };
