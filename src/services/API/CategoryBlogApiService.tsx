@@ -5,9 +5,13 @@ class CategoryBlogApiService extends BaseApiService {
   constructor(token?: any) {
     super(token);
   }
-  public async getAll(): Promise<any> {
+  public async getAll(status?: number): Promise<any> {
     try {
-      const response = await this.api.get(`/category-blog`);
+      const response = await this.api.get(`/category-blog`, {
+        params: {
+          status: status,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error:", error);

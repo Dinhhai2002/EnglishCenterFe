@@ -44,8 +44,8 @@ function PostItem(props: PostItemProps) {
         icon={<TagIcon />}
         label={post.category_blog_name}
       />
-      <CardContent>
-        <TypographyComponent content={post.title} />
+      <CardContent sx={{ height: "93px" }}>
+        <TypographyComponent numberLine={2} content={post.title} />
       </CardContent>
       <CardHeader
         avatar={<Avatar src={post.author_avatar} aria-label="author"></Avatar>}

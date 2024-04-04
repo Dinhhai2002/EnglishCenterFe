@@ -1,18 +1,17 @@
-import * as React from "react";
+import { Post } from "@/types/Post";
+import { Avatar, Box, CircularProgress, ListItemText } from "@mui/material";
+import Divider from "@mui/material/Divider";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import Markdown from "./Markdown";
-import { Avatar, Box, ListItemText } from "@mui/material";
-import { Post } from "@/types/Post";
 import MainFeaturedPost from "./MainFeaturedPost";
 
 interface MainProps {
   post: Post;
+  loading: boolean;
 }
 
 export default function Main(props: MainProps) {
-  const { post } = props;
+  const { post, loading } = props;
   const mainFeaturedPost = {
     title: `${post.title}`,
     description: `${post.description}`,
@@ -31,21 +30,30 @@ export default function Main(props: MainProps) {
         },
       }}
     >
-      <Typography sx={{ color: "black" }} variant="h6" gutterBottom>
-        <strong> {post.title}</strong>
-      </Typography>
-      <Box sx={{ marginY: 2, display: "flex", alignItems: "center" }}>
-        <Avatar src={post.author_avatar}></Avatar>
-        <Typography sx={{ marginLeft: 2 }} variant="subtitle2" gutterBottom>
-          {post.author_name} | {post.created_at}
-        </Typography>
-      </Box>
-      <Divider />
-      <MainFeaturedPost post={mainFeaturedPost} />
-      <ListItemText
-        sx={{ wordWrap: "break-word" }}
-        primary={<div dangerouslySetInnerHTML={{ __html: post.content }} />}
-      />
+      {loading ? (
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
+          {" "}
+          <Typography sx={{ color: "black" }} variant="h6" gutterBottom>
+            <strong> {post.title}</strong>
+          </Typography>
+          <Box sx={{ marginY: 2, display: "flex", alignItems: "center" }}>
+            <Avatar src={post.author_avatar}></Avatar>
+            <Typography sx={{ marginLeft: 2 }} variant="subtitle2" gutterBottom>
+              {post.author_name} | {post.created_at}
+            </Typography>
+          </Box>
+          <Divider />
+          <MainFeaturedPost post={mainFeaturedPost} />
+          <ListItemText
+            sx={{ wordWrap: "break-word" }}
+            primary={<div dangerouslySetInnerHTML={{ __html: post.content }} />}
+          />
+        </>
+      )}
     </Grid>
   );
 }

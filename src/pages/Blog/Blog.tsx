@@ -1,20 +1,17 @@
-import FacebookIcon from "@mui/icons-material/Facebook";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import Container from "@mui/material/Container";
-// import XIcon from "@mui/icons-material/X";
 
 import categoryBlogApiService from "@/services/API/CategoryBlogApiService";
 import postApiService from "@/services/API/PostApiService";
-import { Box, Divider, Typography } from "@mui/material";
+import { LIMIT_DEFAULt, PAGE_DEFAULT } from "@/utils/Constant";
+import { StatusPostEnum } from "@/utils/enum/StatusPostEnum";
+import { Box, Divider } from "@mui/material";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import styles from "./Blog.module.scss";
-import Footer from "./components/Footer";
+import CreateBlog from "./components/CreateBlog";
 import Header from "./components/Header";
 import ListBlog from "./components/ListBlog";
 import MainFeaturedPost from "./components/MainFeaturedPost";
-import { LIMIT_DEFAULt, PAGE_DEFAULT } from "@/utils/Constant";
-import { StatusEnum } from "@/utils/enum/StatusEnum";
 
 const cx = classNames.bind(styles);
 
@@ -61,17 +58,17 @@ export default function Blog() {
       .catch((error: any) => {
         setLoading(false);
       });
-    fetchPost(-1, "", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULt);
+    fetchPost(-1, "", StatusPostEnum.ACTIVE, PAGE_DEFAULT, LIMIT_DEFAULt);
   }, []);
 
   const handleClickCategoryBlog = (id: number) => {
     setLoading(true);
-    fetchPost(id, "", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULt);
+    fetchPost(id, "", StatusPostEnum.ACTIVE, PAGE_DEFAULT, LIMIT_DEFAULt);
   };
 
   const onClickPagination = (page: number, limit: number) => {
     setLoading(true);
-    fetchPost(-1, "", StatusEnum.ON, page, limit);
+    fetchPost(-1, "", StatusPostEnum.ACTIVE, page, limit);
   };
 
   return (
@@ -85,9 +82,7 @@ export default function Blog() {
         <main>
           <MainFeaturedPost post={mainFeaturedPost} />
 
-          <Typography variant="h6" sx={{ marginY: 4, color: "black" }}>
-            <strong> Danh sách Blog</strong>
-          </Typography>
+          <CreateBlog />
           <Divider></Divider>
           <Container maxWidth="lg">
             <ListBlog
@@ -99,11 +94,6 @@ export default function Blog() {
           </Container>
         </main>
       </Container>
-
-      <Footer
-        title="Footer"
-        description="Something here to give the footer a purpose!"
-      />
     </Box>
   );
 }
