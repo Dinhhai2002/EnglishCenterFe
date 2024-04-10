@@ -1,27 +1,17 @@
+import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
-import TypographyComponent from "@/components/TypographyComponent/TypographyComponent";
 import { Post } from "@/types/Post";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import {
-  Avatar,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  CardMedia,
-  Chip,
-  CircularProgress,
   Divider,
-  Grid,
+  Grid
 } from "@mui/material";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../Blog.module.scss";
-import TagIcon from "@mui/icons-material/Tag";
 import PostItem from "./PostItem";
 import PostItemSkeleton from "./PostItemSkeleton";
-import { LIMIT_DEFAULt, PAGE_DEFAULT } from "@/utils/Constant";
-import Empty from "@/components/Empty/Empty";
 
 interface ListBlogProps {
   posts: Post[];
@@ -34,7 +24,7 @@ const cx = classNames.bind(styles);
 function ListBlog(props: ListBlogProps) {
   const { posts, totalRecord, loading, onClickPagination } = props;
   const [page, setPage] = useState<number>(PAGE_DEFAULT);
-  const [limit, setLimit] = useState<number>(LIMIT_DEFAULt);
+  const [limit, setLimit] = useState<number>(LIMIT_DEFAULT);
 
   useEffect(() => {
     onClickPagination(page, limit);

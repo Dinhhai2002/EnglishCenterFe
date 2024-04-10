@@ -16,6 +16,8 @@ function RatingComponent(props: RatingProps) {
 
   const [open, setOpen] = useState(false);
   const [openUpdate, setOpenUpdate] = useState(false);
+
+  const { isCurrentUser } = utils.getCurrentUser();
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -50,34 +52,38 @@ function RatingComponent(props: RatingProps) {
   };
 
   return (
-    <Box>
+    <Box sx={{ marginBottom: 2 }}>
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <Typography variant="body2" gutterBottom mt={1}>
-          Đánh giá bài viết :
-        </Typography>
-        {post.is_rating == 1 ? (
+        {isCurrentUser && (
           <>
-            <Rating
-              readOnly
-              name="simple-controlled"
-              value={post.rating?.point}
-            />
-            <Button
-              onClick={handleClickOpenUpdate}
-              sx={{ marginLeft: 1 }}
-              variant="contained"
-            >
-              update
-            </Button>
+            <Typography variant="body2" gutterBottom mt={1}>
+              Đánh giá bài viết :
+            </Typography>
+            {post.is_rating == 1 ? (
+              <>
+                <Rating
+                  readOnly
+                  name="simple-controlled"
+                  value={post.rating?.point}
+                />
+                <Button
+                  onClick={handleClickOpenUpdate}
+                  sx={{ marginLeft: 1 }}
+                  variant="contained"
+                >
+                  update
+                </Button>
+              </>
+            ) : (
+              <Button
+                onClick={handleClickOpen}
+                sx={{ marginLeft: 1 }}
+                variant="contained"
+              >
+                Nhấn để đánh giá
+              </Button>
+            )}
           </>
-        ) : (
-          <Button
-            onClick={handleClickOpen}
-            sx={{ marginLeft: 1 }}
-            variant="contained"
-          >
-            Nhấn để đánh giá
-          </Button>
         )}
       </Box>
       <Box sx={{ display: "flex", alignItems: "center" }}>

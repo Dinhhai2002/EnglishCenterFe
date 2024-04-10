@@ -1,6 +1,8 @@
 import handleResponseApi from "../handleResponseApi/handleResponseApi";
 import BaseApiService from "./BaseApiService";
 
+const prefix = "authentication";
+
 class AuthenticationApiService extends BaseApiService {
   public async Login(user_name: any, password: any): Promise<any> {
     try {
@@ -141,7 +143,7 @@ class AuthenticationApiService extends BaseApiService {
     type: number
   ): Promise<any> {
     try {
-      const response: any = await this.api.post(`/authentication/confirm-otp`, {
+      const response: any = await this.api.post(`/${prefix}/confirm-otp`, {
         user_name,
         email,
         otp,
@@ -196,7 +198,7 @@ class AuthenticationApiService extends BaseApiService {
   public async findDistrictByCityId(id: number): Promise<any> {
     try {
       const response: any = await this.api.get(
-        `/authentication/${id}/get-district-by-city`
+        `/${prefix}/${id}/get-district-by-city`
       );
 
       handleResponseApi.handleResponse(response);
@@ -209,7 +211,7 @@ class AuthenticationApiService extends BaseApiService {
   public async findWardByDistrictId(id: number): Promise<any> {
     try {
       const response: any = await this.api.get(
-        `/authentication/${id}/get-ward-by-district`
+        `/${prefix}/${id}/get-ward-by-district`
       );
 
       handleResponseApi.handleResponse(response);
@@ -227,7 +229,7 @@ class AuthenticationApiService extends BaseApiService {
     limit: number
   ): Promise<any> {
     try {
-      const response = await this.api.get(`/authentication/list-course`, {
+      const response = await this.api.get(`/${prefix}/list-course`, {
         params: {
           key_search: keySearch,
           status: status,
@@ -252,7 +254,7 @@ class AuthenticationApiService extends BaseApiService {
     limit: number
   ): Promise<any> {
     try {
-      const response = await this.api.get(`/authentication/list-exam`, {
+      const response = await this.api.get(`/${prefix}/list-exam`, {
         params: {
           category_exam_id: categoryExamId,
           topic_exam_id: topicExamId,
@@ -271,7 +273,7 @@ class AuthenticationApiService extends BaseApiService {
 
   public async getAllTopic(): Promise<any> {
     try {
-      const response = await this.api.get(`/authentication/list-topic`);
+      const response = await this.api.get(`/${prefix}/list-topic`);
 
       return response.data;
     } catch (error) {
@@ -281,7 +283,7 @@ class AuthenticationApiService extends BaseApiService {
 
   public async getAllCategoryExam(): Promise<any> {
     try {
-      const response = await this.api.get(`/authentication/list-category-exam`);
+      const response = await this.api.get(`/${prefix}/list-category-exam`);
 
       return response.data;
     } catch (error) {
@@ -291,7 +293,7 @@ class AuthenticationApiService extends BaseApiService {
 
   public async getDetailExam(id: any): Promise<any> {
     try {
-      const response = await this.api.get(`/authentication/exam/${id}/detail`);
+      const response = await this.api.get(`/${prefix}/exam/${id}/detail`);
 
       return response.data;
     } catch (error) {
@@ -302,9 +304,7 @@ class AuthenticationApiService extends BaseApiService {
 
   public async countUserExam(id: any): Promise<any> {
     try {
-      const response = await this.api.get(
-        `/authentication/exam/${id}/count-user`
-      );
+      const response = await this.api.get(`/${prefix}/exam/${id}/count-user`);
 
       return response.data;
     } catch (error) {
@@ -315,14 +315,11 @@ class AuthenticationApiService extends BaseApiService {
 
   public async countCommentsByExamId(exam_id: number): Promise<any> {
     try {
-      const response = await this.api.get(
-        `/authentication/comments/count-by-exam`,
-        {
-          params: {
-            exam_id: exam_id,
-          },
-        }
-      );
+      const response = await this.api.get(`/${prefix}/comments/count-by-exam`, {
+        params: {
+          exam_id: exam_id,
+        },
+      });
 
       return response.data;
     } catch (error) {
@@ -333,7 +330,7 @@ class AuthenticationApiService extends BaseApiService {
 
   public async getDetailCourse(id: number): Promise<any> {
     try {
-      const response = await this.api.get(`/authentication/course/${id}`);
+      const response = await this.api.get(`/${prefix}/course/${id}`);
 
       handleResponseApi.handleResponse(response);
       return response.data;
@@ -344,14 +341,11 @@ class AuthenticationApiService extends BaseApiService {
 
   public async getCommentsByExamId(exam_id: number): Promise<any> {
     try {
-      const response = await this.api.get(
-        `/authentication/comments/get-by-exam`,
-        {
-          params: {
-            exam_id: exam_id,
-          },
-        }
-      );
+      const response = await this.api.get(`/${prefix}/comments/get-by-exam`, {
+        params: {
+          exam_id: exam_id,
+        },
+      });
       return response.data;
     } catch (error) {
       throw error;
@@ -360,10 +354,58 @@ class AuthenticationApiService extends BaseApiService {
 
   public async findOneLessons(id: any): Promise<any> {
     try {
-      const response = await this.api.get(
-        `/authentication/lessons/${id}/detail`
-      );
+      const response = await this.api.get(`/${prefix}/lessons/${id}/detail`);
 
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async getAllPost(
+    categoryBlogId?: number,
+    keySearch?: string,
+    status?: number,
+    page?: number,
+    limit?: number
+  ): Promise<any> {
+    try {
+      const response = await this.api.get(`/${prefix}/post`, {
+        params: {
+          category_blog_id: categoryBlogId,
+          key_search: keySearch,
+          status: status,
+          page: page,
+          limit: limit,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  public async findOnePost(id: number, isAuthorize?: number): Promise<any> {
+    try {
+      const response = await this.api.get(`/${prefix}/post/${id}`, {
+        params: {
+          isAuthorize: isAuthorize,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
+
+  public async getAllCategoryBlog(status?: number): Promise<any> {
+    try {
+      const response = await this.api.get(`/${prefix}/category-blog`, {
+        params: {
+          status: status,
+        },
+      });
       return response.data;
     } catch (error) {
       throw error;

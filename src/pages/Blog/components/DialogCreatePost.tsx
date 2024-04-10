@@ -7,7 +7,7 @@ import {
   DialogTitle,
   SelectChangeEvent,
   Slide,
-  TextField
+  TextField,
 } from "@mui/material";
 
 import DropDown from "@/components/DropDown/DropDown";
@@ -25,6 +25,7 @@ import { useEffect, useState } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { ValidateInput, validateSchema } from "./ValidateFormPost";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 
 const config = {
   //   plugins: [Highlight],
@@ -75,8 +76,8 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
   };
 
   useEffect(() => {
-    categoryBlogApiService
-      .getAll(StatusEnum.ON)
+    authenticationApiService
+      .getAllCategoryBlog(StatusEnum.ON)
       .then((data: any) => {
         setListCategoryBlog(data.data);
       })

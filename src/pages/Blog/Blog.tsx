@@ -1,8 +1,7 @@
 import Container from "@mui/material/Container";
 
-import categoryBlogApiService from "@/services/API/CategoryBlogApiService";
-import postApiService from "@/services/API/PostApiService";
-import { LIMIT_DEFAULt, PAGE_DEFAULT } from "@/utils/Constant";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import { StatusPostEnum } from "@/utils/enum/StatusPostEnum";
 import { Box, Divider } from "@mui/material";
 import classNames from "classnames/bind";
@@ -37,8 +36,8 @@ export default function Blog() {
     page?: number,
     limit?: number
   ) => {
-    postApiService
-      .getAll(categoryBlogId, keySearch, status, page, limit)
+    authenticationApiService
+      .getAllPost(categoryBlogId, keySearch, status, page, limit)
       .then((data: any) => {
         setPosts(data.data.list);
         setTotalRecord(data.data.total_record);
@@ -48,9 +47,9 @@ export default function Blog() {
         setLoading(false);
       });
   };
-  useEffect(() => {
-    categoryBlogApiService
-      .getAll()
+  const fetchCategoryBlog = () => {
+    authenticationApiService
+      .getAllCategoryBlog()
       .then((data: any) => {
         setCategoryBlog(data.data);
         setLoading(false);
@@ -58,12 +57,15 @@ export default function Blog() {
       .catch((error: any) => {
         setLoading(false);
       });
-    fetchPost(-1, "", StatusPostEnum.ACTIVE, PAGE_DEFAULT, LIMIT_DEFAULt);
+  };
+  useEffect(() => {
+    fetchCategoryBlog();
+    fetchPost(-1, "", StatusPostEnum.ACTIVE, PAGE_DEFAULT, LIMIT_DEFAULT);
   }, []);
 
   const handleClickCategoryBlog = (id: number) => {
     setLoading(true);
-    fetchPost(id, "", StatusPostEnum.ACTIVE, PAGE_DEFAULT, LIMIT_DEFAULt);
+    fetchPost(id, "", StatusPostEnum.ACTIVE, PAGE_DEFAULT, LIMIT_DEFAULT);
   };
 
   const onClickPagination = (page: number, limit: number) => {

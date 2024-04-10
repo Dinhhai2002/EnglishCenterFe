@@ -27,7 +27,12 @@ export default function Header(props: HeaderProps) {
   return (
     <React.Fragment>
       <Toolbar sx={{ borderBottom: 1, borderColor: "divider" }}>
-        <Button component={RouterLink} to={routes.Home} size="small">
+        <Button
+          component={RouterLink}
+          to={routes.Home}
+          size="small"
+          variant="contained"
+        >
           Trang chủ
         </Button>
         <Typography

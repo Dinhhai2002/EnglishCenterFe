@@ -1,8 +1,10 @@
 import courseAdminApiService from "@/services/API/Admin/CourseAdminApiService";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 import postApiService from "@/services/API/PostApiService";
-import { LIMIT_DEFAULt, PAGE_DEFAULT } from "@/utils/Constant";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import { StatusEnum } from "@/utils/enum/StatusEnum";
 import { StatusPostEnum } from "@/utils/enum/StatusPostEnum";
+import utils from "@/utils/Utils";
 import { Box, Divider } from "@mui/material";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
@@ -24,10 +26,11 @@ export default function BlogDetail() {
   const [categoryBlogId, setCategoryBlogId] = useState<number>(0);
 
   const { id } = useParams();
+  
 
   useEffect(() => {
-    postApiService
-      .findOne(Number(id))
+    authenticationApiService
+      .findOnePost(Number(id), StatusEnum.OFF)
       .then((data: any) => {
         setPost(data.data);
         setCategoryBlogId(data.data.category_blog_id);
@@ -36,8 +39,8 @@ export default function BlogDetail() {
       .catch((error: any) => {
         setLoading(false);
       });
-    courseAdminApiService
-      .getAll("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULt / 2)
+    authenticationApiService
+      .getAllCourse("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
       .then((data: any) => {
         setCourses(data.data.list);
         setLoading(false);
@@ -48,13 +51,13 @@ export default function BlogDetail() {
   }, [id]);
 
   useEffect(() => {
-    postApiService
-      .getAll(
+    authenticationApiService
+      .getAllPost(
         categoryBlogId,
         "",
         StatusPostEnum.ACTIVE,
         PAGE_DEFAULT,
-        LIMIT_DEFAULt
+        LIMIT_DEFAULT
       )
       .then((data: any) => {
         setPosts(data.data.list);

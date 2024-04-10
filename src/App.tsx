@@ -1,8 +1,6 @@
 import { Divider } from "@mui/material";
 import { Route, Routes, useLocation } from "react-router-dom";
-import Footer from "./components/Footer/Footer";
 import FooterCustom from "./components/Footer/FooterCustom";
-import AppAppBar from "./components/Header/AppAppBar";
 import Header from "./components/Header/Header";
 import Page404 from "./pages/Page404";
 import { publicRoutes } from "./routes/routes";
@@ -23,7 +21,7 @@ const App = () => {
   return (
     <>
       {/* <Header /> */}
-      {showHeader && <AppAppBar mode={"light"} />}
+      {showHeader && <Header mode={"light"} />}
 
       <Routes>
         {publicRoutes.map((item: any, index: any) => {

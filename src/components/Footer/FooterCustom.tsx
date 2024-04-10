@@ -32,7 +32,7 @@ export default function FooterCustom() {
         flexDirection: "column",
         alignItems: "center",
         gap: { xs: 4, sm: 8 },
-        py: { xs: 8, sm: 10 },
+        py: { xs: 4, sm: 4 },
         textAlign: { sm: "center", md: "left" },
         marginTop: 2,
       }}
@@ -159,7 +159,7 @@ export default function FooterCustom() {
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          pt: { xs: 4, sm: 8 },
+          pt: { xs: 2, sm: 2 },
           width: "100%",
           borderTop: "1px solid",
           borderColor: "divider",
