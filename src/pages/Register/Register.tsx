@@ -191,7 +191,7 @@ export default function Register() {
             </Avatar>
           </Link>
           <Typography component="h1" variant="h5">
-            Đăng kí
+            Đăng ký
           </Typography>
           <Box
             component="form"
@@ -313,7 +313,7 @@ export default function Register() {
               loading={loading}
               sx={{ py: "0.8rem", mt: "1rem" }}
             >
-              Đăng kí
+              ĐĂNG KÝ
             </LoadingButton>
             <Grid container sx={{ mt: 2 }}>
               <Grid item xs>
