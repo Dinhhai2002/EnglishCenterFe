@@ -108,7 +108,6 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
       setLoading(false);
       return;
     }
-
     const data = await postApiService.create(
       values.title,
       values.description,

@@ -2,10 +2,7 @@ import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
 import { Post } from "@/types/Post";
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
-import {
-  Divider,
-  Grid
-} from "@mui/material";
+import { Divider, Grid } from "@mui/material";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,13 +13,20 @@ import PostItemSkeleton from "./PostItemSkeleton";
 interface ListBlogProps {
   posts: Post[];
   totalRecord: number;
-  loading: Boolean;
+  loading: boolean;
   onClickPagination: Function;
+  isPagination?: boolean;
 }
 
 const cx = classNames.bind(styles);
 function ListBlog(props: ListBlogProps) {
-  const { posts, totalRecord, loading, onClickPagination } = props;
+  const {
+    posts,
+    totalRecord,
+    loading,
+    onClickPagination,
+    isPagination = true,
+  } = props;
   const [page, setPage] = useState<number>(PAGE_DEFAULT);
   const [limit, setLimit] = useState<number>(LIMIT_DEFAULT);
 
@@ -50,13 +54,17 @@ function ListBlog(props: ListBlogProps) {
           <Empty />
         )}
       </Grid>
-      <Divider></Divider>
-      <PaginationComponent
-        setPage={setPage}
-        setLimit={setLimit}
-        totalRecord={totalRecord}
-        limit={limit}
-      />
+      {isPagination && (
+        <>
+          <Divider></Divider>
+          <PaginationComponent
+            setPage={setPage}
+            setLimit={setLimit}
+            totalRecord={totalRecord}
+            limit={limit}
+          />
+        </>
+      )}
     </Grid>
   );
 }

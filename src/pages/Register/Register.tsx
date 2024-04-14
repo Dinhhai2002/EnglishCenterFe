@@ -83,7 +83,6 @@ export default function Register() {
     });
   }, [city]);
 
-  // validate
   const {
     register,
     formState: { errors, isSubmitSuccessful },

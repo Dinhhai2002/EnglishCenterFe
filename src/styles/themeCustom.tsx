@@ -234,7 +234,14 @@ export const customTheme = createTheme({
     },
     MuiAccordionDetails: {
       styleOverrides: {
-        root: { mb: 20, border: "none" },
+        // root: { mb: 20, border: "none" },
+        root: ({ theme }) => ({
+          border: "none",
+          "&:hover": { backgroundColor: gray[100] },
+          ...(theme.palette.mode === "dark" && {
+            "&:hover": { backgroundColor: gray[800] },
+          }),
+        }),
       },
     },
     MuiToggleButtonGroup: {

@@ -10,7 +10,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { Link, NavLink as RouterLink } from "react-router-dom";
-import utils from "src/utils/Utils";
 import DrawerHeader from "./DrawerHeader";
 
 const logoStyle = {
@@ -58,7 +57,6 @@ function Header({ mode }: HeaderProps) {
 
     isCurrentUser = false;
   };
-  //   let { currentUser, isCurrentUser } = utils.getCurrentUser();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -121,7 +119,12 @@ function Header({ mode }: HeaderProps) {
                 px: 0,
               }}
             >
-              <Link style={{ padding: 6 }} to={routes.Home}>
+              <Link
+                id="home"
+                style={{ padding: 6 }}
+                to={routes.Home}
+                onClick={() => scrollToSection("home")}
+              >
                 <img
                   src={imageHeader}
                   style={logoStyle}
@@ -136,12 +139,6 @@ function Header({ mode }: HeaderProps) {
                     disableRipple
                     component={RouterLink}
                     to={
-                      // isCurrentUser ||
-                      // (!isCurrentUser &&
-                      //   (item.to === routes.CourseOnline ||
-                      //     item.to === routes.Exam))
-                      //   ? item.to
-                      //   : routes.Login
                       !isCurrentUser && item.to === routes.Profile
                         ? routes.Login
                         : item.to

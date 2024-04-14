@@ -36,7 +36,6 @@ export default function Main(props: MainProps) {
         </Box>
       ) : (
         <>
-          {" "}
           <Typography sx={{ color: "black" }} variant="h6" gutterBottom>
             <strong> {post.title}</strong>
           </Typography>

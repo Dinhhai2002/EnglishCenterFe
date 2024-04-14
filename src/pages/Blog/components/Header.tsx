@@ -1,13 +1,10 @@
-import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
-import IconButton from "@mui/material/IconButton";
-import SearchIcon from "@mui/icons-material/Search";
-import Typography from "@mui/material/Typography";
-import Link from "@mui/material/Link";
-import { NavLink as RouterLink } from "react-router-dom";
 import { routes } from "@/routes/routes";
-import { useState } from "react";
-import React from "react";
+import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
+import { NavLink as RouterLink } from "react-router-dom";
 
 interface HeaderProps {
   sections?: ReadonlyArray<{

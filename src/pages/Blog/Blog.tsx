@@ -27,7 +27,7 @@ export default function Blog() {
   const [categoryBlog, setCategoryBlog] = useState([]);
   const [posts, setPosts] = useState([]);
   const [totalRecord, setTotalRecord] = useState(1);
-  const [loading, setLoading] = useState<Boolean>(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchPost = (
     categoryBlogId?: number,

@@ -24,6 +24,7 @@ import authenticationApiService from "../../services/API/AuthenticationApiServic
 import userApiService from "../../services/API/UserApiService";
 import styles from "./Login.module.scss";
 import { ValidateInput, validateSchema } from "./ValidateFormLogin";
+import { RoleEnum } from "@/utils/enum/RoleEnum";
 
 const cx = classNames.bind(styles);
 
@@ -47,34 +48,26 @@ export default function Login() {
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [isSubmitSuccessful]);
 
-  const onSubmitHandler: SubmitHandler<ValidateInput> = (values: any) => {
+  const onSubmitHandler: SubmitHandler<ValidateInput> = async (values: any) => {
     setLoading(true);
-
-    authenticationApiService
-      .Login(values.name, values.password)
-      .then((data: any) => {
-        localStorage.setItem("token", data.data.token);
-        userApiService.setToken(data.data.token);
-
-        userApiService
-          .getUser()
-          .then((data: any) => {
-            localStorage.setItem("user", JSON.stringify(data.data));
-            if (data.data.role === 2 || data.data.role === 3) {
-              toast.error(`Tài khoản không hợp lệ`);
-              setLoading(false);
-              return;
-            }
-            setLoading(false);
-            window.location.href = "/";
-          })
-          .catch((error: any) => {
-            setLoading(false);
-          });
-      })
-      .catch((error: any) => {
-        setLoading(false);
-      });
+    const dataLogin = await authenticationApiService.Login(
+      values.name,
+      values.password
+    );
+    localStorage.setItem("token", dataLogin.data.token);
+    userApiService.setToken(dataLogin.data.token);
+    const dataUserDetail = await userApiService.getUser();
+    localStorage.setItem("user", JSON.stringify(dataUserDetail.data));
+    if (
+      dataUserDetail.data.role === RoleEnum.TEACHER ||
+      dataUserDetail.data.role === RoleEnum.ADMIN
+    ) {
+      toast.error(`Tài khoản không hợp lệ`);
+      setLoading(false);
+      return;
+    }
+    setLoading(false);
+    window.location.href = "/";
   };
 
   // Dùng để xác thực xử lí đăng nhập google
@@ -98,7 +91,6 @@ export default function Login() {
         sm={4}
         md={7}
         sx={{
-          // backgroundImage: Logo,
           backgroundRepeat: "no-repeat",
           backgroundColor: (t) =>
             t.palette.mode === "light"
