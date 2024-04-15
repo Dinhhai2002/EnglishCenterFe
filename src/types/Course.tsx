@@ -9,4 +9,6 @@ export interface Course {
   status: number;
   duration: number;
   discount_percent: number;
+  type_user_using?: number;
+  lessons_present?: number;
 }

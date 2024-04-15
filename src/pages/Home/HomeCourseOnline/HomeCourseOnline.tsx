@@ -1,5 +1,8 @@
 import courseAdminApiService from "@/services/API/Admin/CourseAdminApiService";
 import authenticationApiService from "@/services/API/AuthenticationApiService";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
+import { StatusEnum } from "@/utils/enum/StatusEnum";
+import { UserCourseUsingStatusEnum } from "@/utils/enum/UserCourseUsingStatusEnum";
 import utils from "@/utils/Utils";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
@@ -15,6 +18,7 @@ function HomeCourseOnline({
   position,
   title,
   categoryExam,
+  isSearch = true,
 }: any) {
   const [listCourseOnline, setListCourseOnline] = useState([]);
   const [totalRecord, setTotalRecord] = useState<any>(0);
@@ -60,9 +64,9 @@ function HomeCourseOnline({
 
   useEffect(() => {
     if (isCurrentUser === false) {
-      fetchCourseNotLogin("", 1, 0, 6);
+      fetchCourseNotLogin("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT - 4);
     } else {
-      fetchCourse("", 1, 0, 6);
+      fetchCourse("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT - 4);
     }
   }, [isCurrentUser]);
 
@@ -72,29 +76,18 @@ function HomeCourseOnline({
     limit: number
   ) => {
     if (isCurrentUser === false) {
-      fetchCourseNotLogin(keySearch, 1, page, limit);
+      fetchCourseNotLogin(keySearch, StatusEnum.ON, page, limit);
     } else {
-      fetchCourse(keySearch, 1, page, limit);
+      fetchCourse(keySearch, StatusEnum.ON, page, limit);
     }
   };
 
   const listCourseUser = listCourseOnline.filter(
-    (x: any) => x.type_user_using === 1
+    (x: any) => x.type_user_using === UserCourseUsingStatusEnum.REGISTERED
   );
 
   return (
     <>
-      <div className={cx("slider")}>
-        {/* {isBanner && (
-          <div className={cx("content_course")}>
-            <Image
-              className={cx("image")}
-              src="https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/45f87ef8-26bc-428f-98ee-50880d0d78dfjpg?alt=media"
-              alt="noImage"
-            />
-          </div>
-        )} */}
-      </div>
       <ListCourseOnline
         listCourseOnline={isUserCourse ? listCourseUser : listCourseOnline}
         position={position}
@@ -105,6 +98,7 @@ function HomeCourseOnline({
         totalRecord={totalRecord}
         isUserCourse={isUserCourse}
         loading={loading}
+        isSearch={isSearch}
       />
     </>
   );

@@ -1,5 +1,6 @@
 import Empty from "@/components/Empty/Empty";
 import resultApiService from "@/services/API/ResultApiService";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import styles from "./ResultExam.module.scss";
@@ -14,7 +15,7 @@ function ResultExam() {
 
   useEffect(() => {
     resultApiService
-      .getAll(-1, "", 0, 8)
+      .getAll(-1, "", PAGE_DEFAULT, LIMIT_DEFAULT - 2)
       .then((data: any) => {
         setListResult(data.data.list);
         setIsLoading(false);

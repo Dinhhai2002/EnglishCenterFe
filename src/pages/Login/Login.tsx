@@ -25,6 +25,7 @@ import userApiService from "../../services/API/UserApiService";
 import styles from "./Login.module.scss";
 import { ValidateInput, validateSchema } from "./ValidateFormLogin";
 import { RoleEnum } from "@/utils/enum/RoleEnum";
+import { AccountInvalid } from "@/utils/MessageToast";
 
 const cx = classNames.bind(styles);
 
@@ -62,7 +63,7 @@ export default function Login() {
       dataUserDetail.data.role === RoleEnum.TEACHER ||
       dataUserDetail.data.role === RoleEnum.ADMIN
     ) {
-      toast.error(`Tài khoản không hợp lệ`);
+      toast.error(AccountInvalid);
       setLoading(false);
       return;
     }

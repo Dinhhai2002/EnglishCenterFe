@@ -1,11 +1,12 @@
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
-import { LoadingButton } from "@mui/lab";
-import { Grid, TextField } from "@mui/material";
+import { Course as CourseType } from "@/types/Course";
+import { UserCourseUsingStatusEnum } from "@/utils/enum/UserCourseUsingStatusEnum";
+import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Course from "./Course";
 import CourseSkeleton from "./CourseSkeleton";
-import classNames from "classnames/bind";
+import HeaderCourse from "./HeaderCourse";
 import styles from "./HomeCourseOnline.module.scss";
 
 const cx = classNames.bind(styles);
@@ -19,6 +20,7 @@ function ListCourseOnline({
   onClickPagination,
   totalRecord,
   loading,
+  isSearch = true,
 }: any) {
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
@@ -30,40 +32,20 @@ function ListCourseOnline({
 
   useEffect(() => {
     onClickPagination(keySearch, page, limit);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
   return (
     <>
       <div className={cx("content_course")}>
-        <div className={cx("header")}>
-          <h2 className={cx({ position })}>{title}</h2>
-          <Grid
-            sx={{
-              marginTop: 4,
-              display: "flex",
-            }}
-            item
-          >
-            <TextField
-              sx={{ width: "80%", marginRight: 4 }}
-              fullWidth
-              label="Nhập từ khóa để tìm kiếm"
-              id="fullWidth"
-              name="keySearch"
-              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                setKeySearch(event.target.value);
-              }}
-            />
-            <LoadingButton
-              variant="contained"
-              loading={loading}
-              onClick={handleSubmit}
-            >
-              Tìm kiếm
-            </LoadingButton>
-          </Grid>
-        </div>
+        <HeaderCourse
+          position={position}
+          title={title}
+          isSearch={isSearch}
+          setKeySearch={setKeySearch}
+          loading={loading}
+          handleSubmit={handleSubmit}
+        />
+
         <div className={cx("content")}>
           <div className={cx("content-list-3")}>
             {loading
@@ -72,11 +54,12 @@ function ListCourseOnline({
                     <CourseSkeleton />
                   </Link>
                 ))
-              : listCourseOnline.map((item: any, index: number) => (
+              : listCourseOnline.map((item: CourseType, index: number) => (
                   <Link
                     // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học đang học gần nhất
                     to={
-                      item.type_user_using !== 1
+                      item.type_user_using !==
+                      UserCourseUsingStatusEnum.REGISTERED
                         ? `/course/${item.id}`
                         : `/course/${item.id}/learning/${item.lessons_present}`
                     }

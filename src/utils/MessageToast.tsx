@@ -19,3 +19,5 @@ export const StudySuccess =
 
 export const RegisterSuccess = "Đăng kí thành công!";
 export const CreateRatingSuccess = "Đánh giá thành công!";
+
+export const AccountInvalid = "Tài khoản không hợp lệ!";

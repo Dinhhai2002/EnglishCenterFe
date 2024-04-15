@@ -1,4 +1,5 @@
 import paymentApiService from "@/services/API/PaymentApiService";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import utils from "@/utils/Utils";
 import { Card } from "@mui/material";
 import { useEffect, useState } from "react";
@@ -27,7 +28,7 @@ function PaymentUserHistory() {
   };
 
   useEffect(() => {
-    fetchPaymentUserHistory(-1, currentUser.id, 1, 0, 10);
+    fetchPaymentUserHistory(-1, currentUser.id, 1, PAGE_DEFAULT, LIMIT_DEFAULT);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

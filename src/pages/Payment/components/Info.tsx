@@ -65,17 +65,11 @@ export default function Info({ course }: InfoProps) {
     setOpen(false);
   };
 
-  const handleSubmitPayment = () => {
+  const handleSubmitPayment = async () => {
     setLoadingButton(true);
-    paymentApiService
-      .getUrlPayment(course.id, totalAmount)
-      .then((data: any) => {
-        window.location.href = data.data;
-        setLoadingButton(false);
-      })
-      .catch((error: any) => {
-        setLoadingButton(false);
-      });
+    const data = await paymentApiService.getUrlPayment(course.id, totalAmount);
+    window.location.href = data.data;
+    setLoadingButton(false);
   };
 
   const handleApplyPromotion = (promotion: Promotion) => {
