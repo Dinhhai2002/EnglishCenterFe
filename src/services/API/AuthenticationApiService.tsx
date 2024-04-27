@@ -389,7 +389,7 @@ class AuthenticationApiService extends BaseApiService {
     try {
       const response = await this.api.get(`/${prefix}/post/${id}`, {
         params: {
-          isAuthorize: isAuthorize,
+          is_authorize: isAuthorize,
         },
       });
       return response.data;

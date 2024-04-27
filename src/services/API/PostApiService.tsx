@@ -6,9 +6,13 @@ class PostApiService extends BaseApiService {
     super(token);
   }
 
-  public async findOne(id: number): Promise<any> {
+  public async findOne(id: number, isAuthorize?: number): Promise<any> {
     try {
-      const response = await this.api.get(`/post/${id}`);
+      const response = await this.api.get(`/post/${id}`, {
+        params: {
+          is_authorize: isAuthorize,
+        },
+      });
       return response.data;
     } catch (error) {
       console.error("Error:", error);

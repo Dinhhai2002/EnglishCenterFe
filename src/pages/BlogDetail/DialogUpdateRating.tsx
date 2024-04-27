@@ -34,6 +34,9 @@ function DialogUpdateRating(props: DialogRatingProps) {
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
 
   const handleUpdateRating = async () => {
+    console.log(post);
+    console.log(post.rating?.id);
+
     const data = await ratingApiService.update(
       Number(post.rating?.id),
       post.id,

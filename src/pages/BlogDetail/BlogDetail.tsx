@@ -26,11 +26,11 @@ export default function BlogDetail() {
   const [categoryBlogId, setCategoryBlogId] = useState<number>(0);
 
   const { id } = useParams();
-  
+  const { currentUser, isCurrentUser } = utils.getCurrentUser();
 
   useEffect(() => {
-    authenticationApiService
-      .findOnePost(Number(id), StatusEnum.OFF)
+    postApiService
+      .findOne(Number(id), isCurrentUser ? StatusEnum.ON : StatusEnum.OFF)
       .then((data: any) => {
         setPost(data.data);
         setCategoryBlogId(data.data.category_blog_id);
