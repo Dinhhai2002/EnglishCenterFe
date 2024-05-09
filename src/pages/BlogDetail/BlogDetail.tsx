@@ -27,10 +27,10 @@ export default function BlogDetail() {
 
   const { id } = useParams();
   const { currentUser, isCurrentUser } = utils.getCurrentUser();
-
-  useEffect(() => {
+  console.log(isCurrentUser);
+  const fetchPostAuth = () => {
     postApiService
-      .findOne(Number(id), isCurrentUser ? StatusEnum.ON : StatusEnum.OFF)
+      .findOne(Number(id), StatusEnum.OFF)
       .then((data: any) => {
         setPost(data.data);
         setCategoryBlogId(data.data.category_blog_id);
@@ -39,6 +39,23 @@ export default function BlogDetail() {
       .catch((error: any) => {
         setLoading(false);
       });
+  };
+
+  const fetchPostUnAuth = () => {
+    authenticationApiService
+      .findOnePost(Number(id), StatusEnum.OFF)
+      .then((data: any) => {
+        setPost(data.data);
+        setCategoryBlogId(data.data.category_blog_id);
+        setLoading(false);
+      })
+      .catch((error: any) => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    isCurrentUser ? fetchPostAuth() : fetchPostUnAuth();
     authenticationApiService
       .getAllCourse("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
       .then((data: any) => {

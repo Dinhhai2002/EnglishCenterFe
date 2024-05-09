@@ -50,6 +50,7 @@ function RatingComponent(props: RatingProps) {
   const handleCreateSuccess = (id: number) => {
     fetchPost(post.id);
   };
+  console.log(post);
 
   return (
     <Box sx={{ marginBottom: 2 }}>

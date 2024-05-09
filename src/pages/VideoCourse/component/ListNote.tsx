@@ -1,6 +1,10 @@
 import noteApiService from "@/services/API/NoteApiService";
 import { Method } from "@/utils/enum/MethodEnum";
-import { DeleteSuccess, EditSuccess } from "@/utils/MessageToast";
+import {
+  CreateSuccess,
+  DeleteSuccess,
+  EditSuccess,
+} from "@/utils/MessageToast";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {

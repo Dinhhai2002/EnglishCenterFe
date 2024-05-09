@@ -1,9 +1,11 @@
 import noteApiService from "@/services/API/NoteApiService";
 import { Method } from "@/utils/enum/MethodEnum";
+import { CreateSuccess } from "@/utils/MessageToast";
 import { Button, Grid } from "@mui/material";
 import { useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { toast } from "react-toastify";
 
 const modules = {
   toolbar: [
@@ -54,6 +56,7 @@ function QuillComponent({
         noteApiService
           .create(courseId, chapterId, lessonsId, value)
           .then((data: any) => {
+            toast.success(CreateSuccess);
             handleClose();
           })
           .catch((error: any) => {});
