@@ -58,13 +58,12 @@ export default function FooterCustom() {
               <img src={imageHeader} style={logoStyle} alt="logo of sitemark" />
             </Box>
             <Typography variant="body2" fontWeight={600} gutterBottom>
-              Thông báo
+              ENGLISH CENTER
             </Typography>
             <Typography variant="body2" color="text.secondary" mb={2}>
-              Đăng ký nhận bản tin của chúng tôi để biết thông tin cập nhật và
-              khuyến mãi hàng tuần.
+              Chào mừng bạn đến với website luyện thi tiếng anh online!
             </Typography>
-            <Stack direction="row" spacing={1} useFlexGap>
+            {/* <Stack direction="row" spacing={1} useFlexGap>
               <TextField
                 id="outlined-basic"
                 hiddenLabel
@@ -85,7 +84,7 @@ export default function FooterCustom() {
               >
                 Subscribe
               </Button>
-            </Stack>
+            </Stack> */}
           </Box>
         </Box>
         <Box
@@ -96,22 +95,16 @@ export default function FooterCustom() {
           }}
         >
           <Typography variant="body2" fontWeight={600}>
-            Product
+            Chức năng
           </Typography>
           <Link color="text.secondary" href="#">
-            Features
+            Khóa học
           </Link>
           <Link color="text.secondary" href="#">
-            Testimonials
+            Đề thi
           </Link>
           <Link color="text.secondary" href="#">
-            Highlights
-          </Link>
-          <Link color="text.secondary" href="#">
-            Pricing
-          </Link>
-          <Link color="text.secondary" href="#">
-            FAQs
+            Blog
           </Link>
         </Box>
         <Box
@@ -122,16 +115,16 @@ export default function FooterCustom() {
           }}
         >
           <Typography variant="body2" fontWeight={600}>
-            Company
+            Công ty
           </Typography>
           <Link color="text.secondary" href="#">
-            About us
+            English Center
           </Link>
           <Link color="text.secondary" href="#">
-            Careers
+            Số 1 Võ Văn Ngân
           </Link>
           <Link color="text.secondary" href="#">
-            Press
+            Khoa CNTT
           </Link>
         </Box>
         <Box
@@ -142,16 +135,16 @@ export default function FooterCustom() {
           }}
         >
           <Typography variant="body2" fontWeight={600}>
-            Legal
+            Liên hệ
           </Typography>
-          <Link color="text.secondary" href="#">
-            Terms
+          <Link color="text.secondary" href="https://www.facebook.com/">
+            Facebook
           </Link>
-          <Link color="text.secondary" href="#">
-            Privacy
+          <Link color="text.secondary" href="https://www.instagram.com/">
+            Instagram
           </Link>
-          <Link color="text.secondary" href="#">
-            Contact
+          <Link color="text.secondary" href="https://www.youtube.com/">
+            Youtube
           </Link>
         </Box>
       </Box>
@@ -188,7 +181,7 @@ export default function FooterCustom() {
         >
           <IconButton
             color="inherit"
-            href="https://github.com/Dinhhai2002"
+            href="https://github.com"
             aria-label="GitHub"
             sx={{ alignSelf: "center" }}
           >
@@ -197,7 +190,7 @@ export default function FooterCustom() {
 
           <IconButton
             color="inherit"
-            href="https://www.linkedin.com/in/hai-tran-dinh-backend-developer/"
+            href="https://www.linkedin.com"
             aria-label="LinkedIn"
             sx={{ alignSelf: "center" }}
           >
