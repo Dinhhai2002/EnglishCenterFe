@@ -9,6 +9,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import { Grid, Tab } from "@mui/material";
 import Box from "@mui/material/Box";
 import { useState } from "react";
+import BlogMySelf from "../BlogMySelf/BlogMySelf";
 import ResultExamProfile from "../ResultExamProfile/ResultExamProfile";
 
 function Navbar() {
@@ -30,8 +31,9 @@ function Navbar() {
               <Tab label="Kết quả luyện thi" value="2" />
               <Tab label="Thanh toán gần đây" value="3" />
               <Tab label="Thông tin cá nhân" value="4" />
+              <Tab label="Blog của bạn" value="5" />
               {currentUser.is_google === 0 && (
-                <Tab label="Đổi mật khẩu" value="5" />
+                <Tab label="Đổi mật khẩu" value="6" />
               )}
             </TabList>
           </Box>
@@ -57,8 +59,11 @@ function Navbar() {
           <TabPanel value="4">
             <ProfileCover />
           </TabPanel>
+          <TabPanel value="5">
+            <BlogMySelf />
+          </TabPanel>
           {currentUser.is_google === 0 && (
-            <TabPanel value="5">
+            <TabPanel value="6">
               <ChangePassword />
             </TabPanel>
           )}

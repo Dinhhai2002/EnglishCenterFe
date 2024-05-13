@@ -5,7 +5,7 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import DialogCreatePost from "./DialogCreatePost";
 
-const config = {
+export const config = {
   toolbar: [
     "heading",
     "|",

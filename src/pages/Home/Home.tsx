@@ -40,6 +40,7 @@ const Home = () => {
     authenticationApiService
       .getAllPost(
         -1,
+        -1,
         "",
         StatusPostEnum.ACTIVE,
         PAGE_DEFAULT,

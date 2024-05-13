@@ -70,6 +70,7 @@ export default function BlogDetail() {
   useEffect(() => {
     authenticationApiService
       .getAllPost(
+        -1,
         categoryBlogId,
         "",
         StatusPostEnum.ACTIVE,

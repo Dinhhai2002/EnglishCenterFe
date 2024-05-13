@@ -1,3 +1,4 @@
+import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
 import { Course as CourseType } from "@/types/Course";
 import { UserCourseUsingStatusEnum } from "@/utils/enum/UserCourseUsingStatusEnum";
@@ -48,6 +49,7 @@ function ListCourseOnline({
 
         <div className={cx("content")}>
           <div className={cx("content-list-3")}>
+            {listCourseOnline.length <= 0 && <Empty />}
             {loading
               ? Array.from({ length: 6 }).map((_, index) => (
                   <Link to={"#"} key={index} className={cx("content-item-3")}>

@@ -1,4 +1,5 @@
 import { routes } from "@/routes/routes";
+import { brand } from "@/styles/themeCustom";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Toolbar from "@mui/material/Toolbar";
@@ -47,7 +48,7 @@ export default function Header(props: HeaderProps) {
         <Toolbar
           component="nav"
           variant="dense"
-          sx={{ justifyContent: "space-between", overflowX: "auto" }}
+          sx={{ justifyContent: "space-between", overflowX: "auto", mb: 3 }}
         >
           {sections?.map((section) => (
             <Link
@@ -61,7 +62,10 @@ export default function Header(props: HeaderProps) {
                 p: 1,
                 flexShrink: 0,
                 cursor: "pointer",
-                color: categoryBlogId == section.id ? "#35509a" : "inherit",
+                color: categoryBlogId == section.id ? "#fff" : "inherit",
+                backgroundColor:
+                  categoryBlogId == section.id ? "#35509a" : "inherit",
+                borderRadius: 3,
               }}
               onClick={() => {
                 setCategoryBlogId(section.id);

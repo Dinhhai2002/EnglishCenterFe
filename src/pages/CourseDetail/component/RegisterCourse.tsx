@@ -1,5 +1,3 @@
-import Button from "@/components/Button/Button";
-
 import Image from "@/components/Image/Image";
 import { routes } from "@/routes/routes";
 import { RequiredLogin } from "@/utils/MessageToast";
@@ -7,10 +5,10 @@ import utils from "@/utils/Utils";
 import {
   AccessTime,
   BatteryChargingFull,
-  ConfirmationNumber
+  ConfirmationNumber,
 } from "@mui/icons-material";
 import SpeedIcon from "@mui/icons-material/Speed";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import classNames from "classnames/bind";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -41,8 +39,11 @@ function RegisterCourse({ course, id }: any) {
       toast.error(`${RequiredLogin}`);
       return;
     }
+
     if (course.is_free === 1) {
       handleClickOpen();
+    } else {
+      navigate(`/payment/course/${id}`);
     }
   };
 
@@ -65,13 +66,13 @@ function RegisterCourse({ course, id }: any) {
         <h3>{course.is_free === 1 ? "Miễn phí" : ""}</h3>
 
         <Button
-          to={isCurrentUser && course.is_free === 0 && `/payment/course/${id}`}
+          variant="contained"
           fullWidth
-          primary
-          content="Đăng ký"
-          block
+          sx={{ mb: 2 }}
           onClick={handleSubmitRegister}
-        />
+        >
+          Đăng ký
+        </Button>
       </div>
 
       <div className={cx("list")}>

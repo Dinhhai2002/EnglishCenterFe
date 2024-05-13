@@ -1,4 +1,5 @@
-import { CourseStatus } from "@/model/CourseStatus";
+import { CourseStatus, UserStatus } from "@/model/CourseStatus";
+import { Label } from "@mui/icons-material";
 import { Chip } from "@mui/material";
 
 export const listTabPart = [
@@ -109,6 +110,29 @@ export const labelTablePaymentHistory = [
   },
 ];
 
+export const labelTablePost = [
+  {
+    id: 1,
+    name: "Mã bài viết",
+  },
+  {
+    id: 2,
+    name: "Tên bài viết",
+  },
+  {
+    id: 3,
+    name: "trạng thái",
+  },
+  {
+    id: 4,
+    name: "Chỉnh sửa",
+  },
+  {
+    id: 5,
+    name: "Xem chi tiết",
+  },
+];
+
 export const labelTableNote = [
   {
     id: 1,
@@ -143,5 +167,31 @@ export const getStatusLabelCourse = (
   };
 
   const { text, color }: any = map[courseStatus];
+  return <Chip sx={{ width: "80%" }} label={text} color={color} />;
+};
+
+export const getStatusLabelBlog = (
+  userStatus: UserStatus,
+  labelSuccess: string,
+  labelError: string,
+  labelPending: string
+): JSX.Element => {
+  const map = {
+    1: {
+      text: labelPending,
+      color: "info",
+    },
+    2: {
+      text: labelSuccess,
+      color: "success",
+    },
+    3: {
+      text: labelError,
+      color: "error",
+    },
+  };
+
+  const { text, color }: any = map[userStatus];
+
   return <Chip sx={{ width: "80%" }} label={text} color={color} />;
 };

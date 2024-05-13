@@ -363,6 +363,7 @@ class AuthenticationApiService extends BaseApiService {
   }
 
   public async getAllPost(
+    userId?: number,
     categoryBlogId?: number,
     keySearch?: string,
     status?: number,
@@ -372,6 +373,7 @@ class AuthenticationApiService extends BaseApiService {
     try {
       const response = await this.api.get(`/${prefix}/post`, {
         params: {
+          user_id: userId,
           category_blog_id: categoryBlogId,
           key_search: keySearch,
           status: status,

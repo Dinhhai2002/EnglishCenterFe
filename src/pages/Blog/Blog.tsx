@@ -18,7 +18,11 @@ const mainFeaturedPost = {
   title: "Title of a longer featured blog post",
   description:
     "Multiple lines of text that form the lede, informing new readers quickly and efficiently about what's most interesting in this post's contents.",
-  image: "https://source.unsplash.com/random?wallpapers",
+  // image: "https://source.unsplash.com/random?wallpapers",
+  // image:
+  //   "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-main-blog.png?alt=media",
+  image:
+    "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-blog-1.png?alt=media",
   imageText: "main image description",
   linkText: "",
 };
@@ -37,7 +41,7 @@ export default function Blog() {
     limit?: number
   ) => {
     authenticationApiService
-      .getAllPost(categoryBlogId, keySearch, status, page, limit)
+      .getAllPost(-1, categoryBlogId, keySearch, status, page, limit)
       .then((data: any) => {
         setPosts(data.data.list);
         setTotalRecord(data.data.total_record);
