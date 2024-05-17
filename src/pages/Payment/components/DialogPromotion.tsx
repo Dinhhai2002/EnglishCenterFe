@@ -1,24 +1,18 @@
 import CloseDialog from "@/components/CloseDialog/CloseDialog";
 import promotionApiService from "@/services/API/PromotionApiService";
-import ratingApiService from "@/services/API/RatingApiService";
-import { Post } from "@/types/Post";
 import { Promotion } from "@/types/Promotion";
 import { PromotionTypeEnum } from "@/utils/enum/PromotionTypeEnum";
-import { CreateRatingSuccess } from "@/utils/MessageToast";
+import { StatusEnum } from "@/utils/enum/StatusEnum";
 import utils from "@/utils/Utils";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogTitle,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
-  Rating,
-  Slide,
   Typography,
   useMediaQuery,
   useTheme,
@@ -43,9 +37,9 @@ function DialogPromotion(props: DialogRatingProps) {
 
   useEffect(() => {
     promotionApiService
-      .getAll()
+      .getAll("", StatusEnum.ON)
       .then((data) => {
-        setPromotions(data.data);
+        setPromotions(data.data.list);
       })
       .catch((error: any) => {});
   }, []);
@@ -99,20 +93,21 @@ function DialogPromotion(props: DialogRatingProps) {
           value={value}
           onChange={handleChange}
         >
-          {promotions.map((promotion: Promotion) => (
-            <FormControlLabel
-              key={promotion.id}
-              value={promotion.point}
-              control={<Radio />}
-              label={
-                promotion.promotion_type === PromotionTypeEnum.PERCENT
-                  ? `Giảm giá ${promotion.promotion_value}% = ${promotion.point} điểm`
-                  : `Giảm giá ${utils.formatMoney(
-                      promotion.promotion_value
-                    )} đ = ${promotion.point} điểm`
-              }
-            />
-          ))}
+          {promotions.length > 0 &&
+            promotions.map((promotion: Promotion) => (
+              <FormControlLabel
+                key={promotion.id}
+                value={promotion.point}
+                control={<Radio />}
+                label={
+                  promotion.promotion_type === PromotionTypeEnum.PERCENT
+                    ? `Giảm giá ${promotion.promotion_value}% = ${promotion.point} điểm`
+                    : `Giảm giá ${utils.formatMoney(
+                        promotion.promotion_value
+                      )} đ = ${promotion.point} điểm`
+                }
+              />
+            ))}
         </RadioGroup>
       </FormControl>
       <Typography sx={{ marginX: 2 }} variant="h6">

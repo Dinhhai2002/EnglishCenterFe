@@ -26,7 +26,7 @@ interface DialogRatingProps {
 
 function DialogRating(props: DialogRatingProps) {
   const { post, open, handleClose, handleCreateSuccess } = props;
-  const [value, setValue] = useState<any>(0);
+  const [value, setValue] = useState<any>(5);
 
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
