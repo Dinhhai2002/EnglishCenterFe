@@ -1,6 +1,9 @@
 import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
+import categoryCourseAdminApiService from "@/services/API/Admin/CategoryCourseAdminApiService";
 import { Course as CourseType } from "@/types/Course";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
+import { StatusEnum } from "@/utils/enum/StatusEnum";
 import { UserCourseUsingStatusEnum } from "@/utils/enum/UserCourseUsingStatusEnum";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
@@ -26,13 +29,31 @@ function ListCourseOnline({
   const [page, setPage] = useState<number>(0);
   const [limit, setLimit] = useState<number>(10);
   const [keySearch, setKeySearch] = useState("");
+  const [listCategoryCourse, setListCategoryCourse] = useState([]);
+  const [categoryCourseId, setCategoryCourseId] = useState("");
+  categoryCourseAdminApiService
+    .getAll("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT * 10)
+    .then((data: any) => {
+      setListCategoryCourse(data.data.list);
+    })
+    .catch((error: any) => {});
 
   const handleSubmit = () => {
-    onClickPagination(keySearch, page, limit);
+    onClickPagination(
+      Number(categoryCourseId == "" ? -1 : categoryCourseId),
+      keySearch,
+      page,
+      limit
+    );
   };
 
   useEffect(() => {
-    onClickPagination(keySearch, page, limit);
+    onClickPagination(
+      Number(categoryCourseId == "" ? -1 : categoryCourseId),
+      keySearch,
+      page,
+      limit
+    );
   }, [page, limit]);
 
   return (
@@ -45,6 +66,9 @@ function ListCourseOnline({
           setKeySearch={setKeySearch}
           loading={loading}
           handleSubmit={handleSubmit}
+          listCategoryCourse={listCategoryCourse}
+          categoryCourseId={categoryCourseId}
+          setCategoryCourseId={setCategoryCourseId}
         />
 
         <div className={cx("content")}>

@@ -8,16 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
 import styles from "./Header.module.scss";
-
-import Button from "@/components/Button/Button";
-
 import dayjs from "dayjs";
-
 import targetApiService from "@/services/API/TargetApiService";
 import formatTimeUtils from "@/utils/FormatTimeUtils";
 import { toast } from "react-toastify";
 import DialogTarget from "./DialogTarget";
 import { EditSuccess } from "@/utils/MessageToast";
+import { Button } from "@mui/material";
 const cx = classNames.bind(styles);
 
 function HeaderHome({ username }: any) {
@@ -154,7 +151,9 @@ function HeaderHome({ username }: any) {
         </div>
       ) : (
         <div className={cx("header-right")}>
-          <Button content="Tạo mục tiêu" primary onClick={handleClickOpen} />
+          <Button variant="contained" onClick={handleClickOpen}>
+            Tạo mục tiêu
+          </Button>
         </div>
       )}
 

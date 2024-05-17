@@ -1,3 +1,5 @@
+import { HttpStatusCode } from "axios";
+import handleResponseApi from "../handleResponseApi/handleResponseApi";
 import BaseApiService from "./BaseApiService";
 
 class PromotionApiService extends BaseApiService {
@@ -24,6 +26,8 @@ class PromotionApiService extends BaseApiService {
       throw error;
     }
   }
+
+ 
 }
 const token = localStorage.getItem("token");
 

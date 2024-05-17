@@ -96,6 +96,7 @@ function VideoCourse() {
     const interval = setInterval(async () => {
       if (Date.now() - startTimeRef.current >= 4000 && isPlay.current) {
         await handleUpdateView();
+        await fetchCourseDetail();
         startTimeRef.current = Date.now();
       }
     }, 5000);

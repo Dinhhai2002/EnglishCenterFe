@@ -20,7 +20,7 @@ export const config = {
     "tableColumn",
     "tableRow",
     "mergeTableCells",
-    "mediaEmbed",
+    // "mediaEmbed",
     "|",
     "undo",
     "redo",

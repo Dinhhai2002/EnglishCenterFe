@@ -56,7 +56,6 @@ const Home = () => {
       });
   }, []);
 
-  console.log(posts);
 
   return (
     <div className={cx("body")}>

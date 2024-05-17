@@ -57,7 +57,7 @@ export default function BlogDetail() {
   useEffect(() => {
     isCurrentUser ? fetchPostAuth() : fetchPostUnAuth();
     authenticationApiService
-      .getAllCourse("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
+      .getAllCourse(-1, "", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
       .then((data: any) => {
         setCourses(data.data.list);
         setLoading(false);

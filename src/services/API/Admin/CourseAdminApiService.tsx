@@ -8,6 +8,7 @@ class CourseAdminApiService extends BaseApiService {
   }
 
   public async getAll(
+    categoryCourseId?: number,
     keySearch?: string,
     status?: number,
     page?: number,
@@ -16,6 +17,7 @@ class CourseAdminApiService extends BaseApiService {
     try {
       const response = await this.api.get(`/admin/course`, {
         params: {
+          category_course_id: categoryCourseId,
           key_search: keySearch,
           status: status,
           page: page,

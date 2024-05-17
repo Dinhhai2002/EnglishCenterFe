@@ -27,13 +27,14 @@ function HomeCourseOnline({
   const { isCurrentUser } = utils.getCurrentUser();
 
   const fetchCourseNotLogin = (
+    categoryCourseId: number,
     keySearch: string,
     status: number,
     page: number,
     limit: number
   ) => {
     authenticationApiService
-      .getAllCourse(keySearch, status, page, limit)
+      .getAllCourse(categoryCourseId, keySearch, status, page, limit)
       .then((data: any) => {
         setListCourseOnline(data.data.list);
         setTotalRecord(data.data.total_record);
@@ -45,13 +46,14 @@ function HomeCourseOnline({
   };
 
   const fetchCourse = (
+    categoryCourseId: number,
     keySearch: string,
     status: number,
     page: number,
     limit: number
   ) => {
     courseAdminApiService
-      .getAll(keySearch, status, page, limit)
+      .getAll(categoryCourseId, keySearch, status, page, limit)
       .then((data: any) => {
         setListCourseOnline(data.data.list);
         setTotalRecord(data.data.total_record);
@@ -64,21 +66,34 @@ function HomeCourseOnline({
 
   useEffect(() => {
     if (isCurrentUser === false) {
-      fetchCourseNotLogin("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT - 4);
+      fetchCourseNotLogin(
+        -1,
+        "",
+        StatusEnum.ON,
+        PAGE_DEFAULT,
+        LIMIT_DEFAULT - 4
+      );
     } else {
-      fetchCourse("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT - 4);
+      fetchCourse(-1, "", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT - 4);
     }
   }, [isCurrentUser]);
 
   const onClickPagination = (
+    categoryCourseId: number,
     keySearch: string = "",
     page: number,
     limit: number
   ) => {
     if (isCurrentUser === false) {
-      fetchCourseNotLogin(keySearch, StatusEnum.ON, page, limit);
+      fetchCourseNotLogin(
+        categoryCourseId,
+        keySearch,
+        StatusEnum.ON,
+        page,
+        limit
+      );
     } else {
-      fetchCourse(keySearch, StatusEnum.ON, page, limit);
+      fetchCourse(categoryCourseId, keySearch, StatusEnum.ON, page, limit);
     }
   };
 

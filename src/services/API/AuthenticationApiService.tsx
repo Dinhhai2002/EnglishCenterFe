@@ -223,6 +223,7 @@ class AuthenticationApiService extends BaseApiService {
   }
 
   public async getAllCourse(
+    categoryCourseId: number,
     keySearch: string,
     status: number,
     page: number,
@@ -231,6 +232,7 @@ class AuthenticationApiService extends BaseApiService {
     try {
       const response = await this.api.get(`/${prefix}/list-course`, {
         params: {
+          category_course_id: categoryCourseId,
           key_search: keySearch,
           status: status,
           page: page,

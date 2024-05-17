@@ -1,5 +1,6 @@
 import Empty from "@/components/Empty/Empty";
 import resultApiService from "@/services/API/ResultApiService";
+import { Result } from "@/types/Result";
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
@@ -10,7 +11,7 @@ import ResultExamItemSkeleton from "./ResultExamItemSkeleton";
 const cx = classNames.bind(styles);
 
 function ResultExam() {
-  const [listResult, setListResult] = useState([]);
+  const [listResult, setListResult] = useState<Result[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -40,9 +41,9 @@ function ResultExam() {
               </div>
             ))
           ) : listResult.length > 0 ? (
-            listResult.map((item: any, index: number) => (
+            listResult.map((result: Result, index: number) => (
               <div key={index} className={cx("content-item-4")}>
-                <ResultExamItem item={item} />
+                <ResultExamItem result={result} />
               </div>
             ))
           ) : (

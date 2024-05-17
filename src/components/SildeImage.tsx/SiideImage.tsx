@@ -1,16 +1,25 @@
+import bannerApiService from "@/services/API/BannerApiService";
+import { Banner } from "@/types/Banner";
+import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
+import { StatusEnum } from "@/utils/enum/StatusEnum";
+import { useEffect, useState } from "react";
 import { Zoom } from "react-slideshow-image";
 import "react-slideshow-image/dist/styles.css";
 
-const images = [
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv1.png?alt=media",
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv2.png?alt=media",
-  "https://firebasestorage.googleapis.com/v0/b/uploadimage-aa334.appspot.com/o/banner-cv3.png?alt=media",
-];
-
 function SlideImage() {
+  const [listBanner, setListBanner] = useState([]);
+
+  useEffect(() => {
+    bannerApiService
+      .getAll(StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
+      .then((data: any) => {
+        setListBanner(data.data.list);
+      })
+      .catch((error) => {});
+  }, []);
   return (
     <Zoom scale={0.7} indicators={true} autoplay>
-      {images.map((each, index) => (
+      {listBanner.map((item: Banner, index) => (
         <div
           key={index}
           style={{ width: "100%", height: "300px", marginTop: "40px" }}
@@ -22,7 +31,7 @@ function SlideImage() {
               height: "100%",
             }}
             alt="Slide Image"
-            src={each}
+            src={item.url}
           />
         </div>
       ))}

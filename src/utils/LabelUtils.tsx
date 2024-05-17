@@ -121,7 +121,7 @@ export const labelTablePost = [
   },
   {
     id: 3,
-    name: "trạng thái",
+    name: "Trạng thái",
   },
   {
     id: 4,

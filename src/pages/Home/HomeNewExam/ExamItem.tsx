@@ -8,7 +8,8 @@ import {
 
 import classNames from "classnames/bind";
 import styles from "./HomeNewExam.module.scss";
-import Button from "@/components/Button/Button";
+import { Button } from "@mui/material";
+import { NavLink as RouterLink } from "react-router-dom";
 import TagIcon from "@mui/icons-material/Tag";
 
 const cx = classNames.bind(styles);
@@ -55,11 +56,13 @@ function ExamItem({ exam }: any) {
         label="TOEIC"
       />
       <Button
-        primary
+        component={RouterLink}
         to={`/tests/${exam.id}/${exam.topic_name}`}
-        content="Xem chi tiết"
-        block
-      />
+        variant="outlined"
+        fullWidth
+      >
+        Xem chi tiết
+      </Button>
     </>
   );
 }
