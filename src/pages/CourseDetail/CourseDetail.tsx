@@ -1,5 +1,5 @@
 import authenticationApiService from "@/services/API/AuthenticationApiService";
-import { Grid } from "@mui/material";
+import { Grid, ListItemText } from "@mui/material";
 import { useLayoutEffect, useState } from "react";
 
 import classNames from "classnames/bind";
@@ -41,7 +41,17 @@ function CourseDetail() {
               <Grid item xs={8}>
                 <div className={cx("header-title")}>
                   <h2>{course.name}</h2>
-                  <p>{course.description}</p>
+                  <ListItemText
+                    sx={{ wordWrap: "break-word" }}
+                    primary={
+                      <div
+                        dangerouslySetInnerHTML={{ __html: course.content }}
+                      />
+                    }
+                  />
+                  {/* <p dangerouslySetInnerHTML={{ __html: course.description }}>
+                    {course.description}
+                  </p> */}
                 </div>
                 <div className={cx("container")}>
                   <div className={cx("container-header")}>

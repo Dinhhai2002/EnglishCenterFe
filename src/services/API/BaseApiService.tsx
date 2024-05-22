@@ -1,5 +1,5 @@
 import { routes } from "@/routes/routes";
-import axios, { AxiosError, AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance, HttpStatusCode } from "axios";
 import { toast } from "react-toastify";
 
 class BaseApiService {
@@ -27,7 +27,7 @@ class BaseApiService {
         if (url === routes.Login) {
         }
 
-        if (response.data.status === 400) {
+        if (response.data.status === HttpStatusCode.BadRequest) {
           if (response.data.message === "Dữ liệu không hợp lệ") {
             toast.error(response.data.data[0]);
           } else if (response.data.message === "Mục tiêu không tìm thấy!") {
@@ -39,13 +39,13 @@ class BaseApiService {
         return response;
       },
       (error: AxiosError) => {
-        if (error.response?.status === 401) {
+        if (error.response?.status === HttpStatusCode.Unauthorized) {
           localStorage.removeItem("token");
           toast.error("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại!");
           setTimeout(() => {
             window.location.href = routes.Login;
           }, 3000);
-        } else if (error.response?.status === 403) {
+        } else if (error.response?.status === HttpStatusCode.Forbidden) {
           toast.error("Bạn không có quyền truy cập vào API này!");
         } else {
           const data: any | undefined = error.response?.data;

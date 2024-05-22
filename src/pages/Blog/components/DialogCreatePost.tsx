@@ -157,7 +157,7 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
               defaultValue={""}
               required
               fullWidth
-              label="title"
+              label="Title"
               sx={{ mb: 2 }}
             />
 
@@ -167,7 +167,7 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
               defaultValue={""}
               required
               fullWidth
-              label="description"
+              label="Description"
               sx={{ mb: 2 }}
             />
 

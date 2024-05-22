@@ -10,7 +10,6 @@ import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 
-
 // const theme = createTheme(getCheckoutTheme("light"));
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

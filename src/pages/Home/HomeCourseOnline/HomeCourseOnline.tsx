@@ -71,10 +71,16 @@ function HomeCourseOnline({
         "",
         StatusEnum.ON,
         PAGE_DEFAULT,
-        LIMIT_DEFAULT - 4
+        isSearch ? LIMIT_DEFAULT : LIMIT_DEFAULT - 4
       );
     } else {
-      fetchCourse(-1, "", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT - 4);
+      fetchCourse(
+        -1,
+        "",
+        StatusEnum.ON,
+        PAGE_DEFAULT,
+        isSearch ? LIMIT_DEFAULT : LIMIT_DEFAULT - 4
+      );
     }
   }, [isCurrentUser]);
 

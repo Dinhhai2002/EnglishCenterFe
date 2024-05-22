@@ -415,6 +415,51 @@ class AuthenticationApiService extends BaseApiService {
       throw error;
     }
   }
+
+  public async getAllCategoryCourse(
+    key_search: string,
+    status: number,
+    page: number,
+    limit: number
+  ): Promise<any> {
+    var messageError = "";
+    try {
+      const response = await this.api.get(`/${prefix}/category-course`, {
+        params: {
+          key_search: key_search,
+          status: status,
+          page: page,
+          limit: limit,
+        },
+      });
+
+      messageError = handleResponseApi.handleResponse(response);
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching user:", error);
+      throw new Error(messageError);
+    }
+  }
+
+  public async getAllBanner(
+    status: number,
+    page: number,
+    limit: number
+  ): Promise<any> {
+    try {
+      const response = await this.api.get(`/${prefix}/banner`, {
+        params: {
+          status: status,
+          page: page,
+          limit: limit,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
 }
 
 const authenticationApiService = new AuthenticationApiService();

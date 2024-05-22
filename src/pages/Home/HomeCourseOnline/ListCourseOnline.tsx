@@ -1,6 +1,6 @@
 import Empty from "@/components/Empty/Empty";
 import PaginationComponent from "@/components/Pagination/PaginationComponent";
-import categoryCourseAdminApiService from "@/services/API/Admin/CategoryCourseAdminApiService";
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 import { Course as CourseType } from "@/types/Course";
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
 import { StatusEnum } from "@/utils/enum/StatusEnum";
@@ -31,16 +31,17 @@ function ListCourseOnline({
   const [keySearch, setKeySearch] = useState("");
   const [listCategoryCourse, setListCategoryCourse] = useState([]);
   const [categoryCourseId, setCategoryCourseId] = useState("");
-  categoryCourseAdminApiService
-    .getAll("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT * 10)
-    .then((data: any) => {
-      setListCategoryCourse(data.data.list);
-    })
-    .catch((error: any) => {});
-
+  useEffect(() => {
+    authenticationApiService
+      .getAllCategoryCourse("", StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT * 10)
+      .then((data: any) => {
+        setListCategoryCourse(data.data.list);
+      })
+      .catch((error: any) => {});
+  }, []);
   const handleSubmit = () => {
     onClickPagination(
-      Number(categoryCourseId == "" ? -1 : categoryCourseId),
+      Number(categoryCourseId === "" ? -1 : categoryCourseId),
       keySearch,
       page,
       limit
@@ -48,53 +49,59 @@ function ListCourseOnline({
   };
 
   useEffect(() => {
-    onClickPagination(
-      Number(categoryCourseId == "" ? -1 : categoryCourseId),
-      keySearch,
-      page,
-      limit
-    );
+    isPagination &&
+      onClickPagination(
+        Number(categoryCourseId === "" ? -1 : categoryCourseId),
+        keySearch,
+        page,
+        limit
+      );
   }, [page, limit]);
 
   return (
     <>
       <div className={cx("content_course")}>
-        <HeaderCourse
-          position={position}
-          title={title}
-          isSearch={isSearch}
-          setKeySearch={setKeySearch}
-          loading={loading}
-          handleSubmit={handleSubmit}
-          listCategoryCourse={listCategoryCourse}
-          categoryCourseId={categoryCourseId}
-          setCategoryCourseId={setCategoryCourseId}
-        />
+        {isSearch && (
+          <HeaderCourse
+            position={position}
+            title={title}
+            isSearch={isSearch}
+            setKeySearch={setKeySearch}
+            loading={loading}
+            handleSubmit={handleSubmit}
+            listCategoryCourse={listCategoryCourse}
+            categoryCourseId={categoryCourseId}
+            setCategoryCourseId={setCategoryCourseId}
+          />
+        )}
 
         <div className={cx("content")}>
           <div className={cx("content-list-3")}>
-            {listCourseOnline.length <= 0 && <Empty />}
-            {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
-                  <Link to={"#"} key={index} className={cx("content-item-3")}>
-                    <CourseSkeleton />
-                  </Link>
-                ))
-              : listCourseOnline.map((item: CourseType, index: number) => (
-                  <Link
-                    // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học đang học gần nhất
-                    to={
-                      item.type_user_using !==
-                      UserCourseUsingStatusEnum.REGISTERED
-                        ? `/course/${item.id}`
-                        : `/course/${item.id}/learning/${item.lessons_present}`
-                    }
-                    key={index}
-                    className={cx("content-item-3")}
-                  >
-                    <Course item={item} />
-                  </Link>
-                ))}
+            {loading ? (
+              Array.from({ length: 6 }).map((_, index) => (
+                <Link to={"#"} key={index} className={cx("content-item-3")}>
+                  <CourseSkeleton />
+                </Link>
+              ))
+            ) : listCourseOnline.length <= 0 ? (
+              <Empty />
+            ) : (
+              listCourseOnline.map((item: CourseType, index: number) => (
+                <Link
+                  // nếu chưa đăng kí thì trả về trang chi tiết <> trang bài học đang học gần nhất
+                  to={
+                    item.type_user_using !==
+                    UserCourseUsingStatusEnum.REGISTERED
+                      ? `/course/${item.id}`
+                      : `/course/${item.id}/learning/${item.lessons_present}`
+                  }
+                  key={index}
+                  className={cx("content-item-3")}
+                >
+                  <Course item={item} />
+                </Link>
+              ))
+            )}
           </div>
         </div>
       </div>

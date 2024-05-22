@@ -1,3 +1,4 @@
+import authenticationApiService from "@/services/API/AuthenticationApiService";
 import bannerApiService from "@/services/API/BannerApiService";
 import { Banner } from "@/types/Banner";
 import { LIMIT_DEFAULT, PAGE_DEFAULT } from "@/utils/Constant";
@@ -10,8 +11,8 @@ function SlideImage() {
   const [listBanner, setListBanner] = useState([]);
 
   useEffect(() => {
-    bannerApiService
-      .getAll(StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
+    authenticationApiService
+      .getAllBanner(StatusEnum.ON, PAGE_DEFAULT, LIMIT_DEFAULT / 2)
       .then((data: any) => {
         setListBanner(data.data.list);
       })

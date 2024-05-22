@@ -56,7 +56,6 @@ const Home = () => {
       });
   }, []);
 
-
   return (
     <div className={cx("body")}>
       {isCurrentUser && (
