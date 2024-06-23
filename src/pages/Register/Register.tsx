@@ -7,7 +7,7 @@ import { SelectChangeEvent } from "@mui/material/Select";
 import Typography from "@mui/material/Typography";
 import dayjs from "dayjs";
 
-import { Divider, Paper } from "@mui/material";
+import { Alert, Divider, Paper } from "@mui/material";
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -38,6 +38,7 @@ export default function Register() {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   const [date, setDate] = useState("");
 
@@ -46,13 +47,13 @@ export default function Register() {
   const [listWard, setListWard] = useState([]);
 
   const [city, setCity] = useState("");
-  const [district, setDistrict] = useState("");
-  const [ward, setWard] = useState("");
+  const [district, setDistrict] = useState("17");
+  const [ward, setWard] = useState("20");
 
   const handleChangeCity = (event: SelectChangeEvent) => {
     setCity(event.target.value);
-    setWard("");
-    setDistrict("");
+    // setWard("");
+    // setDistrict("");
   };
 
   const handleChangeDistrict = (event: SelectChangeEvent) => {
@@ -136,9 +137,11 @@ export default function Register() {
         localStorage.setItem("username", values.name);
         localStorage.setItem("email", values.email);
         localStorage.setItem("typeOtp", "0");
-        navigate(routes.OTP);
+        setMessage("Đăng ký thành công!");
+        // navigate(routes.OTP);
       })
       .catch((error: any) => {
+        setMessage(error.message);
         setLoading(false);
       });
   };
@@ -189,6 +192,7 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
           </Link>
+          {message !== "" && <Alert severity="info">{message}</Alert>}
           <Typography component="h1" variant="h5">
             Đăng ký
           </Typography>
@@ -281,14 +285,16 @@ export default function Register() {
               onChange={handleChangeCity}
               listValue={listCity}
               label="Tỉnh"
+              id={1}
             />
 
-            <DropDown
+            {/* <DropDown
               isMargin={true}
               value={district}
               onChange={handleChangeDistrict}
               listValue={listDistrict}
               label="Huyện"
+              id={2}
             />
 
             <DropDown
@@ -297,7 +303,8 @@ export default function Register() {
               onChange={handleChangeWard}
               listValue={listWard}
               label="Xã"
-            />
+              id={3}
+            /> */}
             <InputText
               errors={errors}
               register={register}

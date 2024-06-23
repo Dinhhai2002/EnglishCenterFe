@@ -8,11 +8,13 @@ function DropDown({
   label,
   isFullWidth = true,
   isMargin = false,
+  id = 1,
 }: any) {
   return (
     <FormControl
       sx={isMargin && { marginTop: 2, marginBottom: 2 }}
       fullWidth={isFullWidth}
+      id={id}
     >
       <InputLabel required id="demo-simple-select-label">
         {label}

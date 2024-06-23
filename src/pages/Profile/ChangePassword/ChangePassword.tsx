@@ -22,14 +22,18 @@ function ChangePassword() {
     resolver: zodResolver(validateSchema),
   });
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isSubmitSuccessful]);
+  // useEffect(() => {
+  //   if (isSubmitSuccessful) {
+  //     reset();
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [isSubmitSuccessful]);
 
   const onSubmitHandler: SubmitHandler<ValidateInput> = (values: any) => {
+    if (values.newPassword !== values.passwordConfirm) {
+      SetError("Mật khẩu mới và xác nhận mật khẩu không trùng khớp!");
+      return;
+    }
     userApiService
       .changePassword(
         values.oldPassword,
@@ -37,9 +41,8 @@ function ChangePassword() {
         values.passwordConfirm
       )
       .then((data: any) => {
-        toast.success(`Thay đổi mật khẩu thành công!`, {
-          position: toast.POSITION.TOP_RIGHT,
-        });
+        SetError("Thay đổi mật khẩu thành công!");
+        // toast.success(`Thay đổi mật khẩu thành công!`);
       })
       .catch((error: any) => {
         setIsError(true);
@@ -56,7 +59,11 @@ function ChangePassword() {
         noValidate
         sx={{ mt: 1 }}
       >
-        {isError && <Alert severity="error">{error}</Alert>}
+        {error != "" && (
+          <Alert color="info" severity="info">
+            {error}
+          </Alert>
+        )}
 
         <InputPassword
           errors={errors}

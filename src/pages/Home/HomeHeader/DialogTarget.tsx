@@ -1,12 +1,13 @@
 import CloseDialog from "@/components/CloseDialog/CloseDialog";
 import {
+  Alert,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   TextField,
-  Zoom
+  Zoom,
 } from "@mui/material";
 import classNames from "classnames/bind";
 import DateComponent from "./DateComponent";
@@ -21,6 +22,7 @@ function DialogTarget({
   handleChangePoint,
   handleSubmitTarget,
   dateTarget,
+  message,
 }: any) {
   return (
     <Dialog
@@ -38,6 +40,7 @@ function DialogTarget({
       <DialogContent>
         <div className={cx("modal")}>
           <div className={cx("modal-item")}>
+            {message !== "" && <Alert severity="info">{message}</Alert>}
             <h3 style={{ marginBottom: "20px" }}>Ngày dự thi</h3>
             <DateComponent
               setCurrentDate={setCurrentDate}
@@ -47,6 +50,7 @@ function DialogTarget({
           <div className={cx("modal-item")}>
             <h3>Điểm mục tiêu</h3>
             <TextField
+              id="point"
               margin="normal"
               required
               fullWidth

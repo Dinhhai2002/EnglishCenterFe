@@ -51,24 +51,42 @@ export default function Login() {
 
   const onSubmitHandler: SubmitHandler<ValidateInput> = async (values: any) => {
     setLoading(true);
-    const dataLogin = await authenticationApiService.Login(
-      values.name,
-      values.password
-    );
-    localStorage.setItem("token", dataLogin.data.token);
-    userApiService.setToken(dataLogin.data.token);
-    const dataUserDetail = await userApiService.getUser();
-    localStorage.setItem("user", JSON.stringify(dataUserDetail.data));
-    if (
-      dataUserDetail.data.role === RoleEnum.TEACHER ||
-      dataUserDetail.data.role === RoleEnum.ADMIN
-    ) {
-      toast.error(AccountInvalid);
-      setLoading(false);
-      return;
-    }
-    setLoading(false);
-    window.location.href = "/";
+    // const dataLogin = await authenticationApiService.Login(
+    //   values.name,
+    //   values.password
+    // );
+
+    authenticationApiService
+      .Login(values.name, values.password)
+      .then((data) => {
+        localStorage.setItem("token", data.data.token);
+        userApiService.setToken(data.data.token);
+        // setMessage("Đăng nhập thành công!");
+        userApiService
+          .getUser()
+          .then((data) => {
+            localStorage.setItem("user", JSON.stringify(data.data));
+            if (
+              data.data.role === RoleEnum.TEACHER ||
+              data.data.role === RoleEnum.ADMIN
+            ) {
+              setMessage("Tài khoản không hợp lệ!");
+              // toast.error(AccountInvalid);
+              setLoading(false);
+              return;
+            }
+            setLoading(false);
+            // window.location.href = "/";
+          })
+          .catch((error) => {
+            setLoading(false);
+            setMessage("Đăng nhập thất bại!");
+          });
+      })
+      .catch((error) => {
+        setLoading(false);
+        setMessage("Đăng nhập thất bại!");
+      });
   };
 
   // Dùng để xác thực xử lí đăng nhập google

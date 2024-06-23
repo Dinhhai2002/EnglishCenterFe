@@ -24,6 +24,7 @@ function HeaderHome({ username }: any) {
   const [target, setTarget] = useState<any>({});
   const [point, setPoint] = useState("");
   const [isTarget, setIsTarget] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleChangePoint = (event: any) => {
     const result = event.target.value.replace(/\D/g, "");
@@ -73,12 +74,14 @@ function HeaderHome({ username }: any) {
       formatTimeUtils.calculateDateTarget(formattedDate);
 
     if (validateDate < 0) {
-      toast.error(`Ngày nhập vào phải lớn hơn ngày hiện tại`);
+      setMessage(`Ngày nhập vào phải lớn hơn ngày hiện tại`)
+      // toast.error(`Ngày nhập vào phải lớn hơn ngày hiện tại`);
       return;
     }
 
     if (Number(point) > 990) {
-      toast.error(`Số điểm tối đa là 990`);
+      setMessage(`Số điểm tối đa là 990`)
+      // toast.error(`Số điểm tối đa là 990`);
       return;
     }
 
@@ -159,6 +162,7 @@ function HeaderHome({ username }: any) {
 
       {/* show target chỉnh sửa */}
       <DialogTarget
+      message={message}
         open={open}
         handleClose={handleClose}
         setCurrentDate={setCurrentDate}
