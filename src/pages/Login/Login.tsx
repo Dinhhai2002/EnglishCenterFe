@@ -55,20 +55,26 @@ export default function Login() {
       values.name,
       values.password
     );
-    localStorage.setItem("token", dataLogin.data.token);
-    userApiService.setToken(dataLogin.data.token);
-    const dataUserDetail = await userApiService.getUser();
-    localStorage.setItem("user", JSON.stringify(dataUserDetail.data));
-    if (
-      dataUserDetail.data.role === RoleEnum.TEACHER ||
-      dataUserDetail.data.role === RoleEnum.ADMIN
-    ) {
-      toast.error(AccountInvalid);
+    if(dataLogin)
+    {
+      localStorage.setItem("token", dataLogin.data.token);
+      userApiService.setToken(dataLogin.data.token);
+      const dataUserDetail = await userApiService.getUser();
+      localStorage.setItem("user", JSON.stringify(dataUserDetail.data));
+      if (
+        dataUserDetail.data.role === RoleEnum.TEACHER ||
+        dataUserDetail.data.role === RoleEnum.ADMIN
+      ) {
+        toast.error(AccountInvalid);
+        setLoading(false);
+        return;
+      }
       setLoading(false);
-      return;
+      window.location.href = "/";
     }
     setLoading(false);
-    window.location.href = "/";
+    
+    
   };
 
   // Dùng để xác thực xử lí đăng nhập google
