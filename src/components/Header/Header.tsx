@@ -1,4 +1,5 @@
-import imageHeader from "@/assets/image/Header.png";
+// import imageHeader from "@/assets/image/Header.png";
+// import imageHeader from "@/assets/image/LogoChinese.png";
 import { routes } from "@/routes/routes";
 import MenuIcon from "@mui/icons-material/Menu";
 import { PaletteMode } from "@mui/material";
@@ -31,14 +32,14 @@ const listNavbar = [
     content: "KHÓA HỌC ONLINE",
     to: `${routes.CourseOnline}`,
   },
-  {
-    content: "ĐỀ THI ONLINE",
-    to: `${routes.Exam}`,
-  },
-  {
-    content: "BLOG",
-    to: `${routes.Blog}`,
-  },
+  // {
+  //   content: "ĐỀ THI ONLINE",
+  //   to: `${routes.Exam}`,
+  // },
+  // {
+  //   content: "BLOG",
+  //   to: `${routes.Blog}`,
+  // },
 ];
 
 function Header({ mode }: HeaderProps) {
@@ -125,11 +126,11 @@ function Header({ mode }: HeaderProps) {
                 to={routes.Home}
                 onClick={() => scrollToSection("home")}
               >
-                <img
+                {/* <img
                   src={imageHeader}
                   style={logoStyle}
                   alt="logo of sitemark"
-                />
+                /> */}
               </Link>
 
               <Box sx={{ display: { xs: "none", md: "flex" } }}>

@@ -58,7 +58,7 @@ const Home = () => {
 
   return (
     <div className={cx("body")}>
-      {isCurrentUser && (
+      {/* {isCurrentUser && (
         <div className={cx("container", "background")}>
           <div className={cx("content")}>
             <HeaderHome username={isCurrentUser ? currentUser.user_name : ""} />
@@ -66,7 +66,7 @@ const Home = () => {
             <ResultExam />
           </div>
         </div>
-      )}
+      )} */}
       <div className={cx("container")}>
         <div className={cx("content")}>
           <SlideImage />
@@ -75,11 +75,11 @@ const Home = () => {
             isBanner
             position="left"
             title="Combo khoá học đặc biệt:"
-            categoryExam="TOEIC"
+            categoryExam="华文中心"
             isSearch={false}
           />
 
-          <HomeNewExam
+          {/* <HomeNewExam
             listExam={listExam}
             isLoading={isLoading}
             position="center"
@@ -95,7 +95,7 @@ const Home = () => {
             loading={loading}
             onClickPagination={() => {}}
             isPagination={false}
-          />
+          /> */}
         </div>
       </div>
     </div>

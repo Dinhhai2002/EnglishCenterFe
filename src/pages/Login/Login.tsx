@@ -76,7 +76,7 @@ export default function Login() {
               return;
             }
             setLoading(false);
-            // window.location.href = "/";
+            window.location.href = "/";
           })
           .catch((error) => {
             setLoading(false);
