@@ -16,7 +16,7 @@ class AuthenticationApiService extends BaseApiService {
       handleResponseApi.handleResponse(response);
       return response.data;
     } catch (error: any) {
-      throw new Error(error.message);
+      // throw new Error(error.message);
     }
   }
 
@@ -37,7 +37,7 @@ class AuthenticationApiService extends BaseApiService {
       handleResponseApi.handleResponse(response);
       return response.data;
     } catch (error: any) {
-      throw new Error(error.message);
+      // throw new Error(error.message);
     }
   }
 
