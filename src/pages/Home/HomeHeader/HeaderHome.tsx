@@ -139,7 +139,7 @@ function HeaderHome({ username }: any) {
             <div className={cx("item")}>
               <FontAwesomeIcon className={cx("icon")} icon={faBullseye} />
 
-              <span>Target score </span>
+              <span>Điểm mục tiêu </span>
               <FontAwesomeIcon
                 onClick={handleClickOpen}
                 className={cx("icon")}

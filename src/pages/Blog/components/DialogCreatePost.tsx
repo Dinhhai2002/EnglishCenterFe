@@ -157,7 +157,7 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
               defaultValue={""}
               required
               fullWidth
-              label="Title"
+              label="Tiêu đề"
               sx={{ mb: 2 }}
             />
 
@@ -167,7 +167,7 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
               defaultValue={""}
               required
               fullWidth
-              label="Description"
+              label="Mô tả"
               sx={{ mb: 2 }}
             />
 
@@ -209,7 +209,7 @@ function DialogCreatePost({ open, handleClose }: DialogCreatePostProps) {
                 type="submit"
                 loading={loading}
               >
-                Submit
+                Tạo bài viết
               </LoadingButton>
               <Button autoFocus onClick={handleClose} variant="outlined">
                 Thoát
